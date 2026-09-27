@@ -25,7 +25,6 @@ export const metadata: Metadata = {
     siteName: negocio.nombre,
     // TODO Felipe: imagen OG por defecto cuando esté la identidad visual.
   },
-  // TODO: favicon e íconos a partir del logo (src/app/icon.svg y apple-icon.png).
 };
 
 export const viewport: Viewport = {
