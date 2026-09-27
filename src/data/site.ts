@@ -22,6 +22,10 @@ export type Negocio = {
   descuentoFamiliar: { porcentaje: number; familiares: readonly string[] };
   formacionProfes: string;
   mensajeWhatsappGeneral: string;
+  mensajeWhatsappEquipo: string;
+  mensajeWhatsappHorarios: string;
+  mensajeWhatsappInstalaciones: string;
+  mensajeWhatsappFaq: string;
 };
 
 export type Plan = {
@@ -98,11 +102,15 @@ export const negocio: Negocio = {
   },
   zonaHoraria: "America/Argentina/Cordoba",
   edadMinima: 12,
-  mediosDePago: "Se aceptan todos los medios de pago.",
+  mediosDePago: "Aceptamos todos los medios de pago.",
   // TODO Matías: confirmar cómo se aplica el descuento familiar (a cada familiar, al que se suma, etc.).
   descuentoFamiliar: { porcentaje: 15, familiares: ["mamá", "papá", "hermanos", "hijos"] },
-  formacionProfes: "Todos los profes son profesores de educación física o de carreras afines.",
-  mensajeWhatsappGeneral: "Hola, quería consultar por el gimnasio.",
+  formacionProfes: "Somos todos profesores de educación física o venimos de carreras afines.",
+  mensajeWhatsappGeneral: "Hola, quiero empezar a entrenar. ¿Cómo hago?",
+  mensajeWhatsappEquipo: "Hola, vi a los profes en la página y quiero empezar. ¿Cómo hago?",
+  mensajeWhatsappHorarios: "Hola, vi los horarios y quiero arrancar. ¿Cómo es el primer día?",
+  mensajeWhatsappInstalaciones: "Hola, vi el gimnasio en la página y me gustaría empezar. ¿Qué necesito?",
+  mensajeWhatsappFaq: "Hola, estoy por empezar y me quedó una duda.",
 };
 
 export const planes: readonly Plan[] = [
@@ -113,9 +121,9 @@ export const planes: readonly Plan[] = [
 ];
 export const claseSuelta = { nombre: "Clase suelta", precio: 15000 } as const;
 export const incluyenTodosLosPlanes =
-  "Todos los planes incluyen acceso a las dos plantas, planilla individual y seguimiento de los profes.";
+  "Con cualquier plan usás las dos plantas y tenés tu planilla, que los profes van ajustando.";
 // Brief "¿Cuál me conviene?": si arrancás de cero, con 2 veces por semana ya ves cambios;
-// si tenés horarios rotativos, el pase libre te saca el problema.
+// si tenés horarios rotativos, te conviene el pase libre.
 // Brief "Cuánto te sale cada clase": el pase libre sale menos de la mitad que una clase suelta.
 
 export const profes: readonly Profe[] = [
@@ -179,55 +187,55 @@ export const objetivos: readonly Objetivo[] = [
     nombre: "Adultos",
     // BORRADOR: validar con un profe.
     mito: {
-      mito: "Si no terminás agotado, no entrenaste.",
+      mito: "Si no salís destruido, no entrenaste.",
       respuesta:
-        "El cansancio extremo no mide si un entrenamiento sirvió. Lo que da resultados es la constancia y una carga que puedas sostener semana a semana.",
+        "No hace falta terminar agotado para que el entrenamiento sirva. Lo que da resultados es la constancia y una carga que puedas sostener semana a semana.",
     },
-    whatsapp: "Hola, quiero empezar a entrenar en Punto.",
+    whatsapp: "Hola, quiero empezar a entrenar. ¿Qué plan me conviene?",
   },
   {
     id: "adultos-mayores",
     nombre: "Adultos mayores",
     // BORRADOR: validar con un profe.
     mito: {
-      mito: "A cierta edad ya no conviene levantar peso.",
+      mito: "A mi edad ya no estoy para levantar pesas.",
       respuesta:
-        "El trabajo de fuerza con cargas adecuadas también se recomienda para personas mayores, porque ayuda a conservar músculo, equilibrio y autonomía. La clave está en ajustar la carga a cada persona y avanzar de a poco.",
+        "Al contrario. Con el peso justo para vos, entrenar fuerza ayuda a conservar músculo, equilibrio y autonomía.",
     },
-    whatsapp: "Hola, quería consultar para empezar a entrenar siendo adulto mayor.",
+    whatsapp: "Hola, ya tengo mis años y quiero empezar a entrenar. ¿Cómo es para arrancar?",
   },
   {
     id: "rehabilitacion",
     nombre: "Rehabilitación",
     // BORRADOR: validar con un profe.
     mito: {
-      mito: "Después de una lesión, lo mejor es no moverse hasta que no duela nada.",
+      mito: "Me lesioné: mejor quedarme quieto hasta que no me duela nada.",
       respuesta:
-        "El reposo total durante mucho tiempo suele hacer perder fuerza y movilidad, y en general se recomienda volver a moverse de forma gradual. Por eso conviene retomar con ejercicios adaptados, respetando las indicaciones de tu médico.",
+        "El reposo total por mucho tiempo suele hacer perder fuerza y movilidad. En general se recomienda volver a moverse de a poco, con ejercicios adaptados y respetando las indicaciones de tu médico.",
     },
-    whatsapp: "Hola, quiero entrenar pero vengo de una lesión.",
+    whatsapp: "Hola, vengo de una lesión y quiero empezar a entrenar. ¿Cómo sería?",
   },
   {
     id: "principiantes",
     nombre: "Principiantes",
     // BORRADOR: validar con un profe.
     mito: {
-      mito: "Primero tengo que ponerme en forma para ir al gimnasio.",
+      mito: "Primero me pongo en forma y después voy al gimnasio.",
       respuesta:
-        "Es al revés: el gimnasio es el lugar para empezar desde donde estés hoy. Una planilla bien armada arranca con ejercicios y cargas que se ajustan a tu nivel actual.",
+        "Venís al gimnasio justamente para ponerte en forma, y arrancás desde donde estás hoy.",
     },
-    whatsapp: "Hola, nunca entrené y quiero arrancar.",
+    whatsapp: "Hola, nunca fui a un gimnasio y quiero arrancar. ¿Por dónde empiezo?",
   },
   {
     id: "deportistas",
     nombre: "Deportistas",
     // BORRADOR: validar con un profe.
     mito: {
-      mito: "El gimnasio te pone lento para el deporte.",
+      mito: "Si hacés pesas, te ponés lento para el deporte.",
       respuesta:
-        "El entrenamiento de fuerza bien planificado se usa en casi todos los deportes para ganar potencia y ayudar a prevenir lesiones. Lo importante es que la planilla acompañe tu temporada y no compita con los entrenamientos de tu club.",
+        "Bien planificadas, las pesas se usan en casi todos los deportes para ganar potencia y ayudar a prevenir lesiones.",
     },
-    whatsapp: "Hola, hago deporte y quiero sumar entrenamiento.",
+    whatsapp: "Hola, hago deporte y quiero sumar gimnasio. ¿Cómo lo combino con mis entrenamientos?",
   },
 ];
 // Brief "Tu primer mes": qué te preguntan el primer día, cómo arranca la planilla y cómo avanza, en términos
@@ -235,9 +243,9 @@ export const objetivos: readonly Objetivo[] = [
 // Brief deportistas: ya entrenan alumnos de clubes locales.
 
 export const comoFunciona: readonly string[] = [
-  "Nos escribís por WhatsApp.",
-  "Los profes te arman tu planilla.",
-  "Venís cuando te queda cómodo y entrenás con seguimiento.",
+  "Nos escribís por WhatsApp y nos contás qué buscás.",
+  "Los profes te arman una planilla para tu nivel y lo que querés lograr.",
+  "Empezás a entrenar y los profes la van ajustando según cómo te va.",
 ];
 export const queLlevar: readonly string[] = ["Ropa cómoda", "Zapatillas", "Botella de agua", "Toalla"];
 // TODO Matías: confirmar si el gimnasio pide algo más (toalla obligatoria, candado, etc.).
@@ -245,20 +253,18 @@ export const queLlevar: readonly string[] = ["Ropa cómoda", "Zapatillas", "Bote
 // Podés pulir la redacción con <guia_de_textos> sin cambiar el dato.
 // Las respuestas { interpolar } se arman en lib/faq.ts con los datos de este archivo.
 export const preguntas: readonly Pregunta[] = [
-  { pregunta: "¿Hace falta saber entrenar?",
-    respuesta: "No. Los profes te arman una planilla según tu nivel y te guían mientras la hacés." },
-  { pregunta: "¿Hay que sacar turno?",
-    respuesta: "No. Venís en el horario que te quede cómodo, de lunes a viernes." },
+  { pregunta: "Nunca entrené y no sé usar las máquinas, ¿puedo ir igual?",
+    respuesta: "Sí. Los profes te muestran cómo se hace cada ejercicio y te van guiando mientras entrenás." },
   // Brief: podés venir todos los días de lunes a viernes (clasesPorMes) + precio del pase libre.
   { pregunta: "¿Qué es el pase libre?", respuesta: { interpolar: "paseLibre" } },
   { pregunta: "¿Hay clases grupales?",
     respuesta: "No. Cada uno entrena con su propia planilla." },
   // Brief: descuentoFamiliar.porcentaje + descuentoFamiliar.familiares.
-  { pregunta: "¿Puedo ir con alguien de mi familia?", respuesta: { interpolar: "descuentoFamiliar" } },
+  { pregunta: "¿Hay descuento si voy con alguien de mi familia?", respuesta: { interpolar: "descuentoFamiliar" } },
   // Brief: edadMinima.
   { pregunta: "¿Desde qué edad se puede entrenar?", respuesta: { interpolar: "edadMinima" } },
   // Brief: precio de claseSuelta.
-  { pregunta: "¿Puedo pagar una clase suelta para probar?", respuesta: { interpolar: "claseSuelta" } },
+  { pregunta: "¿Puedo ir un día a probar antes de pagar el mes?", respuesta: { interpolar: "claseSuelta" } },
   // Brief: mediosDePago.
-  { pregunta: "¿Qué medios de pago aceptan?", respuesta: { interpolar: "mediosDePago" } },
+  { pregunta: "¿Cómo puedo pagar?", respuesta: { interpolar: "mediosDePago" } },
 ];

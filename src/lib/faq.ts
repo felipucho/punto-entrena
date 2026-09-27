@@ -1,26 +1,27 @@
 import { claseSuelta, negocio, preguntas, type ClaveInterpolada, type Pregunta } from "@/data/site";
-import { formatearLista, formatearPrecio } from "@/lib/formato";
+import { formatearLista, formatearPrecio, precioPorClase } from "@/lib/formato";
 import { diasDeApertura } from "@/lib/horarios";
 import { paseLibre } from "@/lib/planes";
 
 /** Línea del descuento familiar, usada en /faq y en /planes. */
 export function textoDescuentoFamiliar(): string {
   const { porcentaje, familiares } = negocio.descuentoFamiliar;
-  return `Si entrenás con tu familia, hay un ${porcentaje} % de descuento para ${formatearLista(familiares)}.`;
+  return `Si entrenás con un familiar, hay un ${porcentaje} % de descuento. Vale para ${formatearLista(familiares)}.`;
 }
 
 const respuestasInterpoladas: Record<ClaveInterpolada, () => string> = {
   paseLibre: () => {
     const plan = paseLibre();
-    return `Podés venir todos los días, de ${diasDeApertura()}: son ${plan.clasesPorMes} clases por mes y cuesta ${formatearPrecio(plan.precio)}.`;
+    return `Es el plan para venir todos los días, de ${diasDeApertura()}. Son ${plan.clasesPorMes} clases por mes a ${formatearPrecio(plan.precio)}, o sea ${formatearPrecio(precioPorClase(plan))} cada una. Te conviene si tenés horarios rotativos o venís de otra localidad.`;
   },
   descuentoFamiliar: () => {
     const { porcentaje, familiares } = negocio.descuentoFamiliar;
-    return `Sí. Hay un ${porcentaje} % de descuento para ${formatearLista(familiares)}.`;
+    return `Sí, hay un ${porcentaje} % de descuento. Vale para ${formatearLista(familiares)}.`;
   },
-  edadMinima: () => `Se puede entrenar desde los ${negocio.edadMinima} años.`,
+  edadMinima: () =>
+    `Desde los ${negocio.edadMinima} años.`,
   claseSuelta: () =>
-    `Sí. La ${claseSuelta.nombre.toLowerCase()} cuesta ${formatearPrecio(claseSuelta.precio)} y te sirve para conocer el gimnasio antes de elegir un plan.`,
+    `Sí, con una ${claseSuelta.nombre.toLowerCase()}, que sale ${formatearPrecio(claseSuelta.precio)}. Si te gusta, después elegís el plan.`,
   mediosDePago: () => negocio.mediosDePago,
 };
 

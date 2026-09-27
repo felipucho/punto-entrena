@@ -9,7 +9,7 @@ import { metadataDePagina } from "@/lib/seo";
 
 const redes = redesActivas();
 
-const { calle, localidad, referencia } = negocio.direccion;
+const { localidad, referencia } = negocio.direccion;
 
 const diasHabiles = diasDeApertura();
 
@@ -17,7 +17,7 @@ const nombrePase = paseLibre().nombre.toLowerCase();
 
 export const metadata = metadataDePagina({
   titulo: "Contacto y cómo llegar",
-  descripcion: `${negocio.nombre}: ${direccionCorta()}. Tel. ${negocio.telefono.visible}. ${horarioGeneralCorto()}. WhatsApp y mapa.`,
+  descripcion: `Escribinos por WhatsApp o llamanos al ${negocio.telefono.visible}. Estamos en ${direccionCorta()}. ${horarioGeneralCorto()}.`,
   ruta: "/contacto",
 });
 
@@ -27,8 +27,7 @@ export default function Contacto() {
       <div className="contenedor pt-section">
         <h1>Contacto y cómo llegar</h1>
         <p className="intro mt-4">
-          Para consultar por los planes o para arrancar, escribinos por WhatsApp o llamanos. Una vez que tenés tu
-          planilla, venís de {diasHabiles} cuando te acomode, sin sacar turno.
+          Escribinos, llamanos o pasá por el gimnasio.
         </p>
       </div>
 
@@ -42,19 +41,23 @@ export default function Contacto() {
           {/* En tablet las dos secciones van lado a lado, con el mapa abajo; en desktop, apiladas junto al mapa. */}
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-1">
             <section aria-labelledby="whatsapp-telefono-horario">
-              <h2 id="whatsapp-telefono-horario" className="mb-4">
-                WhatsApp, teléfono y horario
+              <h2 id="whatsapp-telefono-horario" className="revelar mb-4">
+                WhatsApp y teléfono
               </h2>
               <p>
-                <BotonWhatsApp mensaje={negocio.mensajeWhatsappGeneral} />
+                <BotonWhatsApp mensaje={negocio.mensajeWhatsappGeneral}>
+                  <span>
+                    Escribinos<span className="sr-only"> por WhatsApp</span>
+                  </span>
+                </BotonWhatsApp>
               </p>
               {/*
                * Los links de teléfono y redes miden 44 px de alto para el dedo, con el texto centrado. Por eso las
                * filas van sin espacio entre sí y el horario baja lo mismo que ese texto: quedan todas a igual distancia.
                */}
               <dl className="mt-5">
-                <div className="grid grid-cols-[6rem_minmax(0,1fr)] items-baseline gap-x-4">
-                  <dt className="font-semibold">Teléfono</dt>
+                <div className="grid grid-cols-[7rem_minmax(0,1fr)] items-baseline gap-x-4">
+                  <dt className="font-bold uppercase tracking-[0.08em] text-muted">Teléfono</dt>
                   <dd>
                     <a href={telHref()} className="enlace inline-flex min-h-11 items-center">
                       {negocio.telefono.visible}
@@ -62,8 +65,8 @@ export default function Contacto() {
                   </dd>
                 </div>
                 {redes.length > 0 && (
-                  <div className="grid grid-cols-[6rem_minmax(0,1fr)] items-baseline gap-x-4">
-                    <dt className="font-semibold">Redes</dt>
+                  <div className="grid grid-cols-[7rem_minmax(0,1fr)] items-baseline gap-x-4">
+                    <dt className="font-bold uppercase tracking-[0.08em] text-muted">Redes</dt>
                     <dd>
                       <ul className="flex flex-wrap gap-x-5">
                         {redes.map((red) => (
@@ -83,26 +86,26 @@ export default function Contacto() {
                     </dd>
                   </div>
                 )}
-                <div className="grid grid-cols-[6rem_minmax(0,1fr)] items-baseline gap-x-4">
-                  <dt className="font-semibold">Horario</dt>
+                <div className="grid grid-cols-[7rem_minmax(0,1fr)] items-baseline gap-x-4">
+                  <dt className="font-bold uppercase tracking-[0.08em] text-muted">Horario</dt>
                   <dd className="pt-2.5">{horarioGeneral()}</dd>
                 </div>
               </dl>
             </section>
 
             <section aria-labelledby="donde-estamos">
-              <h2 id="donde-estamos" className="mb-4">
-                Dónde estamos
+              <h2 id="donde-estamos" className="revelar mb-4">
+                Estamos en el centro de {localidad}
               </h2>
               <address className="not-italic">
-                <p className="font-semibold">{negocio.nombre}</p>
+                <p className="font-semibold text-titulo">{negocio.nombre}</p>
                 <p>{direccionCompleta()}</p>
                 {referencia !== null && <p className="mt-2 text-muted">{referencia}</p>}
               </address>
               <p className="mt-5">
                 <a href={urlMapa()} target="_blank" rel="noopener" className="btn btn-secundario">
-                  Abrir en Google Maps
-                  <span className="sr-only"> (se abre en una pestaña nueva)</span>
+                  Ver cómo llegar
+                  <span className="sr-only"> en Google Maps (se abre en una pestaña nueva)</span>
                 </a>
               </p>
             </section>
@@ -113,35 +116,37 @@ export default function Contacto() {
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             title={`Mapa de ${negocio.nombre} en ${direccionCorta()}`}
-            className="aspect-[4/3] w-full rounded-card border border-border md:aspect-video lg:aspect-auto lg:h-full lg:min-h-96"
+            className="aspect-[4/3] w-full rounded-card border border-border grayscale-[0.4] transition-[filter] duration-500 hover:grayscale-0 focus:grayscale-0 md:aspect-video lg:aspect-auto lg:h-full lg:min-h-96"
           />
         </div>
       </div>
 
       <section aria-labelledby="otra-localidad" className="pb-section">
         <div className="contenedor">
-          <div className="grid gap-4 rounded-card bg-surface p-4 sm:p-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-10">
+          <div className="superficie-amarilla bloque-dato grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-10">
             <div>
-              <h2 id="otra-localidad" className="mb-4">
-                Si venís de otra localidad
+              <h2 id="otra-localidad" className="con-punto mb-4">
+                ¿Venís de otra localidad?
               </h2>
               <div className="prosa">
                 <p>
-                  {negocio.nombre} queda en el centro de {localidad}, en {calle}. Con el{" "}
+                  Si no sabés qué días vas a andar por {localidad}, te conviene el{" "}
                   <Link href="/planes" className="enlace">
                     {nombrePase}
-                  </Link>{" "}
-                  podés venir todos los días de {diasHabiles}, así entrenás cada vez que estés por acá sin tener que
-                  contar las clases.
+                  </Link>
+                  . Con ese plan podés venir todos los días, de {diasHabiles}.
                 </p>
                 <p>
-                  Antes de venir por primera vez, escribinos por WhatsApp: es el primer paso para que los profes te
-                  armen la planilla. De paso te contamos qué plan te conviene según los días que pensás venir.
+                  Avisanos qué día venís la primera vez y te decimos qué profe va a estar.
                 </p>
               </div>
             </div>
             <p>
-              <BotonWhatsApp mensaje="Hola, vengo de otra localidad y quería consultar por el gimnasio." />
+              <BotonWhatsApp mensaje={`Hola, no vivo en ${localidad} y me interesa el ${nombrePase}. ¿Cómo hago para ir la primera vez?`}>
+                <span>
+                  Arreglá tu primer día<span className="sr-only"> por WhatsApp</span>
+                </span>
+              </BotonWhatsApp>
             </p>
           </div>
         </div>

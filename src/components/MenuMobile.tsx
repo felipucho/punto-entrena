@@ -50,19 +50,22 @@ export default function MenuMobile({ enlaces, destacado }: Props) {
 
   return (
     <>
+      {/* Dos barras: la de abajo, amarilla y más corta; con el menú abierto se cruzan en una X. */}
       <button
         ref={boton}
         type="button"
-        className="btn btn-secundario lg:hidden"
+        className="btn btn-menu lg:hidden"
         aria-expanded={abierto}
         aria-controls={ID_MENU}
         onClick={() => setAbierto((valor) => !valor)}
       >
+        <span aria-hidden="true" className="menu-icono" />
         Menú
       </button>
+      {/* La página actual se marca con el punto (mobile) o la barra amarilla (desktop), no solo con el color. */}
       <ul
         id={ID_MENU}
-        className={`${abierto ? "flex" : "hidden"} absolute inset-x-0 top-full z-30 flex-col gap-1 border-b border-border bg-bg px-4 pt-2 pb-4 lg:static lg:flex lg:flex-row lg:items-center lg:gap-1 lg:border-0 lg:p-0`}
+        className={`${abierto ? "flex" : "hidden"} menu-lista absolute inset-x-0 top-full z-30 flex-col border-b border-border bg-surface px-4 pt-1 pb-5 lg:static lg:flex lg:flex-row lg:items-center lg:gap-0.5 lg:border-0 lg:bg-transparent lg:p-0`}
       >
         {enlaces.map((enlace) => {
           const activo = esActivo(ruta, enlace.href);
@@ -72,16 +75,14 @@ export default function MenuMobile({ enlaces, destacado }: Props) {
                 href={enlace.href}
                 aria-current={activo ? "page" : undefined}
                 onClick={cerrar}
-                className={`block rounded-card px-3 py-2.5 hover:bg-surface lg:py-2 ${
-                  activo ? "font-semibold underline decoration-2 underline-offset-[0.35em]" : ""
-                }`}
+                className="nav-enlace"
               >
                 {enlace.label}
               </Link>
             </li>
           );
         })}
-        <li className="mt-2 lg:mt-0 lg:ml-2">
+        <li className="mt-4 lg:mt-0 lg:ml-3">
           <Link
             href={destacado.href}
             aria-current={esActivo(ruta, destacado.href) ? "page" : undefined}

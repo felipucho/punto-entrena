@@ -1,5 +1,12 @@
+import { existsSync } from "node:fs";
+import path from "node:path";
+import Image from "next/image";
+
 type Props = {
-  /** Qué va a mostrar la foto real. Se usa en la etiqueta visible y en el aria-label. */
+  /**
+   * Qué va a mostrar la foto real. Se usa en la etiqueta visible y en el aria-label del lugar reservado, en el alt
+   * de la foto real y, pasada a slug, en el nombre del archivo.
+   */
   descripcion: string;
   /** aspect-ratio CSS, por ejemplo "4 / 3" o "16 / 9". */
   proporcion?: string;
@@ -8,29 +15,68 @@ type Props = {
    * no se anuncia aparte. Con la foto real va alt="".
    */
   decorativa?: boolean;
+  /** sizes de next/image para la foto real (el ancho que ocupa en pantalla). Ajustarlo en cada lugar cuando lleguen las fotos. */
+  sizes?: string;
   className?: string;
 };
 
+/** Formatos que se buscan en public/fotos/, en este orden. */
+const EXTENSIONES = [".jpg", ".jpeg", ".png", ".webp", ".avif"];
+
+/** "retrato de Matías" → "retrato-de-matias": sin tildes, en minúscula y con guiones. */
+function slug(descripcion: string): string {
+  return descripcion
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+/** /fotos/<slug>.<extensión> si la foto ya está en public/fotos/; si no, null. Se resuelve en el build. */
+function fotoReal(descripcion: string): string | null {
+  const nombre = slug(descripcion);
+  const extension = EXTENSIONES.find((ext) => existsSync(path.join(process.cwd(), "public", "fotos", nombre + ext)));
+  return extension ? `/fotos/${nombre}${extension}` : null;
+}
+
 /**
- * Lugar reservado para una foto. Se reemplaza por la imagen real en la etapa de diseño
- * (next/image con alt descriptivo y las mismas proporciones, para no mover el layout).
- * Es un span (con display flex) y no un div para poder ir dentro de un botón, como en /equipo.
+ * Foto de un lugar del sitio. Si existe public/fotos/<slug de la descripción> (.jpg, .jpeg, .png, .webp o .avif),
+ * muestra la foto real con next/image, recortada a la misma proporción para no mover el layout. Si no, deja el
+ * lugar reservado con la descripción.
+ * Es un span y no un div para poder ir dentro de un botón, como en /equipo.
+ * Lee el disco: es un componente de servidor y no se importa desde un componente de cliente.
  */
 export default function ImagePlaceholder({
   descripcion,
   proporcion = "4 / 3",
   decorativa = false,
+  sizes = "100vw",
   className = "",
 }: Props) {
+  const foto = fotoReal(descripcion);
+
+  if (foto !== null) {
+    return (
+      <span
+        aria-hidden={decorativa || undefined}
+        style={{ aspectRatio: proporcion }}
+        className={`foto relative block overflow-hidden rounded-card bg-placeholder ${className}`.trim()}
+      >
+        <Image src={foto} alt={decorativa ? "" : descripcion} fill sizes={sizes} className="object-cover" />
+      </span>
+    );
+  }
+
   return (
     <span
       role={decorativa ? undefined : "img"}
       aria-label={decorativa ? undefined : `Foto: ${descripcion}`}
       aria-hidden={decorativa || undefined}
       style={{ aspectRatio: proporcion }}
-      className={`flex items-end overflow-hidden rounded-card bg-placeholder p-3 ${className}`.trim()}
+      className={`foto-pendiente flex items-end overflow-hidden rounded-card p-3 ${className}`.trim()}
     >
-      <span aria-hidden="true" className="text-sm leading-snug text-placeholder-fg">
+      <span aria-hidden="true" className="text-sm leading-snug text-placeholder-fg italic">
         Foto: {descripcion}
       </span>
     </span>

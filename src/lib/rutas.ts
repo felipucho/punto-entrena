@@ -7,7 +7,7 @@ export const navegacion: readonly Enlace[] = [
   { href: "/instalaciones", label: "Instalaciones" },
   { href: "/equipo", label: "Equipo" },
   { href: "/objetivos", label: "Objetivos" },
-  { href: "/faq", label: "FAQ" },
+  { href: "/faq", label: "Preguntas" },
 ];
 
 export const enlaceContacto: Enlace = { href: "/contacto", label: "Contacto" };

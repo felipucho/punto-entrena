@@ -1,7 +1,8 @@
+import BotonWhatsApp from "@/components/BotonWhatsApp";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
 import Selector from "@/components/Selector";
 import { negocio, profes, type ColumnaGrilla, type Profe } from "@/data/site";
-import { formatearLista, numeroEnPalabras as enPalabras } from "@/lib/formato";
+import { formatearLista, nombreCorto } from "@/lib/formato";
 import { NOMBRE_COLUMNA, describirSegmentos, horariosDeProfe } from "@/lib/horarios";
 import { metadataDePagina } from "@/lib/seo";
 
@@ -9,10 +10,10 @@ import { metadataDePagina } from "@/lib/seo";
 const COLUMNAS = Object.keys(NOMBRE_COLUMNA) as ColumnaGrilla[];
 
 export const metadata = metadataDePagina({
-  titulo: "Los profes",
-  descripcion: `Los profes de ${negocio.nombre}, ${negocio.direccion.localidad}: ${formatearLista(
+  titulo: "Los profes y sus horarios",
+  descripcion: `${formatearLista(
     profes.map((profe) => profe.nombre),
-  )}. Cuándo atiende cada uno.`,
+  )} son los profes de ${nombreCorto} en ${negocio.direccion.localidad}. Mirá qué días y a qué hora está cada uno.`,
   ruta: "/equipo",
 });
 
@@ -23,27 +24,27 @@ function InfoDeProfe({ profe }: { profe: Profe }) {
 
   return (
     <>
-      <h2 className="mb-4">{profe.nombre}</h2>
+      <h2 className="con-punto mb-4">{profe.nombre}</h2>
 
       {/*
        * Mismo ritmo que los paneles de /objetivos e /instalaciones: 1rem entre el h2 y lo primero que haya
-       * (la frase, o "Cuándo te atiende" mientras la frase sea null) y 1.5rem entre bloques.
+       * (la frase, o "Cuándo está …" mientras la frase sea null) y 1.5rem entre bloques.
        */}
       <div className="space-y-6">
         {profe.frase !== null && (
-          <blockquote className="border-l-2 border-border pl-4">
+          <blockquote className="border-l-4 border-accent pl-4 text-lg italic">
             <p>{profe.frase}</p>
           </blockquote>
         )}
 
         {columnasConHorario.length > 0 && (
           <div>
-            <h3>Cuándo te atiende</h3>
+            <h3 className="etiqueta">Cuándo está {profe.corto}</h3>
             {/* Los grupos de días van lado a lado cuando hay ancho; entre lg y xl el panel es angosto y se apilan. */}
             <dl className="mt-3 grid gap-3 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-1 xl:grid-cols-2">
               {columnasConHorario.map((columna) => (
                 <div key={columna}>
-                  <dt className="font-semibold">{NOMBRE_COLUMNA[columna]}</dt>
+                  <dt className="font-bold uppercase tracking-[0.08em] text-accent">{NOMBRE_COLUMNA[columna]}</dt>
                   <dd>{describirSegmentos(horarios[columna])}</dd>
                 </div>
               ))}
@@ -53,8 +54,8 @@ function InfoDeProfe({ profe }: { profe: Profe }) {
 
         {profe.preguntaFrecuente !== null && (
           <div>
-            <h3>La pregunta que más me hacen</h3>
-            <p className="mt-3 font-semibold">{profe.preguntaFrecuente.pregunta}</p>
+            <h3 className="etiqueta">Lo que más le preguntan a {profe.corto}</h3>
+            <p className="mt-3 font-semibold text-titulo">{profe.preguntaFrecuente.pregunta}</p>
             <p className="mt-2">{profe.preguntaFrecuente.respuesta}</p>
           </div>
         )}
@@ -67,12 +68,9 @@ export default function Equipo() {
   return (
     <>
       <div className="contenedor pt-section">
-        <h1>Los profes</h1>
-        <p className="intro mt-4">
-          En {negocio.nombre} te atienden {enPalabras(profes.length)} profes que conocen a cada alumno por su nombre
-          y por su planilla. Elegí uno para ver qué días y en qué horario atiende.
-        </p>
-        <p className="intro mt-3">{negocio.formacionProfes}</p>
+        <h1>Los profes de {nombreCorto}</h1>
+        <p className="intro mt-4">{negocio.formacionProfes}</p>
+        <p className="intro mt-3">Tocá la foto de cada uno y fijate qué días y a qué hora está.</p>
       </div>
 
       {/*
@@ -85,14 +83,14 @@ export default function Equipo() {
         <Selector
           titulo="Profes"
           claseLista="grid grid-cols-4 gap-2 sm:gap-4"
-          claseBoton="group flex min-w-0 cursor-pointer flex-col items-center gap-2 rounded-card p-1.5 text-center leading-tight hover:bg-surface sm:p-2"
-          clasePanel="card mt-6 lg:mt-0"
+          claseBoton="group flex min-w-0 cursor-pointer flex-col items-center gap-2 rounded-card p-1.5 text-center leading-tight transition-colors hover:bg-surface sm:p-2"
+          clasePanel="card mt-6 border-t-4 border-t-accent lg:mt-0"
           opciones={profes.map((profe) => ({
             id: profe.id,
             etiqueta: (
               <>
                 {/*
-                 * Contorno (no sombra) para el elegido: se sigue viendo en modo de alto contraste.
+                 * Contorno amarillo (no sombra) para el elegido: se sigue viendo en modo de alto contraste.
                  * En mobile el cuadro mide unos 66 px: la etiqueta "Foto: …" (el span de ImagePlaceholder) va más chica,
                  * con menos padding y cortada con "…", como en las miniaturas del inicio, en vez de quedar recortada
                  * por los bordes a mitad de palabra.
@@ -101,9 +99,9 @@ export default function Equipo() {
                   descripcion={`retrato de ${profe.nombre}`}
                   proporcion="1 / 1"
                   decorativa
-                  className="w-full max-sm:p-1.5 max-sm:[&>span]:line-clamp-2 max-sm:[&>span]:text-xs group-aria-selected:outline-3 group-aria-selected:outline-offset-2 group-aria-selected:outline-fg"
+                  className="w-full max-sm:p-1.5 max-sm:[&>span]:line-clamp-2 max-sm:[&>span]:text-xs group-aria-selected:outline-3 group-aria-selected:outline-offset-2 group-aria-selected:outline-accent"
                 />
-                <span className="font-medium wrap-break-word text-muted group-hover:text-fg group-aria-selected:text-fg group-aria-selected:underline group-aria-selected:decoration-2 group-aria-selected:underline-offset-4">
+                <span className="font-medium wrap-break-word text-muted group-hover:text-titulo group-aria-selected:text-titulo group-aria-selected:underline group-aria-selected:decoration-accent group-aria-selected:decoration-2 group-aria-selected:underline-offset-4">
                   {/*
                    * El elegido no pasa a negrita: el nombre se ensancha y, en algunos anchos, baja a un segundo renglón
                    * y empuja el panel. Lo marcan el contorno de la foto, el color y el subrayado.
@@ -121,6 +119,14 @@ export default function Equipo() {
             contenido: <InfoDeProfe profe={profe} />,
           }))}
         />
+      </div>
+
+      <div className="contenedor pb-section">
+        <BotonWhatsApp mensaje={negocio.mensajeWhatsappEquipo}>
+          <span>
+            Quiero empezar<span className="sr-only"> por WhatsApp</span>
+          </span>
+        </BotonWhatsApp>
       </div>
     </>
   );

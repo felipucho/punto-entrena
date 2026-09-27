@@ -37,7 +37,7 @@ export default function Terminos() {
 
       <div className="mt-12 max-w-[65ch] space-y-12">
         <section aria-labelledby="terminos-precios">
-          <h2 id="terminos-precios" className="mb-4">
+          <h2 id="terminos-precios" className="mb-4 text-[1.75rem] sm:text-[2rem]">
             Precios y horarios
           </h2>
           <div className="prosa">
@@ -57,7 +57,7 @@ export default function Terminos() {
         </section>
 
         <section aria-labelledby="terminos-entrenamiento">
-          <h2 id="terminos-entrenamiento" className="mb-4">
+          <h2 id="terminos-entrenamiento" className="mb-4 text-[1.75rem] sm:text-[2rem]">
             Información sobre entrenamiento
           </h2>
           <div className="prosa">
@@ -69,7 +69,7 @@ export default function Terminos() {
         </section>
 
         <section aria-labelledby="terminos-terceros">
-          <h2 id="terminos-terceros" className="mb-4">
+          <h2 id="terminos-terceros" className="mb-4 text-[1.75rem] sm:text-[2rem]">
             Servicios de terceros
           </h2>
           <div className="prosa">
@@ -81,7 +81,7 @@ export default function Terminos() {
         </section>
 
         <section aria-labelledby="terminos-datos">
-          <h2 id="terminos-datos" className="mb-4">
+          <h2 id="terminos-datos" className="mb-4 text-[1.75rem] sm:text-[2rem]">
             Tus datos y consultas
           </h2>
           <div className="prosa">

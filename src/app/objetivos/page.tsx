@@ -13,7 +13,7 @@ const hayMitos = objetivos.some((o) => o.mito !== null);
 
 export const metadata = metadataDePagina({
   titulo: "Entrenamiento según tu objetivo",
-  descripcion: `Planilla individual para ${listaObjetivos} en ${localidad}: cómo arranca y cómo avanza tu primer mes.`,
+  descripcion: `Entrenamiento para ${listaObjetivos} en ${localidad}. Los profes te arman la planilla según tu caso.`,
   ruta: "/objetivos",
 });
 
@@ -21,14 +21,15 @@ export const metadata = metadataDePagina({
 /** Texto de "Tu primer mes" de cada objetivo, por id. Si falta uno, esa subsección no se renderiza. */
 const primerMes: Partial<Record<string, string>> = {
   adultos:
-    "El primer día te preguntan qué querés lograr, si entrenaste antes y cuántas veces por semana pensás venir. Con eso los profes arman tu planilla y te acompañan mientras entrenás. Como no hay turnos, venís el día y a la hora que puedas, y cuando agarrás ritmo los profes van ajustando la planilla para que sigas avanzando.",
+    "Antes de empezar, los profes te preguntan qué querés lograr, si entrenaste antes y cuántas veces por semana pensás venir. Con eso te arman la planilla.",
   "adultos-mayores":
-    "Antes de arrancar, los profes te preguntan si tenés alguna molestia o indicación médica y qué te gustaría mejorar. La planilla empieza con cargas acordes a tu nivel y apunta a lo que te interesa, ya sea más fuerza, más equilibrio o más confianza al moverte. Los profes siguen cómo respondés y suben la exigencia a medida que la vas manejando.",
+    "Los profes primero te preguntan si tenés alguna molestia y qué te gustaría mejorar, como la fuerza o el equilibrio. Arrancás con un peso que puedas manejar bien, respetando las indicaciones de tu médico. Cuando ya te queda cómodo, te lo van subiendo.",
   rehabilitacion:
-    "El primer día les contás a los profes qué lesión tuviste, cómo estás hoy y qué movimientos te molestan. Si tu médico te dio indicaciones, traelas: la planilla se arma respetándolas. Arrancás con ejercicios adaptados y la carga sube de a poco, según cómo responde tu cuerpo. Es entrenamiento para tu readaptación física y no reemplaza la atención médica.",
+    "Lo primero es contarles a los profes qué lesión tuviste y qué movimientos te molestan hoy. Si tu médico te dio indicaciones, traelas y la planilla se arma respetándolas. La carga va subiendo según cómo responde tu cuerpo. El entrenamiento acompaña tu recuperación, pero no reemplaza la atención médica.",
   principiantes:
-    "Que nunca hayas entrenado no es un problema: el primer día contás si hiciste algún deporte o actividad y qué te gustaría lograr. La planilla arranca con ejercicios básicos y los profes te muestran cómo se hace cada uno. Si al principio no sabés en qué planta está cada máquina, les preguntás a los profes. Cuando ya los hacés con soltura, la planilla suma ejercicios nuevos o más carga, siempre desde tu nivel.",
-  deportistas: `Arrancás contando qué deporte hacés, en qué parte de la temporada estás y cuántas veces por semana entrenás con tu club. A partir de eso, los profes arman una planilla que se acomoda a esa carga y la ajustan cuando cambia tu calendario. En ${negocio.nombre} ya entrenan alumnos de clubes de la zona que combinan el gimnasio con su deporte.`,
+    "Primero contás si hiciste algún deporte y qué te gustaría lograr. Empezás con ejercicios básicos y los profes te muestran cómo se hace cada uno. Cuando ya te salen bien, se suman ejercicios nuevos o más carga.",
+  deportistas:
+    "Arrancás contando qué deporte hacés, cuántas veces por semana entrenás con tu club y en qué momento de la temporada estás. Según eso, los profes arman tu planilla y la ajustan cuando cambia tu calendario. Ya entrenan con nosotros deportistas de clubes de la zona.",
 };
 
 /**
@@ -44,29 +45,33 @@ const opciones = objetivos.map((objetivo) => {
     etiqueta: objetivo.nombre,
     contenido: (
       <>
-        <h2 id={idTitulo} className="mb-4">
+        <h2 id={idTitulo} className="con-punto mb-4">
           {objetivo.nombre}
         </h2>
         {/* En lg, "Tu primer mes" y el mito van lado a lado para acortar el panel. */}
         <div className="grid items-start gap-6 lg:grid-cols-2 lg:gap-12">
           {textoPrimerMes !== undefined && (
             <div className="max-w-[65ch]">
-              <h3>Tu primer mes</h3>
-              <p className="mt-3">{textoPrimerMes}</p>
+              <h3 className="etiqueta">Tu primer mes</h3>
+              <p className="mt-4 text-lg">{textoPrimerMes}</p>
             </div>
           )}
+          {/* El mito va en placa amarilla y se tacha con una línea al mostrarse el panel. */}
           {objetivo.mito !== null && (
-            <div className="card max-w-[65ch]">
-              <h3>Mito</h3>
-              <p className="mt-3 font-semibold">“{objetivo.mito.mito}”</p>
-              <p className="mt-2">{objetivo.mito.respuesta}</p>
+            <div className="superficie-amarilla bloque-dato max-w-[65ch]">
+              <h3 className="etiqueta">Mito</h3>
+              <p className="tachado numeral mt-4 text-[clamp(1.5rem,1.2rem+1.2vw,2rem)] leading-[1.1] uppercase">
+                “{objetivo.mito.mito}”
+              </p>
+              <p className="mt-4">{objetivo.mito.respuesta}</p>
             </div>
           )}
         </div>
         <div className="mt-6">
           <BotonWhatsApp mensaje={objetivo.whatsapp}>
-            Escribinos por WhatsApp
-            <span className="sr-only">: {objetivo.nombre.toLowerCase()}</span>
+            <span>
+              Contanos tu caso<span className="sr-only"> por WhatsApp: {objetivo.nombre.toLowerCase()}</span>
+            </span>
           </BotonWhatsApp>
         </div>
       </>
@@ -77,22 +82,19 @@ const opciones = objetivos.map((objetivo) => {
 export default function Objetivos() {
   return (
     <div className="contenedor pt-section pb-section">
-      <h1>
-        Entrenamiento para {listaObjetivos} en {localidad}
+      <h1 className="text-[clamp(2.125rem,1.35rem+3.2vw,4rem)]">
+        Cómo arrancás según lo que buscás
       </h1>
       <p className="intro mt-4">
-        En {negocio.nombre} no hay una rutina igual para todos: los profes arman tu planilla según lo que venís a
-        buscar.{" "}
-        {hayMitos
-          ? "Elegí tu objetivo y te contamos cómo arranca el primer mes y un mito que conviene sacarse de encima."
-          : "Elegí tu objetivo y te contamos cómo arranca el primer mes."}
+        ¿No sabés si el gimnasio es para vos? Elegí tu caso y fijate cómo es el primer mes.
+        {hayMitos ? " También desarmamos un mito que se escucha mucho." : ""}
       </p>
       <Selector
-        titulo="Objetivos"
+        titulo="Según tu objetivo"
         opciones={opciones}
         claseLista="mt-8 flex flex-wrap gap-2"
         claseBoton="pestana"
-        clasePanel="mt-6 border-t border-border pt-6"
+        clasePanel="mt-8 border-t border-border pt-8"
       />
     </div>
   );

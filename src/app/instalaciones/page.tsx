@@ -1,8 +1,8 @@
+import BotonWhatsApp from "@/components/BotonWhatsApp";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
 import Selector from "@/components/Selector";
 import { negocio, plantas, type Planta } from "@/data/site";
 import { minusculaInicial, numeroEnPalabras as enPalabras } from "@/lib/formato";
-import { capitalizar } from "@/lib/horarios";
 import { metadataDePagina } from "@/lib/seo";
 
 const LARGO_MAXIMO_DESCRIPCION = 155;
@@ -22,7 +22,7 @@ function descripcionSeo(): string {
       (planta) =>
         `${planta.nombre}: ${planta.destacados.slice(0, cantidad).map(minusculaInicial).join(", ")}.`,
     );
-    descripcion = `Gimnasio de ${cantidadDePlantas} plantas en ${negocio.direccion.localidad}. ${porPlanta.join(" ")}`;
+    descripcion = `Gimnasio de musculación y funcional en ${negocio.direccion.localidad}. ${porPlanta.join(" ")} Con cualquier plan usás las ${cantidadDePlantas}.`;
     if (descripcion.length <= LARGO_MAXIMO_DESCRIPCION) break;
   }
   return descripcion;
@@ -35,15 +35,15 @@ export const metadata = metadataDePagina({
 });
 
 /**
- * Texto de "Qué entrenás acá" por planta, según el brief de src/data/site.ts.
+ * Texto de "Cómo se entrena" por planta, según el brief "Qué entrenás acá" de src/data/site.ts.
  * El foco se toma del dato para que el texto no se desfase si cambia.
  * Si se agrega una planta nueva, hay que sumar su texto acá; mientras falte, esa subsección no se muestra.
  */
 const QUE_ENTRENAS: Record<string, (planta: Planta) => string> = {
-  "planta-baja": (planta) =>
-    `En la ${minusculaInicial(planta.nombre)} entrenás fuerza, ${minusculaInicial(planta.foco)}. Qué ejercicios hacés y con cuánto peso lo define tu planilla, que los profes arman según tu nivel. Si nunca entrenaste con pesas, empezás con poco peso y lo vas subiendo a medida que agarrás la técnica.`,
+  "planta-baja": () =>
+    "Si nunca levantaste pesas, arrancás liviano y subís el peso cuando le agarrás la mano a la técnica.",
   "planta-alta": (planta) =>
-    `En la ${minusculaInicial(planta.nombre)} entrenás ${minusculaInicial(planta.foco)} por grupo muscular. Tu planilla te dice qué máquinas usar para cada grupo, y los profes te ajustan las cargas a medida que avanzás.`,
+    `Es la planta de ${minusculaInicial(planta.foco)}, con máquinas para trabajar cada grupo muscular por separado.`,
 };
 
 /**
@@ -63,12 +63,8 @@ function fotosDeGaleria(planta: Planta): string[] {
   return [...escenas, ...enUso];
 }
 
-const focosPorPlanta = plantas
-  .map((planta) => `en la ${minusculaInicial(planta.nombre)}, ${minusculaInicial(planta.foco)}`)
-  .join("; ");
-
 /**
- * Contenido de la pestaña de una planta. En desktop, "Qué entrenás acá" y "Lo que vas a encontrar" van lado a lado;
+ * Contenido de la pestaña de una planta. En desktop, "Cómo se entrena" y "Equipamiento" van lado a lado;
  * las fotos de la planta, en una fila que se desliza de costado.
  */
 function PanelPlanta({ planta }: { planta: Planta }) {
@@ -76,25 +72,25 @@ function PanelPlanta({ planta }: { planta: Planta }) {
   const queEntrenas = QUE_ENTRENAS[planta.id];
   const nombreEnMinuscula = minusculaInicial(planta.nombre);
   const tituloFotos = `Fotos de la ${nombreEnMinuscula}`;
-  // Sin texto de "Qué entrenás acá", los destacados usan todo el ancho.
+  // Sin texto de "Cómo se entrena", los destacados usan todo el ancho.
   const columnas = queEntrenas !== undefined ? "lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-10" : "";
 
   return (
     <>
       <h2 id={idTitulo} className="mb-4">
-        {planta.nombre}: {minusculaInicial(planta.foco)}
+        {planta.nombre}
       </h2>
 
       <div className={`grid gap-6 ${columnas}`}>
         {queEntrenas !== undefined && (
           <div>
-            <h3>Qué entrenás acá</h3>
-            <p className="mt-3 max-w-[65ch]">{queEntrenas(planta)}</p>
+            <h3 className="etiqueta">Cómo se entrena</h3>
+            <p className="mt-3 max-w-[65ch] text-lg">{queEntrenas(planta)}</p>
           </div>
         )}
 
         <div>
-          <h3>Lo que vas a encontrar</h3>
+          <h3 className="etiqueta">Equipamiento</h3>
           {/*
            * Cuadrados chicos: de a 3 en mobile (de a 2 por debajo de unos 350 px, donde "multiarticular" ya no entra)
            * y todos en una fila desde sm, sean cuantos sean. La etiqueta "Foto: …" (el span de ImagePlaceholder)
@@ -102,7 +98,7 @@ function PanelPlanta({ planta }: { planta: Planta }) {
            */}
           <ul className="mt-3 grid grid-cols-[repeat(auto-fill,minmax(5.75rem,1fr))] gap-3 sm:grid-flow-col sm:grid-cols-none sm:auto-cols-fr">
             {planta.destacados.map((destacado) => (
-              <li key={destacado}>
+              <li key={destacado} className="group">
                 <ImagePlaceholder
                   descripcion={`${minusculaInicial(destacado)} de la ${nombreEnMinuscula}`}
                   proporcion="1 / 1"
@@ -116,7 +112,7 @@ function PanelPlanta({ planta }: { planta: Planta }) {
         </div>
       </div>
 
-      <h3 className="mt-6">{tituloFotos}</h3>
+      <h3 className="etiqueta mt-6">{tituloFotos}</h3>
       <div role="region" aria-label={tituloFotos} tabIndex={0} className="fila-deslizable mt-3">
         {fotosDeGaleria(planta).map((foto) => (
           <ImagePlaceholder key={foto} descripcion={foto} proporcion="4 / 3" />
@@ -131,9 +127,7 @@ export default function Instalaciones() {
     <div className="contenedor pt-section pb-section">
       <h1>Instalaciones</h1>
       <p className="intro mt-4">
-        {negocio.nombre} está en una zona céntrica de {negocio.direccion.localidad} y ocupa {cantidadDePlantas}{" "}
-        plantas, cada una con su foco. {capitalizar(focosPorPlanta)}. Con cualquier plan usás las{" "}
-        {cantidadDePlantas}.
+        Tenemos {cantidadDePlantas} plantas y con cualquier plan usás las {cantidadDePlantas}.
       </p>
 
       {/*
@@ -145,7 +139,7 @@ export default function Instalaciones() {
         titulo="Plantas"
         claseLista="mt-8 grid grid-flow-col auto-cols-fr gap-2 sm:max-w-lg"
         claseBoton="pestana"
-        clasePanel="mt-6 border-t border-border pt-6"
+        clasePanel="mt-8 border-t border-border pt-8"
         opciones={plantas.map((planta) => ({
           id: planta.id,
           etiqueta: (
@@ -157,6 +151,14 @@ export default function Instalaciones() {
           contenido: <PanelPlanta planta={planta} />,
         }))}
       />
+
+      <div className="mt-section">
+        <BotonWhatsApp mensaje={negocio.mensajeWhatsappInstalaciones}>
+          <span>
+            Quiero empezar<span className="sr-only"> por WhatsApp</span>
+          </span>
+        </BotonWhatsApp>
+      </div>
     </div>
   );
 }

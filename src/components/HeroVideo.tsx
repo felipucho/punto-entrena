@@ -77,11 +77,13 @@ export default function HeroVideo({ children }: { children: ReactNode }) {
     }
   }
 
+  // El hero termina en el corte de la pata de la P: .hero recorta la sección y deja ver la cuña amarilla entre su
+  // corte y el de las capas (.hero-capa). Foto y video van desaturados, como en las placas.
   return (
-    <section className="superficie-oscura relative isolate overflow-hidden bg-[#141414] text-white">
+    <section className="superficie-oscura hero relative isolate overflow-hidden text-sobre-oscuro">
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-cover bg-center"
+        className="hero-capa hero-foto absolute inset-0 bg-oscuro bg-cover bg-center"
         style={{ backgroundImage: `url(${POSTER})` }}
       />
       {calidad && (
@@ -90,7 +92,7 @@ export default function HeroVideo({ children }: { children: ReactNode }) {
           ref={conectarVideo}
           onPlaying={() => setReproduccion("reproduciendo")}
           onPause={() => setReproduccion("pausado")}
-          className="absolute inset-0 h-full w-full object-cover"
+          className="hero-capa hero-foto absolute inset-0 h-full w-full object-cover"
           muted
           autoPlay
           loop
@@ -102,13 +104,14 @@ export default function HeroVideo({ children }: { children: ReactNode }) {
           <source src={`/video/hero-${calidad}.mp4`} type="video/mp4" />
         </video>
       )}
-      <div aria-hidden="true" className="absolute inset-0 bg-black/60" />
+      <div aria-hidden="true" className="hero-capa hero-velo absolute inset-0" />
       <div className="relative">{children}</div>
       {calidad && reproduccion !== "sin-video" && (
         <button
           type="button"
           onClick={alternarVideo}
-          className="btn btn-claro absolute top-4 right-4 min-h-10 px-3 py-1.5 text-sm sm:top-6 sm:right-6"
+          data-pausado={reproduccion === "pausado" || undefined}
+          className="btn btn-pausa absolute top-4 right-4 min-h-11 px-3.5 py-1.5 text-sm sm:top-6 sm:right-6"
         >
           {reproduccion === "pausado" ? "Reproducir video" : "Pausar video"}
         </button>

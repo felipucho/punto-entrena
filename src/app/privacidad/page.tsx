@@ -25,7 +25,7 @@ export default function Privacidad() {
 
       <div className="mt-12 max-w-[65ch] space-y-12">
         <section aria-labelledby="privacidad-formularios">
-          <h2 id="privacidad-formularios" className="mb-4">
+          <h2 id="privacidad-formularios" className="mb-4 text-[1.75rem] sm:text-[2rem]">
             Formularios y registro
           </h2>
           <div className="prosa">
@@ -37,7 +37,7 @@ export default function Privacidad() {
         </section>
 
         <section aria-labelledby="privacidad-cookies">
-          <h2 id="privacidad-cookies" className="mb-4">
+          <h2 id="privacidad-cookies" className="mb-4 text-[1.75rem] sm:text-[2rem]">
             Cookies y estadísticas
           </h2>
           <div className="prosa">
@@ -49,7 +49,7 @@ export default function Privacidad() {
         </section>
 
         <section aria-labelledby="privacidad-mapa">
-          <h2 id="privacidad-mapa" className="mb-4">
+          <h2 id="privacidad-mapa" className="mb-4 text-[1.75rem] sm:text-[2rem]">
             Mapa de Google
           </h2>
           <div className="prosa">
@@ -62,7 +62,7 @@ export default function Privacidad() {
         </section>
 
         <section aria-labelledby="privacidad-enlaces">
-          <h2 id="privacidad-enlaces" className="mb-4">
+          <h2 id="privacidad-enlaces" className="mb-4 text-[1.75rem] sm:text-[2rem]">
             Enlaces a {serviciosEnlazados}
           </h2>
           <div className="prosa">
@@ -74,7 +74,7 @@ export default function Privacidad() {
         </section>
 
         <section aria-labelledby="privacidad-derechos">
-          <h2 id="privacidad-derechos" className="mb-4">
+          <h2 id="privacidad-derechos" className="mb-4 text-[1.75rem] sm:text-[2rem]">
             Tus derechos
           </h2>
           <div className="prosa">
