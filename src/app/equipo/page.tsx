@@ -99,7 +99,7 @@ export default function Equipo() {
                   descripcion={`retrato de ${profe.nombre}`}
                   proporcion="1 / 1"
                   decorativa
-                  className="w-full max-sm:p-1.5 max-sm:[&>span]:line-clamp-2 max-sm:[&>span]:text-xs group-aria-selected:outline-3 group-aria-selected:outline-offset-2 group-aria-selected:outline-accent"
+                  className="w-full [&_img]:filter-none max-sm:p-1.5 max-sm:[&>span]:line-clamp-2 max-sm:[&>span]:text-xs group-aria-selected:outline-3 group-aria-selected:outline-offset-2 group-aria-selected:outline-accent"
                 />
                 <span className="font-medium wrap-break-word text-muted group-hover:text-titulo group-aria-selected:text-titulo group-aria-selected:underline group-aria-selected:decoration-accent group-aria-selected:decoration-2 group-aria-selected:underline-offset-4">
                   {/*
