@@ -1,0 +1,15 @@
+{
+  "titulo": "Planes y precios",
+  "intro": "Elegí cuántas veces por semana querés venir.",
+  "planesTitulo": {
+    "antes": "Planes por mes y una",
+    "despues": "para probar"
+  },
+  "planBoton": "Quiero este plan",
+  "sueltaTexto": " ",
+  "sueltaBoton": "Quiero probar un día",
+  "precioTitulo": "Cuánto te sale cada clase",
+  "tablaColumnaPlan": "Plan",
+  "tablaColumnaPrecio": "Precio por clase",
+  "convieneTitulo": "¿Qué plan me conviene?"
+}

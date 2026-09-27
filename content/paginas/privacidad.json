@@ -1,0 +1,27 @@
+{
+  "titulo": "Política de privacidad",
+  "introAntes": "Acá te contamos qué pasa con tus datos cuando usás el sitio de",
+  "introDespues": ". Es un sitio informativo y no te pide ningún dato para recorrerlo.",
+  "formularios": {
+    "titulo": "Formularios y registro",
+    "texto": "El sitio no tiene formularios ni cuentas de usuario. No tenés que cargar tu nombre, tu correo ni tu teléfono para ver ninguna página."
+  },
+  "cookies": {
+    "titulo": "Cookies y estadísticas",
+    "texto": "No usamos cookies propias ni herramientas de analítica. No medimos cuántas personas entran ni qué páginas miran."
+  },
+  "mapa": {
+    "titulo": "Mapa de Google",
+    "texto": "Para mostrarte dónde queda el gimnasio, el sitio usa un mapa de Google Maps. Cuando el mapa se carga, Google puede usar cookies y recibir datos de tu navegación según su propia política de privacidad, que no depende de nosotros."
+  },
+  "enlaces": {
+    "tituloAntes": "Enlaces a",
+    "textoAntes": "Los enlaces a",
+    "textoDespues": "te llevan a servicios de terceros, cada uno con su propia política de privacidad. Lo que nos escribas por WhatsApp lo leemos en el gimnasio para responderte."
+  },
+  "derechos": {
+    "titulo": "Tus derechos",
+    "texto": "La Ley 25.326 de Protección de Datos Personales te da derecho a saber qué datos tuyos tenemos, a pedir que los corrijamos y a pedir que los borremos (derechos de acceso, rectificación y supresión). Para cualquiera de esas consultas, escribinos por",
+    "textoTelefono": "o llamanos al"
+  }
+}

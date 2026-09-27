@@ -1,0 +1,13 @@
+{
+  "titulo": "Instalaciones",
+  "comoSeEntrenaTitulo": "Cómo se entrena",
+  "queEntrenas": {
+    "plantaBaja": "Si nunca levantaste pesas, arrancás liviano y subís el peso cuando le agarrás la mano a la técnica.",
+    "plantaAlta": {
+      "antesDelFoco": "Es la planta de",
+      "despuesDelFoco": ", con máquinas para trabajar cada grupo muscular por separado."
+    }
+  },
+  "equipamientoTitulo": "Equipamiento",
+  "boton": "Quiero empezar"
+}

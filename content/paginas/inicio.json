@@ -1,0 +1,41 @@
+{
+  "heroLinea1": "Tu punto",
+  "heroLinea2": "de partida",
+  "heroBajada": "Los profes arman tu planilla y te acompañan mientras entrenás.",
+  "heroBoton": "Quiero empezar",
+  "queEsTitulo": "Un gimnasio para arrancar desde tu nivel",
+  "queEsTexto": "¿Nunca fuiste a un gimnasio o hace mucho que no vas? No hace falta que sepas. Para eso estamos.",
+  "planillaTitulo": "Tu planilla",
+  "planillaTexto": "Te explica como trabajar. Se arma según tu objetivo y con el tiempo se ajusta.",
+  "planillaEnlace": "Mirá cómo se empieza",
+  "plantasEnlace": "Mirá cómo es por dentro",
+  "profesTitulo": "Los profes",
+  "profesEnlace": "Mirá cuándo está cada uno",
+  "precioBoton": "Ver todos los precios",
+  "conoceMasTitulo": "Lo que querés saber antes de venir",
+  "tarjetas": {
+    "planes": {
+      "titulo": "Planes",
+      "frase": "Cuánto sale cada plan y cuál te conviene."
+    },
+    "horarios": {
+      "titulo": "Horarios",
+      "frase": "Qué profe esta y quién atiende ahora."
+    },
+    "instalaciones": {
+      "titulo": "Instalaciones",
+      "frase": "Con qué vas a entrenar en cada planta."
+    },
+    "equipo": {
+      "titulo": "Equipo",
+      "frase": "Quiénes son y qué estudiaron."
+    },
+    "objetivos": {
+      "titulo": "Objetivos",
+      "frase": "Cómo seria tu primer mes adaptado a vos."
+    }
+  },
+  "cierreTitulo": "Empezá con un mensaje",
+  "cierreTexto": "Decinos qué buscás y a qué hora podés venir. Nosotros te ayudamos a empezar.",
+  "cierreBoton": "Quiero empezar"
+}

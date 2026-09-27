@@ -1,0 +1,26 @@
+{
+  "titulo": "Términos y condiciones",
+  "introAntes": "Estas condiciones valen para el uso de este sitio, que es solo informativo: sirve para conocer",
+  "introDespues": "y contactarte con el gimnasio. Desde acá no se compra, no se reserva y no hace falta registrarse.",
+  "precios": {
+    "titulo": "Precios y horarios",
+    "textoAntes": "Los precios de los",
+    "enlacePlanes": "planes",
+    "textoMedio": "y los",
+    "enlaceHorarios": "horarios",
+    "textoDespues": "que ves en este sitio son informativos. Si querés confirmar alguno antes de pagar, escribinos por"
+  },
+  "entrenamiento": {
+    "titulo": "Información sobre entrenamiento",
+    "texto": "Lo que contamos en el sitio sobre entrenamiento es información general. No reemplaza la consulta con tu médico, sobre todo si venís de una lesión o tenés alguna condición de salud."
+  },
+  "terceros": {
+    "titulo": "Servicios de terceros",
+    "texto": "son servicios de otras empresas, con sus propias condiciones de uso. Cuando los usás desde este sitio, valen sus reglas, no las nuestras."
+  },
+  "datos": {
+    "titulo": "Tus datos y consultas",
+    "texto": "Qué pasa con tus datos cuando usás el sitio lo explicamos en la Política de privacidad, que está al pie de cada página. Si tenés dudas sobre estas condiciones, escribinos por",
+    "textoTelefono": "o llamanos al"
+  }
+}

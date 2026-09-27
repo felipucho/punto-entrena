@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "punto-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--", "-p", "3200"],
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["node_modules/@tinacms/cli/bin/tinacms", "dev", "-c", "node node_modules/next/dist/bin/next dev -p 3200"],
       "port": 3200
     },
     {

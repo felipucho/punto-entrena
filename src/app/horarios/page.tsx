@@ -1,7 +1,7 @@
-import BotonWhatsApp from "@/components/BotonWhatsApp";
-import EstadoEnVivo from "@/components/EstadoEnVivo";
-import GrillaHorarios from "@/components/GrillaHorarios";
-import { horasTranquilas, negocio } from "@/data/site";
+import contenido from "../../../content/paginas/horarios.json";
+import { HorariosDocument } from "../../../tina/__generated__/types";
+import Horarios from "@/components/paginas/Horarios";
+import { negocio } from "@/data/site";
 import { minusculaInicial } from "@/lib/formato";
 import { horarioGeneral } from "@/lib/horarios";
 import { metadataDePagina } from "@/lib/seo";
@@ -18,45 +18,9 @@ export const metadata = metadataDePagina({
   ruta: "/horarios",
 });
 
-export default function Horarios() {
+// Los textos se leen del JSON al compilar, sin servidor de Tina. En /admin, Tina toma el control y los edita en vivo.
+export default function Pagina() {
   return (
-    <>
-      <div className="contenedor pt-section">
-        <h1>Horarios</h1>
-        <p className="intro mt-4">
-          Abrimos de {minusculaInicial(horarioGeneral())}
-        </p>
-        <EstadoEnVivo className="mt-6 w-fit rounded-card border border-border bg-surface px-4 py-3 text-lg" />
-      </div>
-
-      <section aria-labelledby="quien-te-atiende" className="seccion">
-        <div className="contenedor">
-          <h2 id="quien-te-atiende" className="revelar mb-4">
-            Qué profe vas a encontrar
-          </h2>
-          <GrillaHorarios />
-          <p className="mt-4 max-w-[65ch]">Tocá un nombre para ver todos sus horarios.</p>
-        </div>
-      </section>
-
-      {horasTranquilas !== null && (
-        <section aria-labelledby="horas-tranquilas" className="seccion">
-          <div className="contenedor">
-            <h2 id="horas-tranquilas" className="revelar mb-4">
-              Cuándo hay menos gente
-            </h2>
-            <p className="max-w-[65ch]">{horasTranquilas}</p>
-          </div>
-        </section>
-      )}
-
-      <div className="contenedor pb-section">
-        <BotonWhatsApp mensaje={negocio.mensajeWhatsappHorarios}>
-          <span>
-            Coordiná tu primer día<span className="sr-only"> por WhatsApp</span>
-          </span>
-        </BotonWhatsApp>
-      </div>
-    </>
+    <Horarios query={HorariosDocument} variables={{ relativePath: "horarios.json" }} data={{ horarios: contenido }} />
   );
 }
