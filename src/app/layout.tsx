@@ -23,8 +23,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_AR",
     siteName: negocio.nombre,
-    // TODO Felipe: imagen OG por defecto cuando esté la identidad visual.
+    // La imagen sale de src/app/opengraph-image.tsx.
   },
+  twitter: { card: "summary_large_image" },
 };
 
 export const viewport: Viewport = {

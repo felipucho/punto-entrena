@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { negocio } from "@/data/site";
 import { preguntasResueltas } from "@/lib/faq";
-import { telefonoInternacional } from "@/lib/formato";
+import { telefonoInternacional, urlMapa } from "@/lib/formato";
 import { gruposDeDias, type Dia } from "@/lib/horarios";
 import type { Ruta } from "@/lib/rutas";
 
@@ -27,6 +27,17 @@ export const plantillaTitulo = `%s | ${negocio.nombre}, ${localidad}`;
 /** Título del inicio: "Punto Entrenamiento y Salud | Gimnasio en Las Varillas". */
 export const tituloInicio = `${negocio.nombre} | Gimnasio en ${localidad}`;
 
+/**
+ * Imagen para compartir, generada por src/app/opengraph-image.tsx. Va explícita en cada página porque el openGraph
+ * de una página reemplaza entero al del layout y, sin esto, las páginas internas salían sin imagen.
+ */
+export const imagenCompartir = {
+  url: "/opengraph-image",
+  width: 1200,
+  height: 630,
+  alt: `${negocio.nombre}, gimnasio en ${localidad}`,
+};
+
 type DatosMetadata = {
   /** Título corto de la página; se completa con la plantilla. */
   titulo: string;
@@ -51,7 +62,7 @@ export function metadataDePagina({ titulo, descripcion, ruta, absoluto = false }
       title: tituloCompleto,
       description: descripcion,
       url: ruta,
-      // TODO Felipe: imagen OG (1200×630) cuando esté la identidad visual.
+      images: [imagenCompartir],
     },
   };
 }
@@ -86,6 +97,8 @@ export function jsonLdGimnasio() {
     "@type": "ExerciseGym",
     name: negocio.nombre,
     url: `${siteUrl}/`,
+    image: `${siteUrl}/fotos/planta-baja/vista-general-desde-recepcion.jpg`,
+    hasMap: urlMapa(),
     telephone: telefonoInternacional(),
     address: {
       "@type": "PostalAddress",
@@ -98,7 +111,7 @@ export function jsonLdGimnasio() {
     openingHoursSpecification: horariosSchema(),
     ...(redes.length > 0 ? { sameAs: redes } : {}),
     // TODO Felipe: agregar "geo" (GeoCoordinates) con las coordenadas exactas del gimnasio.
-    // TODO: agregar "image" y "logo" cuando estén las fotos y el logo.
+    // TODO: agregar "logo" cuando esté el vector original del logo.
   };
 }
 
