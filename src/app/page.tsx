@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import path from "node:path";
 import contenido from "../../content/paginas/inicio.json";
 import { InicioDocument, type InicioQuery } from "../../tina/__generated__/types";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
@@ -19,6 +21,9 @@ export const metadata = metadataDePagina({
   absoluto: true,
 });
 
+/** El video del hero se muestra solo cuando está subido a public/video/ (specs en HeroVideo.tsx). */
+const hayVideo = existsSync(path.join(process.cwd(), "public", "video", "hero-720.mp4"));
+
 /** Qué muestra la foto de cada tarjeta de la home. */
 const fotosDeTarjetas: Record<string, string> = {
   planes: "una persona entrenando con su planilla",
@@ -35,6 +40,7 @@ export default function Pagina() {
       query={InicioDocument}
       variables={{ relativePath: "inicio.json" }}
       data={{ inicio: contenido } as InicioQuery}
+      hayVideo={hayVideo}
       fotos={Object.fromEntries(
         Object.entries(fotosDeTarjetas).map(([id, descripcion]) => [
           id,

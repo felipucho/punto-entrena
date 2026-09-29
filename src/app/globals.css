@@ -1390,6 +1390,13 @@
   }
 }
 
+/* Como sube, pero sin opacidad: el titular del hero pinta desde el primer cuadro y no atrasa el LCP. */
+@keyframes sube-titular {
+  from {
+    translate: 0 1.25rem;
+  }
+}
+
 @keyframes barre {
   from {
     clip-path: inset(0 100% 0 0);
@@ -1433,6 +1440,10 @@
   .entra {
     animation: sube var(--dur-lenta) var(--ease-salida) backwards;
     animation-delay: var(--retraso, 0ms);
+  }
+
+  .titular-mixto > .entra {
+    animation-name: sube-titular;
   }
 
   .entra-barre {

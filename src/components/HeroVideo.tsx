@@ -1,17 +1,17 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+import fotoHero from "../../public/fotos/planta-baja/vista-general-desde-recepcion.jpg";
 
 /*
  * Specs de exportación del video del hero (se sube después a public/video/):
  * - 10 a 15 s en loop, sin audio.
  * - 2 a 4 MB por archivo.
  * - H.264 (.mp4) y WebM (.webm), en 1080 p (hero-1080.*) y 720 p (hero-720.*).
- * - Poster: hero-poster.jpg, primer cuadro del video.
- * Si falta algún archivo, el build no falla: se ve el poster o, sin poster, el fondo oscuro.
+ * Mientras no estén (hayVideo en false), el hero muestra la foto de la planta baja y no pide ningún video.
  */
 
-const POSTER = "/video/hero-poster.jpg";
 const MOVIMIENTO_REDUCIDO = "(prefers-reduced-motion: reduce)";
 const PANTALLA_CHICA = "(max-width: 768px)";
 
@@ -43,7 +43,7 @@ type Reproduccion = "sin-video" | "reproduciendo" | "pausado";
  * El video se mueve más de 5 s, así que tiene un botón para pausarlo (WCAG 2.2.2). El botón
  * aparece recién cuando el video empieza a reproducirse: sin archivos en public/video no se ve.
  */
-export default function HeroVideo({ children }: { children: ReactNode }) {
+export default function HeroVideo({ hayVideo, children }: { hayVideo: boolean; children: ReactNode }) {
   const calidad = useSyncExternalStore(suscribir, calidadElegida, sinVideo);
   const video = useRef<HTMLVideoElement | null>(null);
   // La pausa que eligió la persona se respeta aunque el <video> se vuelva a montar (cambio de 720 a 1080).
@@ -78,15 +78,13 @@ export default function HeroVideo({ children }: { children: ReactNode }) {
   }
 
   // El hero termina en el corte de la pata de la P: .hero recorta la sección y deja ver la cuña amarilla entre su
-  // corte y el de las capas (.hero-capa). Foto y video van desaturados, como en las placas.
+  // corte y el de las capas (.hero-capa). La foto ya viene en el gris de Punto; el video se desatura con .hero-foto.
+  // La foto es el LCP de la home: va con preload. El fondo oscuro tapa el amarillo mientras carga.
   return (
     <section className="superficie-oscura hero relative isolate overflow-hidden text-sobre-oscuro">
-      <div
-        aria-hidden="true"
-        className="hero-capa hero-foto absolute inset-0 bg-oscuro bg-cover bg-center"
-        style={{ backgroundImage: `url(${POSTER})` }}
-      />
-      {calidad && (
+      <div aria-hidden="true" className="hero-capa absolute inset-0 bg-oscuro" />
+      <Image src={fotoHero} alt="" fill preload sizes="100vw" className="hero-capa object-cover" />
+      {hayVideo && calidad && (
         <video
           key={calidad}
           ref={conectarVideo}
@@ -98,7 +96,7 @@ export default function HeroVideo({ children }: { children: ReactNode }) {
           loop
           playsInline
           aria-hidden="true"
-          poster={POSTER}
+          poster={fotoHero.src}
         >
           <source src={`/video/hero-${calidad}.webm`} type="video/webm" />
           <source src={`/video/hero-${calidad}.mp4`} type="video/mp4" />
@@ -106,7 +104,7 @@ export default function HeroVideo({ children }: { children: ReactNode }) {
       )}
       <div aria-hidden="true" className="hero-capa hero-velo absolute inset-0" />
       <div className="relative">{children}</div>
-      {calidad && reproduccion !== "sin-video" && (
+      {hayVideo && calidad && reproduccion !== "sin-video" && (
         <button
           type="button"
           onClick={alternarVideo}

@@ -41,6 +41,7 @@ const datosRapidos = [
  */
 export default function Inicio({
   fotos,
+  hayVideo,
   ...props
 }: {
   query: string;
@@ -48,6 +49,8 @@ export default function Inicio({
   data: InicioQuery;
   /** La foto de cada tarjeta, por id. Se arma en el servidor porque ImagePlaceholder lee public/fotos/ del disco. */
   fotos: Record<string, ReactNode>;
+  /** Si public/video/ ya tiene el video del hero. Se resuelve en el servidor. */
+  hayVideo: boolean;
 }) {
   const { data } = useTina(props);
   const c = data.inicio;
@@ -143,7 +146,7 @@ export default function Inicio({
 
   return (
     <>
-      <HeroVideo>
+      <HeroVideo hayVideo={hayVideo}>
         {/*
          * Decoración de marca: el isotipo en contorno a la derecha del titular, solo desde md. Va encima de las capas
          * de foto, video y velo, pero detrás del texto (el contenedor es relative y viene después).
