@@ -1,11 +1,29 @@
 import type { NextConfig } from "next";
 
+const enDesarrollo = process.env.NODE_ENV === "development";
+
+/** Headers de seguridad básicos para todas las rutas. HSTS lo agrega Vercel. */
+const headersDeSeguridad = [
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+];
+
 const nextConfig: NextConfig = {
-  // AVIF pesa bastante menos que WebP con la misma calidad; el navegador que no lo soporta recibe WebP.
-  images: { formats: ["image/avif", "image/webp"] },
-  // El editor de Tina vive en public/admin/index.html; así se entra escribiendo solo /admin.
+  poweredByHeader: false,
+  images: {
+    // AVIF pesa bastante menos que WebP con la misma calidad; el navegador que no lo soporta recibe WebP.
+    formats: ["image/avif", "image/webp"],
+    // Las fotos casi no cambian: 31 días de caché. Si se reemplaza una foto, cambiarle el nombre al archivo.
+    minimumCacheTTL: 2678400,
+  },
+  async headers() {
+    return [{ source: "/:path*", headers: headersDeSeguridad }];
+  },
+  // El editor de Tina vive en public/admin/index.html y solo existe en local (npm run dev); así se entra con /admin.
   async redirects() {
-    return [{ source: "/admin", destination: "/admin/index.html", permanent: false }];
+    return enDesarrollo ? [{ source: "/admin", destination: "/admin/index.html", permanent: false }] : [];
   },
 };
 
