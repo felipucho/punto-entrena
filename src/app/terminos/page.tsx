@@ -1,5 +1,5 @@
-import contenido from "../../../content/paginas/terminos.json";
-import { TerminosDocument } from "../../../tina/__generated__/types";
+import contenido from "@content/paginas/terminos.json";
+import { TerminosDocument } from "@tina/__generated__/types";
 import Terminos from "@/components/paginas/Terminos";
 import { negocio } from "@/data/site";
 import { metadataDePagina } from "@/lib/seo";

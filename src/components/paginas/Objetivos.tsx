@@ -1,7 +1,7 @@
 "use client";
 
 import { tinaField, useTina } from "tinacms/dist/react";
-import type contenido from "../../../content/paginas/objetivos.json";
+import type contenido from "@content/paginas/objetivos.json";
 import BotonWhatsApp from "@/components/BotonWhatsApp";
 import Selector from "@/components/Selector";
 import { objetivos } from "@/data/site";

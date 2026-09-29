@@ -48,7 +48,7 @@ function fotoReal(nombre: string): string | null {
  * Es un span y no un div para poder ir dentro de un botón, como en /equipo.
  * Lee el disco: es un componente de servidor y no se importa desde un componente de cliente.
  */
-export default function ImagePlaceholder({
+export default function Foto({
   descripcion,
   archivo,
   proporcion = "4 / 3",

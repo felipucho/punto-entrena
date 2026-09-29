@@ -25,7 +25,7 @@ const respuestasInterpoladas: Record<ClaveInterpolada, () => string> = {
   mediosDePago: () => negocio.mediosDePago,
 };
 
-export function respuestaDe(pregunta: Pregunta): string {
+function respuestaDe(pregunta: Pregunta): string {
   return typeof pregunta.respuesta === "string"
     ? pregunta.respuesta
     : respuestasInterpoladas[pregunta.respuesta.interpolar]();

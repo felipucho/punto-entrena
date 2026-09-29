@@ -1,5 +1,5 @@
-import contenido from "../../../content/paginas/contacto.json";
-import { ContactoDocument } from "../../../tina/__generated__/types";
+import contenido from "@content/paginas/contacto.json";
+import { ContactoDocument } from "@tina/__generated__/types";
 import Contacto from "@/components/paginas/Contacto";
 import { negocio } from "@/data/site";
 import { direccionCorta } from "@/lib/formato";

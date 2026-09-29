@@ -1,9 +1,9 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
-import contenido from "../../content/paginas/inicio.json";
-import { InicioDocument, type InicioQuery } from "../../tina/__generated__/types";
-import ImagePlaceholder from "@/components/ImagePlaceholder";
-import Inicio from "@/components/Inicio";
+import contenido from "@content/paginas/inicio.json";
+import { InicioDocument, type InicioQuery } from "@tina/__generated__/types";
+import Foto from "@/components/Foto";
+import Inicio from "@/components/paginas/Inicio";
 import { negocio, plantas, profes } from "@/data/site";
 import { formatearPrecio, minusculaInicial, precioPorClase } from "@/lib/formato";
 import { paseLibre } from "@/lib/planes";
@@ -48,7 +48,7 @@ const SIZES_MINIATURA = "(min-width: 80rem) 11rem, (min-width: 64rem) 6rem, (min
 function fotoDeTarjeta(id: string) {
   const { descripcion, archivo } = fotosDeTarjetas[id];
   return (
-    <ImagePlaceholder
+    <Foto
       key={id}
       descripcion={descripcion}
       archivo={archivo}
@@ -63,7 +63,7 @@ function fotoDeTarjeta(id: string) {
 const mosaicoDeProfes = (
   <span key="equipo" aria-hidden="true" className={`grid grid-cols-2 gap-0.5 overflow-hidden rounded-card ${CLASE_MINIATURA}`}>
     {profes.map((profe) => (
-      <ImagePlaceholder
+      <Foto
         key={profe.id}
         descripcion={`retrato de ${profe.nombre}`}
         proporcion="3 / 2"

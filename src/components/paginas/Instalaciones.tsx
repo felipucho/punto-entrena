@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { tinaField, useTina } from "tinacms/dist/react";
-import type contenido from "../../../content/paginas/instalaciones.json";
+import type contenido from "@content/paginas/instalaciones.json";
 import BotonWhatsApp from "@/components/BotonWhatsApp";
 import Selector from "@/components/Selector";
 import { negocio, plantas, type Planta } from "@/data/site";
@@ -12,7 +12,7 @@ const cantidadDePlantas = enPalabras(plantas.length);
 
 type Textos = typeof contenido;
 
-/** Las fotos de una planta. Se arman en el servidor porque ImagePlaceholder lee public/fotos/ del disco. */
+/** Las fotos de una planta. Se arman en el servidor porque Foto lee public/fotos/ del disco. */
 export type FotosDePlanta = {
   /** La foto de cada destacado, por destacado. */
   equipamiento: Record<string, ReactNode>;
@@ -70,7 +70,7 @@ function PanelPlanta({ planta, textos, fotos }: { planta: Planta; textos: Textos
           </h3>
           {/*
            * Cuadrados chicos: de a 3 en mobile (de a 2 por debajo de unos 350 px, donde "multiarticular" ya no entra)
-           * y todos en una fila desde sm, sean cuantos sean. La etiqueta "Foto: …" (el span de ImagePlaceholder)
+           * y todos en una fila desde sm, sean cuantos sean. La etiqueta "Foto: …" (el span de Foto)
            * va más chica para que entre en el cuadrado.
            */}
           <ul className="mt-3 grid grid-cols-[repeat(auto-fill,minmax(5.75rem,1fr))] gap-3 sm:grid-flow-col sm:grid-cols-none sm:auto-cols-fr">

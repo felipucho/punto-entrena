@@ -1,7 +1,7 @@
 "use client";
 
 import { tinaField, useTina } from "tinacms/dist/react";
-import type contenido from "../../../content/paginas/privacidad.json";
+import type contenido from "@content/paginas/privacidad.json";
 import { negocio } from "@/data/site";
 import { formatearLista, telHref } from "@/lib/formato";
 import { redesActivas } from "@/lib/redes";

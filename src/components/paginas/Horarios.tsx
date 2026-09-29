@@ -1,7 +1,7 @@
 "use client";
 
 import { tinaField, useTina } from "tinacms/dist/react";
-import type contenido from "../../../content/paginas/horarios.json";
+import type contenido from "@content/paginas/horarios.json";
 import BotonWhatsApp from "@/components/BotonWhatsApp";
 import EstadoEnVivo from "@/components/EstadoEnVivo";
 import GrillaHorarios from "@/components/GrillaHorarios";

@@ -1,6 +1,6 @@
-import contenido from "../../../content/paginas/instalaciones.json";
-import { InstalacionesDocument } from "../../../tina/__generated__/types";
-import ImagePlaceholder from "@/components/ImagePlaceholder";
+import contenido from "@content/paginas/instalaciones.json";
+import { InstalacionesDocument } from "@tina/__generated__/types";
+import Foto from "@/components/Foto";
 import Instalaciones, { type FotosDePlanta } from "@/components/paginas/Instalaciones";
 import { fotosInstalaciones } from "@/data/fotos-instalaciones";
 import { negocio, plantas, type Planta } from "@/data/site";
@@ -37,7 +37,7 @@ export const metadata = metadataDePagina({
 
 /**
  * Las fotos de cada planta, por id. Salen de src/data/fotos-instalaciones.ts (archivos en public/fotos/<planta>/).
- * Un destacado sin foto real deja su lugar reservado. Se arman acá porque ImagePlaceholder lee public/fotos/ del disco.
+ * Un destacado sin foto real deja su lugar reservado. Se arman acá porque Foto lee public/fotos/ del disco.
  * Las fotos vienen de celular, en vertical: la galería las muestra 3 / 4 para no recortarlas.
  * Los archivos ya vienen en el gris de Punto (864 × 1152, de --negro-grano a --gris-100): el filtro de .foto img
  * se apaga para no desaturar ni contrastar dos veces.
@@ -51,7 +51,7 @@ function fotosDePlanta(planta: Planta): FotosDePlanta {
         const foto = reales?.equipamiento[destacado];
         return [
           destacado,
-          <ImagePlaceholder
+          <Foto
             key={destacado}
             archivo={foto && `${planta.id}/${foto.archivo}`}
             descripcion={foto?.descripcion ?? `${minusculaInicial(destacado)} de la ${nombreEnMinuscula}`}
@@ -63,7 +63,7 @@ function fotosDePlanta(planta: Planta): FotosDePlanta {
       }),
     ),
     galeria: (reales?.galeria ?? []).map((foto) => (
-      <ImagePlaceholder
+      <Foto
         key={foto.archivo}
         archivo={`${planta.id}/${foto.archivo}`}
         descripcion={foto.descripcion}

@@ -1,5 +1,5 @@
-import contenido from "../../../content/paginas/faq.json";
-import { FaqDocument } from "../../../tina/__generated__/types";
+import contenido from "@content/paginas/faq.json";
+import { FaqDocument } from "@tina/__generated__/types";
 import JsonLd from "@/components/JsonLd";
 import Faq from "@/components/paginas/Faq";
 import { claseSuelta, negocio } from "@/data/site";

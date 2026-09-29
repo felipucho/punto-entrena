@@ -1,5 +1,5 @@
-import contenido from "../../../content/paginas/objetivos.json";
-import { ObjetivosDocument } from "../../../tina/__generated__/types";
+import contenido from "@content/paginas/objetivos.json";
+import { ObjetivosDocument } from "@tina/__generated__/types";
 import Objetivos from "@/components/paginas/Objetivos";
 import { negocio, objetivos } from "@/data/site";
 import { formatearLista } from "@/lib/formato";

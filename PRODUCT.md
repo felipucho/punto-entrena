@@ -55,7 +55,7 @@ Atención personalizada: una planilla individual que arman los profes según el 
 ## Evidence on Hand
 
 - Textos finales y datos reales en el código: precios, grilla de profes, plantas y equipamiento, primer mes y mito por perfil.
-- Ausentes, no se fabrican: fotos, video del lugar, logo original, frases de profes, reseñas o testimonios. `public/` está vacío; cada foto faltante está marcada con `ImagePlaceholder` y el video tiene sus specs en `src/components/HeroVideo.tsx`.
+- Ausentes, no se fabrican: fotos, video del lugar, logo original, frases de profes, reseñas o testimonios. `public/` está vacío; cada foto faltante está marcada con `Foto` y el video tiene sus specs en `src/components/HeroVideo.tsx`.
 - No se usan fotos de stock ni imágenes generadas presentadas como del gimnasio.
 
 ## Product Principles

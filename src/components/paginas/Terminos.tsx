@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { tinaField, useTina } from "tinacms/dist/react";
-import type contenido from "../../../content/paginas/terminos.json";
+import type contenido from "@content/paginas/terminos.json";
 import { negocio } from "@/data/site";
 import { formatearLista, telHref } from "@/lib/formato";
 import { capitalizar } from "@/lib/horarios";

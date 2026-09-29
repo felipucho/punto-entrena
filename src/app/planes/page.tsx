@@ -1,5 +1,5 @@
-import contenido from "../../../content/paginas/planes.json";
-import { PlanesDocument } from "../../../tina/__generated__/types";
+import contenido from "@content/paginas/planes.json";
+import { PlanesDocument } from "@tina/__generated__/types";
 import Planes from "@/components/paginas/Planes";
 import { claseSuelta, negocio, planes } from "@/data/site";
 import { formatearPrecio, precioPorClase } from "@/lib/formato";

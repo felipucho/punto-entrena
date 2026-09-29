@@ -14,7 +14,7 @@ const ABREVIATURAS_DIA = ["dom.", "lun.", "mar.", "mié.", "jue.", "vie.", "sáb
 const COLUMNA_POR_DIA: Readonly<Record<Dia, ColumnaGrilla | null>> = columnaPorDia;
 
 /** Días de lunes a domingo, el orden en que se lee una semana. */
-export const SEMANA: readonly Dia[] = [1, 2, 3, 4, 5, 6, 0];
+const SEMANA: readonly Dia[] = [1, 2, 3, 4, 5, 6, 0];
 
 /** Días hábiles de la grilla, en orden (columnas de la tabla de horarios). */
 export const DIAS_CON_GRILLA: readonly Dia[] = SEMANA.filter((d) => COLUMNA_POR_DIA[d] !== null);
@@ -84,7 +84,7 @@ function unirConsecutivas(franjas: readonly Segmento[]): Segmento[] {
 }
 
 /** Tramos de apertura de un día, con las franjas consecutivas unidas. */
-export function horarioDelDia(dia: Dia): Segmento[] {
+function horarioDelDia(dia: Dia): Segmento[] {
   return unirConsecutivas(franjasAbiertasDelDia(dia));
 }
 

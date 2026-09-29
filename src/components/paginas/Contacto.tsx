@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { tinaField, useTina } from "tinacms/dist/react";
-import type contenido from "../../../content/paginas/contacto.json";
+import type contenido from "@content/paginas/contacto.json";
 import BotonWhatsApp from "@/components/BotonWhatsApp";
 import { negocio } from "@/data/site";
 import { direccionCompleta, direccionCorta, telHref, urlMapa, urlMapaEmbebido } from "@/lib/formato";

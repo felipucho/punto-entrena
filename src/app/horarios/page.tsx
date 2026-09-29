@@ -1,5 +1,5 @@
-import contenido from "../../../content/paginas/horarios.json";
-import { HorariosDocument } from "../../../tina/__generated__/types";
+import contenido from "@content/paginas/horarios.json";
+import { HorariosDocument } from "@tina/__generated__/types";
 import Horarios from "@/components/paginas/Horarios";
 import { negocio } from "@/data/site";
 import { minusculaInicial } from "@/lib/formato";

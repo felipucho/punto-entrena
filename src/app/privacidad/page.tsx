@@ -1,5 +1,5 @@
-import contenido from "../../../content/paginas/privacidad.json";
-import { PrivacidadDocument } from "../../../tina/__generated__/types";
+import contenido from "@content/paginas/privacidad.json";
+import { PrivacidadDocument } from "@tina/__generated__/types";
 import Privacidad from "@/components/paginas/Privacidad";
 import { negocio } from "@/data/site";
 import { metadataDePagina } from "@/lib/seo";

@@ -1,6 +1,6 @@
-import contenido from "../../../content/paginas/equipo.json";
-import { EquipoDocument } from "../../../tina/__generated__/types";
-import ImagePlaceholder from "@/components/ImagePlaceholder";
+import contenido from "@content/paginas/equipo.json";
+import { EquipoDocument } from "@tina/__generated__/types";
+import Foto from "@/components/Foto";
 import Equipo from "@/components/paginas/Equipo";
 import { negocio, profes } from "@/data/site";
 import { formatearLista, nombreCorto } from "@/lib/formato";
@@ -26,13 +26,13 @@ export default function Pagina() {
           profe.id,
           /*
            * Contorno amarillo (no sombra) para el elegido: se sigue viendo en modo de alto contraste.
-           * En mobile el cuadro mide unos 66 px: la etiqueta "Foto: …" (el span de ImagePlaceholder) va más chica,
+           * En mobile el cuadro mide unos 66 px: la etiqueta "Foto: …" (el span de Foto) va más chica,
            * con menos padding y cortada con "…", como en las miniaturas del inicio, en vez de quedar recortada
            * por los bordes a mitad de palabra.
            * Cuatro por fila: ~22vw hasta lg (68 px en 375, 220 px en 1023) y ~7rem desde lg, en la columna de 34rem.
            * Los archivos son JPG de 640 × 640, que alcanza para pantallas 3x.
            */
-          <ImagePlaceholder
+          <Foto
             key={profe.id}
             descripcion={`retrato de ${profe.nombre}`}
             proporcion="1 / 1"

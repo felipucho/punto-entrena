@@ -3,7 +3,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { tinaField, useTina } from "tinacms/dist/react";
-import type { InicioQuery, InicioQueryVariables } from "../../tina/__generated__/types";
+import type { InicioQuery, InicioQueryVariables } from "@tina/__generated__/types";
 import BotonWhatsApp from "@/components/BotonWhatsApp";
 import EstadoEnVivo from "@/components/EstadoEnVivo";
 import HeroVideo from "@/components/HeroVideo";
@@ -47,7 +47,7 @@ export default function Inicio({
   query: string;
   variables: InicioQueryVariables;
   data: InicioQuery;
-  /** La foto de cada tarjeta, por id. Se arma en el servidor porque ImagePlaceholder lee public/fotos/ del disco. */
+  /** La foto de cada tarjeta, por id. Se arma en el servidor porque Foto lee public/fotos/ del disco. */
   fotos: Record<string, ReactNode>;
   /** Si public/video/ ya tiene el video del hero. Se resuelve en el servidor. */
   hayVideo: boolean;
@@ -303,7 +303,7 @@ export default function Inicio({
            * desde md, tres desde lg); desde xl las cinco van en una sola fila, con la foto arriba. En lg no
            * entran cinco: palabras como "Instalaciones" no caben en el ancho de la columna.
            * La miniatura no se estira (items-start) para que conserve la proporción de la foto. En la miniatura,
-           * la etiqueta "Foto: …" (el span de ImagePlaceholder) va más chica y cortada en dos líneas con "…", en vez
+           * la etiqueta "Foto: …" (el span de Foto) va más chica y cortada en dos líneas con "…", en vez
            * de quedar recortada por arriba a mitad de frase.
            * Al pasar, la barra de la P recorre el borde de arriba, aparece el punto y la foto se acerca.
            * wrap-break-word es el resguardo para pantallas de 320 px, donde el texto queda muy angosto.

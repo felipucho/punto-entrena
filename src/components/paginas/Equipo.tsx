@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { tinaField, useTina } from "tinacms/dist/react";
-import type contenido from "../../../content/paginas/equipo.json";
+import type contenido from "@content/paginas/equipo.json";
 import BotonWhatsApp from "@/components/BotonWhatsApp";
 import Selector from "@/components/Selector";
 import { negocio, profes, type ColumnaGrilla, type Profe } from "@/data/site";
@@ -76,7 +76,7 @@ export default function Equipo({
   query: string;
   variables: { relativePath: string };
   data: { equipo: Contenido };
-  /** El retrato de cada profe, por id. Se arma en el servidor porque ImagePlaceholder lee public/fotos/ del disco. */
+  /** El retrato de cada profe, por id. Se arma en el servidor porque Foto lee public/fotos/ del disco. */
   fotos: Record<string, ReactNode>;
 }) {
   const { data } = useTina(props);

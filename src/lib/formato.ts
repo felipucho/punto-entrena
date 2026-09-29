@@ -50,7 +50,7 @@ export function precioPorClase(plan: Pick<Plan, "precio" | "clasesPorMes">): num
 }
 
 /** "AR" → "Argentina" */
-export function nombrePais(codigo: string = negocio.direccion.pais): string {
+function nombrePais(codigo: string = negocio.direccion.pais): string {
   return new Intl.DisplayNames(["es"], { type: "region" }).of(codigo) ?? codigo;
 }
 
