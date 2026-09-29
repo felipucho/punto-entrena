@@ -15,7 +15,6 @@ import {
   formatearPrecio,
   minusculaInicial,
   nombreCorto,
-  numeroEnPalabras as enLetras,
   precioPorClase,
 } from "@/lib/formato";
 import { horarioGeneral, horarioGeneralCorto } from "@/lib/horarios";
@@ -64,7 +63,7 @@ export default function Inicio({
     texto: string;
     href: Ruta;
     enlace: string;
-    campos: { titulo?: string; texto?: string; enlace: string };
+    campos: { titulo: string; texto: string; enlace: string };
   }[] = [
     {
       id: "planilla",
@@ -80,21 +79,27 @@ export default function Inicio({
     },
     {
       id: "plantas",
-      titulo: `Las ${enLetras(plantas.length)} plantas`,
-      texto: plantas
-        .map((planta) => `En la ${minusculaInicial(planta.nombre)} hacés ${minusculaInicial(planta.foco)}.`)
-        .join(" "),
+      titulo: c.plantasTitulo,
+      texto: c.plantasTexto,
       href: "/instalaciones",
       enlace: c.plantasEnlace,
-      campos: { enlace: tinaField(c, "plantasEnlace") },
+      campos: {
+        titulo: tinaField(c, "plantasTitulo"),
+        texto: tinaField(c, "plantasTexto"),
+        enlace: tinaField(c, "plantasEnlace"),
+      },
     },
     {
       id: "profes",
       titulo: c.profesTitulo,
-      texto: `Son ${formatearLista(profes.map((profe) => profe.corto))}. Antes de venir podés fijarte quién está en tu horario.`,
+      texto: c.profesTexto,
       href: "/equipo",
       enlace: c.profesEnlace,
-      campos: { titulo: tinaField(c, "profesTitulo"), enlace: tinaField(c, "profesEnlace") },
+      campos: {
+        titulo: tinaField(c, "profesTitulo"),
+        texto: tinaField(c, "profesTexto"),
+        enlace: tinaField(c, "profesEnlace"),
+      },
     },
   ];
 
@@ -198,12 +203,8 @@ export default function Inicio({
           {/* Desde lg el texto y el bloque de datos van lado a lado en vez de uno debajo del otro. */}
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-start lg:gap-12">
             <div className="prosa text-lg">
-              <p>
-                {nombreCorto} es un gimnasio de musculación y funcional en el centro de {localidad}.
-              </p>
-              <p>
-                <span data-tina-field={tinaField(c, "queEsTexto")}>{c.queEsTexto}</span> {negocio.formacionProfes}
-              </p>
+              <p data-tina-field={tinaField(c, "queEsIntro")}>{c.queEsIntro}</p>
+              <p data-tina-field={tinaField(c, "queEsTexto")}>{c.queEsTexto}</p>
             </div>
 
             {/* El bloque de dato de las placas: amarillo, en Anton, con las cifras grandes arriba. */}
@@ -252,7 +253,8 @@ export default function Inicio({
                   className="revelar flex snap-start flex-col rounded-card border border-border bg-surface p-5 md:border-0 md:bg-transparent md:p-0"
                 >
                   <h3 data-tina-field={bloque.campos.titulo}>{bloque.titulo}</h3>
-                  <p className="mt-2 max-w-[65ch] grow text-muted" data-tina-field={bloque.campos.texto}>
+                  {/* whitespace-pre-line: un salto de renglón en Tina (una planta por renglón) se ve en la página. */}
+                  <p className="mt-2 max-w-[65ch] grow whitespace-pre-line text-muted" data-tina-field={bloque.campos.texto}>
                     {bloque.texto}
                   </p>
                   {/* El link queda abajo de todo, alineado entre bloques, con 44 px de alto para tocarlo cómodo. */}

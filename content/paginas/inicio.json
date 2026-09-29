@@ -1,15 +1,19 @@
 {
   "heroLinea1": "Tu punto",
   "heroLinea2": "de partida",
-  "heroBajada": "Los profes arman tu planilla y te acompañan mientras entrenás.",
+  "heroBajada": "Tu objetivo marca el rumbo. Nosotros te ayudamos a encontrar el camino.",
   "heroBoton": "Quiero empezar",
   "queEsTitulo": "Un gimnasio para arrancar desde tu nivel",
-  "queEsTexto": "¿Nunca fuiste a un gimnasio o hace mucho que no vas? No hace falta que sepas. Para eso estamos.",
-  "planillaTitulo": "Tu planilla",
-  "planillaTexto": "Te explica como trabajar. Se arma según tu objetivo y con el tiempo se ajusta.",
+  "queEsIntro": "Punto es un espacio de entrenamiento y salud en el centro de Las Varillas, pensado para que puedas entrenar según tu nivel, tus objetivos y tu experiencia.",
+  "queEsTexto": "¿Nunca fuiste a un gimnasio o hace mucho que no entrenás? No necesitás saber por dónde empezar. Te orientamos, armamos tu plan y te acompañamos para que puedas entrenar con seguridad y progresar.",
+  "planillaTitulo": "Tu entrenamiento",
+  "planillaTexto": "Empezás con un plan pensado para vos. Con el tiempo, lo ajustamos según tu progreso, tus objetivos y cómo te sentís entrenando.",
   "planillaEnlace": "Mirá cómo se empieza",
+  "plantasTitulo": "Dos espacios, un mismo objetivo",
+  "plantasTexto": "Planta baja: entrenamiento funcional y pesos libres.\nPlanta alta: musculación y máquinas.",
   "plantasEnlace": "Mirá cómo es por dentro",
-  "profesTitulo": "Los profes",
+  "profesTitulo": "El equipo",
+  "profesTexto": "Nuestros profes están para ayudarte a entrenar, resolver tus dudas y acompañarte durante el proceso. Antes de venir, podés consultar quién está en tu horario.",
   "profesEnlace": "Mirá cuándo está cada uno",
   "precioBoton": "Ver todos los precios",
   "conoceMasTitulo": "Lo que querés saber antes de venir",
@@ -35,7 +39,7 @@
       "frase": "Cómo seria tu primer mes adaptado a vos."
     }
   },
-  "cierreTitulo": "Empezá con un mensaje",
+  "cierreTitulo": "Empezá solo con mensaje",
   "cierreTexto": "Decinos qué buscás y a qué hora podés venir. Nosotros te ayudamos a empezar.",
   "cierreBoton": "Quiero empezar"
 }

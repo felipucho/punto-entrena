@@ -375,12 +375,16 @@ export type Inicio = Node & Document & {
   heroBajada: Scalars['String']['output'];
   heroBoton: Scalars['String']['output'];
   queEsTitulo: Scalars['String']['output'];
+  queEsIntro: Scalars['String']['output'];
   queEsTexto: Scalars['String']['output'];
   planillaTitulo: Scalars['String']['output'];
   planillaTexto: Scalars['String']['output'];
   planillaEnlace: Scalars['String']['output'];
+  plantasTitulo: Scalars['String']['output'];
+  plantasTexto: Scalars['String']['output'];
   plantasEnlace: Scalars['String']['output'];
   profesTitulo: Scalars['String']['output'];
+  profesTexto: Scalars['String']['output'];
   profesEnlace: Scalars['String']['output'];
   precioBoton: Scalars['String']['output'];
   conoceMasTitulo: Scalars['String']['output'];
@@ -439,12 +443,16 @@ export type InicioFilter = {
   heroBajada?: InputMaybe<StringFilter>;
   heroBoton?: InputMaybe<StringFilter>;
   queEsTitulo?: InputMaybe<StringFilter>;
+  queEsIntro?: InputMaybe<StringFilter>;
   queEsTexto?: InputMaybe<StringFilter>;
   planillaTitulo?: InputMaybe<StringFilter>;
   planillaTexto?: InputMaybe<StringFilter>;
   planillaEnlace?: InputMaybe<StringFilter>;
+  plantasTitulo?: InputMaybe<StringFilter>;
+  plantasTexto?: InputMaybe<StringFilter>;
   plantasEnlace?: InputMaybe<StringFilter>;
   profesTitulo?: InputMaybe<StringFilter>;
+  profesTexto?: InputMaybe<StringFilter>;
   profesEnlace?: InputMaybe<StringFilter>;
   precioBoton?: InputMaybe<StringFilter>;
   conoceMasTitulo?: InputMaybe<StringFilter>;
@@ -1221,12 +1229,16 @@ export type InicioMutation = {
   heroBajada?: InputMaybe<Scalars['String']['input']>;
   heroBoton?: InputMaybe<Scalars['String']['input']>;
   queEsTitulo?: InputMaybe<Scalars['String']['input']>;
+  queEsIntro?: InputMaybe<Scalars['String']['input']>;
   queEsTexto?: InputMaybe<Scalars['String']['input']>;
   planillaTitulo?: InputMaybe<Scalars['String']['input']>;
   planillaTexto?: InputMaybe<Scalars['String']['input']>;
   planillaEnlace?: InputMaybe<Scalars['String']['input']>;
+  plantasTitulo?: InputMaybe<Scalars['String']['input']>;
+  plantasTexto?: InputMaybe<Scalars['String']['input']>;
   plantasEnlace?: InputMaybe<Scalars['String']['input']>;
   profesTitulo?: InputMaybe<Scalars['String']['input']>;
+  profesTexto?: InputMaybe<Scalars['String']['input']>;
   profesEnlace?: InputMaybe<Scalars['String']['input']>;
   precioBoton?: InputMaybe<Scalars['String']['input']>;
   conoceMasTitulo?: InputMaybe<Scalars['String']['input']>;
@@ -1452,12 +1464,16 @@ export type InicioFilter = {
   heroBajada?: StringFilter | null | undefined;
   heroBoton?: StringFilter | null | undefined;
   queEsTitulo?: StringFilter | null | undefined;
+  queEsIntro?: StringFilter | null | undefined;
   queEsTexto?: StringFilter | null | undefined;
   planillaTitulo?: StringFilter | null | undefined;
   planillaTexto?: StringFilter | null | undefined;
   planillaEnlace?: StringFilter | null | undefined;
+  plantasTitulo?: StringFilter | null | undefined;
+  plantasTexto?: StringFilter | null | undefined;
   plantasEnlace?: StringFilter | null | undefined;
   profesTitulo?: StringFilter | null | undefined;
+  profesTexto?: StringFilter | null | undefined;
   profesEnlace?: StringFilter | null | undefined;
   precioBoton?: StringFilter | null | undefined;
   conoceMasTitulo?: StringFilter | null | undefined;
@@ -1637,7 +1653,7 @@ export type TerminosFilter = {
   datos?: TerminosDatosFilter | null | undefined;
 };
 
-export type InicioPartsFragment = { __typename: 'Inicio', heroLinea1: string, heroLinea2: string, heroBajada: string, heroBoton: string, queEsTitulo: string, queEsTexto: string, planillaTitulo: string, planillaTexto: string, planillaEnlace: string, plantasEnlace: string, profesTitulo: string, profesEnlace: string, precioBoton: string, conoceMasTitulo: string, cierreTitulo: string, cierreTexto: string, cierreBoton: string, tarjetas: { __typename: 'InicioTarjetas', planes: { __typename: 'InicioTarjetasPlanes', titulo: string, frase: string } | null, horarios: { __typename: 'InicioTarjetasHorarios', titulo: string, frase: string } | null, instalaciones: { __typename: 'InicioTarjetasInstalaciones', titulo: string, frase: string } | null, equipo: { __typename: 'InicioTarjetasEquipo', titulo: string, frase: string } | null, objetivos: { __typename: 'InicioTarjetasObjetivos', titulo: string, frase: string } | null } | null };
+export type InicioPartsFragment = { __typename: 'Inicio', heroLinea1: string, heroLinea2: string, heroBajada: string, heroBoton: string, queEsTitulo: string, queEsIntro: string, queEsTexto: string, planillaTitulo: string, planillaTexto: string, planillaEnlace: string, plantasTitulo: string, plantasTexto: string, plantasEnlace: string, profesTitulo: string, profesTexto: string, profesEnlace: string, precioBoton: string, conoceMasTitulo: string, cierreTitulo: string, cierreTexto: string, cierreBoton: string, tarjetas: { __typename: 'InicioTarjetas', planes: { __typename: 'InicioTarjetasPlanes', titulo: string, frase: string } | null, horarios: { __typename: 'InicioTarjetasHorarios', titulo: string, frase: string } | null, instalaciones: { __typename: 'InicioTarjetasInstalaciones', titulo: string, frase: string } | null, equipo: { __typename: 'InicioTarjetasEquipo', titulo: string, frase: string } | null, objetivos: { __typename: 'InicioTarjetasObjetivos', titulo: string, frase: string } | null } | null };
 
 export type PlanesPartsFragment = { __typename: 'Planes', titulo: string, intro: string, planBoton: string, sueltaTexto: string, sueltaBoton: string, precioTitulo: string, tablaColumnaPlan: string, tablaColumnaPrecio: string, convieneTitulo: string, planesTitulo: { __typename: 'PlanesPlanesTitulo', antes: string, despues: string } | null };
 
@@ -1662,7 +1678,7 @@ export type InicioQueryVariables = Exact<{
 }>;
 
 
-export type InicioQuery = { inicio: { __typename: 'Inicio', id: string, heroLinea1: string, heroLinea2: string, heroBajada: string, heroBoton: string, queEsTitulo: string, queEsTexto: string, planillaTitulo: string, planillaTexto: string, planillaEnlace: string, plantasEnlace: string, profesTitulo: string, profesEnlace: string, precioBoton: string, conoceMasTitulo: string, cierreTitulo: string, cierreTexto: string, cierreBoton: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, tarjetas: { __typename: 'InicioTarjetas', planes: { __typename: 'InicioTarjetasPlanes', titulo: string, frase: string } | null, horarios: { __typename: 'InicioTarjetasHorarios', titulo: string, frase: string } | null, instalaciones: { __typename: 'InicioTarjetasInstalaciones', titulo: string, frase: string } | null, equipo: { __typename: 'InicioTarjetasEquipo', titulo: string, frase: string } | null, objetivos: { __typename: 'InicioTarjetasObjetivos', titulo: string, frase: string } | null } | null } };
+export type InicioQuery = { inicio: { __typename: 'Inicio', id: string, heroLinea1: string, heroLinea2: string, heroBajada: string, heroBoton: string, queEsTitulo: string, queEsIntro: string, queEsTexto: string, planillaTitulo: string, planillaTexto: string, planillaEnlace: string, plantasTitulo: string, plantasTexto: string, plantasEnlace: string, profesTitulo: string, profesTexto: string, profesEnlace: string, precioBoton: string, conoceMasTitulo: string, cierreTitulo: string, cierreTexto: string, cierreBoton: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, tarjetas: { __typename: 'InicioTarjetas', planes: { __typename: 'InicioTarjetasPlanes', titulo: string, frase: string } | null, horarios: { __typename: 'InicioTarjetasHorarios', titulo: string, frase: string } | null, instalaciones: { __typename: 'InicioTarjetasInstalaciones', titulo: string, frase: string } | null, equipo: { __typename: 'InicioTarjetasEquipo', titulo: string, frase: string } | null, objetivos: { __typename: 'InicioTarjetasObjetivos', titulo: string, frase: string } | null } | null } };
 
 export type InicioConnectionQueryVariables = Exact<{
   before?: string | null | undefined;
@@ -1674,7 +1690,7 @@ export type InicioConnectionQueryVariables = Exact<{
 }>;
 
 
-export type InicioConnectionQuery = { inicioConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Inicio', id: string, heroLinea1: string, heroLinea2: string, heroBajada: string, heroBoton: string, queEsTitulo: string, queEsTexto: string, planillaTitulo: string, planillaTexto: string, planillaEnlace: string, plantasEnlace: string, profesTitulo: string, profesEnlace: string, precioBoton: string, conoceMasTitulo: string, cierreTitulo: string, cierreTexto: string, cierreBoton: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, tarjetas: { __typename: 'InicioTarjetas', planes: { __typename: 'InicioTarjetasPlanes', titulo: string, frase: string } | null, horarios: { __typename: 'InicioTarjetasHorarios', titulo: string, frase: string } | null, instalaciones: { __typename: 'InicioTarjetasInstalaciones', titulo: string, frase: string } | null, equipo: { __typename: 'InicioTarjetasEquipo', titulo: string, frase: string } | null, objetivos: { __typename: 'InicioTarjetasObjetivos', titulo: string, frase: string } | null } | null } | null } | null> | null } };
+export type InicioConnectionQuery = { inicioConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Inicio', id: string, heroLinea1: string, heroLinea2: string, heroBajada: string, heroBoton: string, queEsTitulo: string, queEsIntro: string, queEsTexto: string, planillaTitulo: string, planillaTexto: string, planillaEnlace: string, plantasTitulo: string, plantasTexto: string, plantasEnlace: string, profesTitulo: string, profesTexto: string, profesEnlace: string, precioBoton: string, conoceMasTitulo: string, cierreTitulo: string, cierreTexto: string, cierreBoton: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, tarjetas: { __typename: 'InicioTarjetas', planes: { __typename: 'InicioTarjetasPlanes', titulo: string, frase: string } | null, horarios: { __typename: 'InicioTarjetasHorarios', titulo: string, frase: string } | null, instalaciones: { __typename: 'InicioTarjetasInstalaciones', titulo: string, frase: string } | null, equipo: { __typename: 'InicioTarjetasEquipo', titulo: string, frase: string } | null, objetivos: { __typename: 'InicioTarjetasObjetivos', titulo: string, frase: string } | null } | null } | null } | null> | null } };
 
 export type PlanesQueryVariables = Exact<{
   relativePath: string;
@@ -1855,12 +1871,16 @@ export const InicioPartsFragmentDoc = gql`
   heroBajada
   heroBoton
   queEsTitulo
+  queEsIntro
   queEsTexto
   planillaTitulo
   planillaTexto
   planillaEnlace
+  plantasTitulo
+  plantasTexto
   plantasEnlace
   profesTitulo
+  profesTexto
   profesEnlace
   precioBoton
   conoceMasTitulo
