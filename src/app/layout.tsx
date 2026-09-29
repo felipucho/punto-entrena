@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  // Sincronizado a mano con --color-bg de globals.css (primitivo --negro-grano): si cambia uno, cambiar el otro.
+  // Sincronizado a mano con --color-bg de src/app/estilos/tokens.css (primitivo --negro-grano): si cambia uno, cambiar el otro.
   themeColor: "#0d0d0d",
   colorScheme: "dark",
 };

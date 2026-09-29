@@ -1,0 +1,99 @@
+/* Estilos base de elementos HTML: fondo con grano, titulares, links, foco, selección y tablas. */
+
+@layer base {
+  html {
+    /* 17 px de base respetando el tamaño que elija cada persona en su navegador. */
+    font-size: 106.25%;
+    color-scheme: dark;
+    /* Alto del botón flotante de WhatsApp: un elemento enfocado nunca queda tapado por él. */
+    scroll-padding-bottom: 5rem;
+    -webkit-text-size-adjust: 100%;
+    background-color: var(--color-bg);
+  }
+
+  body {
+    background-color: var(--color-bg);
+    background-image: var(--grano);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Titulares de las placas: Anton en mayúsculas. h3 y h4 quedan en Roboto: se leen en tamaños chicos. */
+  h1,
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 0.98;
+    letter-spacing: 0.005em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    color: var(--color-titulo);
+  }
+
+  h3,
+  h4 {
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+    text-wrap: balance;
+    color: var(--color-titulo);
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 1.6rem + 4.2vw, 4.75rem);
+  }
+
+  /* El punto del logo cierra cada h1: el nombre de la marca hecho signo. Es una forma, no un carácter. */
+  h1::after {
+    content: "";
+    display: inline-block;
+    inline-size: 0.17em;
+    block-size: 0.17em;
+    margin-inline-start: 0.07em;
+    border-radius: 50%;
+    background-color: var(--color-punto);
+  }
+
+  h2 {
+    font-size: clamp(1.875rem, 1.4rem + 2vw, 2.875rem);
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+
+  h4 {
+    font-size: 1.0625rem;
+  }
+
+  p,
+  li,
+  dd {
+    text-wrap: pretty;
+  }
+
+  a {
+    text-underline-offset: 0.22em;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-accent-fg);
+  }
+
+  table {
+    font-variant-numeric: tabular-nums;
+  }
+
+  [id] {
+    scroll-margin-top: 1.5rem;
+  }
+}

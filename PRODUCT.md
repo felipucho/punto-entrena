@@ -31,7 +31,7 @@ Atención personalizada: una planilla individual que arman los profes según el 
 - Next.js 16 (App Router), React 19 y Tailwind v4, render estático: 10 rutas más not-found.
 - Única fuente de datos: `src/data/site.ts`. Todo lo derivado se calcula (precio por clase, horarios por profe, estado en vivo, JSON-LD, respuestas del FAQ). Un dato en `null` oculta lo que depende de él.
 - JS de cliente solo en `EstadoEnVivo`, `HeroVideo`, `MenuMobile` y `Selector`.
-- Estructura y rutas están cerradas. Los textos se reescribieron en septiembre 2026 con técnicas de copywriting y psicología de marketing, y se volvieron a reescribir ese mismo mes para sacar obviedades y que suenen humanos (ver "Voz y persuasión"); todo cambio de texto posterior sigue esas reglas. La etapa de diseño cambia solo la capa visual: tokens de `src/app/globals.css`, estilos de componentes, fotos, video y logo.
+- Estructura y rutas están cerradas. Los textos se reescribieron en septiembre 2026 con técnicas de copywriting y psicología de marketing, y se volvieron a reescribir ese mismo mes para sacar obviedades y que suenen humanos (ver "Voz y persuasión"); todo cambio de texto posterior sigue esas reglas. La etapa de diseño cambia solo la capa visual: tokens de `src/app/estilos/tokens.css`, estilos de componentes, fotos, video y logo.
 - Todo el contenido es texto real (nunca dentro de imágenes), con datos estructurados y carga rápida en celular.
 - Pendientes que no se inventan: frase y pregunta frecuente de cada profe, horas más tranquilas, referencia para llegar, cómo se aplica el descuento familiar, confirmación de qué llevar, si el teléfono es celular (+54 9), enlace de Facebook, dominio y coordenadas.
 

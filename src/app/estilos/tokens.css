@@ -1,0 +1,80 @@
+/* Tokens: primitivos (:root), semánticos (@theme) y utilidades de radio y espaciado. Ver globals.css. */
+
+/* 1. Primitivos */
+:root {
+  --negro: #000000;
+  --negro-grano: #0d0d0d; /* el negro de las placas: nunca va plano, siempre con grano */
+  --gris-950: #141414;
+  --gris-900: #1f1f1f;
+  --gris-800: #2a2a2a;
+  --gris-600: #6b6b6b;
+  --gris-300: #b3b3b3; /* 9.4:1 sobre --negro-grano */
+  --gris-100: #ededed; /* 16.4:1 sobre --negro-grano */
+  --blanco: #ffffff;
+  --negro-a60: #00000099;
+  --negro-a85: #000000d9;
+
+  --amarillo: #ffc624; /* medido en el PNG del logo. 11.9:1 sobre negro; sobre blanco no se usa como texto */
+  --amarillo-claro: #ffd65c;
+  --amarillo-sombra: #d9a41c; /* línea fina sobre amarillo, sin texto */
+  --tinta-sobre-amarillo: #3a2d00; /* texto secundario sobre amarillo: 9.6:1 */
+
+  /* Grano de las placas: ruido blanco muy bajo sobre oscuro, ruido negro sobre amarillo. */
+  --grano: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 .38 0 0 0 -.13'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --grano-oscuro: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .3 0 0 0 -.11'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* Erosión de la tipografía de las placas (Zuume Rough): máscara con poros sobre numerales y titulares grandes. */
+  --rugoso: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='r'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -14 0 0 0 9.6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23r)'/%3E%3C/svg%3E");
+  /* Flecha del pill outline de las placas ("deslizá"). */
+  --flecha: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 14'%3E%3Cpath d='M1 7h23M18 1.5 24 7l-6 5.5' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --flecha-afuera: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 12 12 4M5.5 4H12v6.5' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --tilde: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3 8.5 3.2 3L13 4.5' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* 2. Semánticos */
+@theme static {
+  --color-bg: var(--negro-grano);
+  --color-fg: var(--gris-100);
+  --color-titulo: var(--blanco);
+  --color-muted: var(--gris-300); /* 9.4:1 sobre --color-bg, 7.6:1 sobre --color-surface-alt */
+  --color-border: var(--gris-800);
+  --color-border-fuerte: var(--gris-600);
+  --color-accent: var(--amarillo);
+  --color-accent-hover: var(--amarillo-claro);
+  --color-accent-fg: var(--negro); /* 12.9:1 sobre --color-accent */
+  --color-punto: var(--amarillo); /* el punto del logo: marca de títulos, luz de "abierto", activo */
+  --color-surface: var(--gris-950);
+  --color-surface-alt: var(--gris-900);
+  --color-placeholder: var(--gris-950);
+  --color-placeholder-fg: var(--gris-300); /* 9.9:1 sobre --color-placeholder */
+  --color-focus: var(--amarillo); /* 11.9:1 sobre el fondo */
+  --color-placa: var(--amarillo);
+  --color-sobre-placa: var(--negro);
+  /* Superficie oscura (hero): fondo sin video ni poster, velo sobre el video y lo que va encima. */
+  --color-oscuro: var(--negro);
+  --color-oscuro-velo: var(--negro-a60);
+  --color-oscuro-velo-fuerte: var(--negro-a85);
+  --color-sobre-oscuro: var(--blanco);
+  --color-sobre-oscuro-hover: var(--gris-100);
+  /* Roboto para leer (secundaria de las placas) y Anton para titulares, números y cintas: la alternativa web
+     más cercana a Zuume Rough Bold, que no tiene licencia web confirmada. Las cargan next/font en layout.tsx. */
+  --font-sans: var(--font-roboto), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-anton), Impact, "Arial Narrow", sans-serif;
+}
+
+:root {
+  /* Geometría del logo: esquinas vivas, el corte diagonal de la barra de la P y la pata con su cuña amarilla. */
+  --radius: 0.125rem;
+  --corte: 0.75rem;
+  /* Compacto a propósito: la información de cada página tiene que verse con poco scroll. */
+  --space-section: clamp(2.5rem, 1.5rem + 3.5vw, 4.5rem);
+  --ease-salida: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-rapida: 180ms;
+  --dur-media: 350ms;
+  --dur-lenta: 700ms;
+}
+
+/* Radio y espaciado de sección como utilidades: rounded-card, py-section, mt-section… */
+@theme inline {
+  --radius-card: var(--radius);
+  --spacing-section: var(--space-section);
+}

@@ -19,4 +19,4 @@ npm test         # vitest: estado en vivo, horarios de cada profe y precio por c
 - **Dominio**: variable de entorno `NEXT_PUBLIC_SITE_URL` (por ejemplo `https://dominio-del-gimnasio.com.ar`, todavía no está definido). Sin ella se usa `http://localhost:3000` en canonical, sitemap, robots y JSON-LD.
 - **Video del hero**: subir a `public/video/` los archivos `hero-1080.webm`, `hero-1080.mp4`, `hero-720.webm`, `hero-720.mp4` y `hero-poster.jpg`. Las specs de exportación están en `src/components/HeroVideo.tsx`.
 - **Fotos**: cada `Foto` marca el lugar y la descripción de una foto a reemplazar.
-- **Tokens de diseño**: `src/app/globals.css`.
+- **Tokens de diseño**: `src/app/estilos/tokens.css` (componentes, base y movimiento en la misma carpeta; `src/app/globals.css` los importa).

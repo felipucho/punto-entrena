@@ -1,0 +1,153 @@
+/* ——— Movimiento: solo CSS, y solo si la persona no pidió reducirlo. ——— */
+
+@keyframes panel-entra {
+  from {
+    opacity: 0.4;
+    translate: 0 0.5rem;
+  }
+}
+
+@keyframes sube {
+  from {
+    opacity: 0;
+    translate: 0 1.25rem;
+  }
+}
+
+/* Como sube, pero sin opacidad: el titular del hero pinta desde el primer cuadro y no atrasa el LCP. */
+@keyframes sube-titular {
+  from {
+    translate: 0 1.25rem;
+  }
+}
+
+@keyframes barre {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
+@keyframes revelar {
+  from {
+    translate: 0 1.5rem;
+  }
+}
+
+@keyframes late {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent) 70%, transparent);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 0.75rem transparent;
+  }
+}
+
+@keyframes aparece-punto {
+  from {
+    scale: 0;
+  }
+  60% {
+    scale: 1.35;
+  }
+}
+
+@keyframes flotante-entra {
+  from {
+    opacity: 0;
+    translate: 0 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Entrada del hero, escalonada: cada pieza lleva --retraso. */
+  .entra {
+    animation: sube var(--dur-lenta) var(--ease-salida) backwards;
+    animation-delay: var(--retraso, 0ms);
+  }
+
+  .titular-mixto > .entra {
+    animation-name: sube-titular;
+  }
+
+  .entra-barre {
+    animation: barre var(--dur-lenta) var(--ease-salida) backwards;
+    animation-delay: var(--retraso, 0ms);
+  }
+
+  h1::after,
+  .con-punto::after,
+  .titular-mixto > .linea:last-child::after {
+    animation: aparece-punto var(--dur-lenta) var(--ease-salida) 450ms backwards;
+  }
+
+  [data-estado="abierto"] .estado-toggle::after {
+    animation: late 2.4s ease-out 1s 2;
+  }
+
+  .btn-flotante {
+    animation: flotante-entra var(--dur-lenta) var(--ease-salida) 600ms backwards;
+  }
+
+  /* Revelado al entrar en pantalla, donde el navegador sabe atar la animación al scroll. */
+  @supports (animation-timeline: view()) {
+    .revelar {
+      animation: revelar linear both;
+      animation-timeline: view(block 0px);
+      animation-range: entry 0% entry 7rem;
+    }
+  }
+
+  /* La duda del FAQ se abre con el alto animado (Chrome y Edge; el resto la abre de golpe). */
+  :root {
+    interpolate-size: allow-keywords;
+  }
+
+  .acordeon::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition:
+      block-size var(--dur-media) var(--ease-salida),
+      content-visibility var(--dur-media) allow-discrete;
+  }
+
+  .acordeon[open]::details-content {
+    block-size: auto;
+  }
+
+  /* El panel de pestañas elegido entra con un desplazamiento corto: se nota que cambió sin marear. */
+  [role="tabpanel"]:not([hidden]) {
+    animation: panel-entra var(--dur-media) var(--ease-salida);
+  }
+
+  /* El tachado del mito se dibuja cada vez que aparece el panel. */
+  [role="tabpanel"]:not([hidden]) .tachado::after {
+    animation: barre var(--dur-lenta) var(--ease-salida) 350ms backwards;
+  }
+
+  /* El menú del celular baja apenas al abrirse. */
+  @media (max-width: 63.99rem) {
+    .menu-lista {
+      transition:
+        opacity var(--dur-media) var(--ease-salida),
+        translate var(--dur-media) var(--ease-salida);
+    }
+
+    @starting-style {
+      .menu-lista {
+        opacity: 0;
+        translate: 0 -0.5rem;
+      }
+    }
+  }
+}
+
+/* Con movimiento reducido, los cambios de estado (toggle, pestañas, barras) son instantáneos. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

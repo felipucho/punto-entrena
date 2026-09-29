@@ -16,7 +16,7 @@ export const alt = imagenCompartir.alt;
 export const size = { width: imagenCompartir.width, height: imagenCompartir.height };
 export const contentType = "image/png";
 
-// Mismos valores que los primitivos de globals.css (--negro-grano, --amarillo, --blanco).
+// Mismos valores que los primitivos de src/app/estilos/tokens.css (--negro-grano, --amarillo, --blanco).
 const NEGRO = "#0d0d0d";
 const AMARILLO = "#ffc624";
 const BLANCO = "#ffffff";
