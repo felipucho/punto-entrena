@@ -1,11 +1,11 @@
 import contenido from "@content/paginas/faq.json";
-import { FaqDocument } from "@tina/__generated__/types";
 import JsonLd from "@/components/JsonLd";
 import Faq from "@/components/paginas/Faq";
 import { claseSuelta, negocio } from "@/data/site";
 import { formatearPrecio } from "@/lib/formato";
 import { paseLibre } from "@/lib/planes";
 import { jsonLdFaq, metadataDePagina } from "@/lib/seo";
+import { editorDeTina, sinCampo } from "@/lib/tina";
 
 const { localidad } = negocio.direccion;
 const pase = paseLibre();
@@ -16,12 +16,13 @@ export const metadata = metadataDePagina({
   ruta: "/faq",
 });
 
-// Los textos se leen del JSON al compilar, sin servidor de Tina. En /admin, Tina toma el control y los edita en vivo.
-// El JSON-LD queda acá, fuera del componente cliente: sale de src/lib/faq.ts y no se edita con Tina.
-export default function Pagina() {
+// Los textos se leen del JSON al compilar. En /admin (solo en local), ConTina los edita en vivo.
+// El JSON-LD queda acá, fuera de la vista: sale de src/lib/faq.ts y no se edita con Tina.
+export default async function Pagina() {
+  const ConTina = await editorDeTina();
   return (
     <>
-      <Faq query={FaqDocument} variables={{ relativePath: "faq.json" }} data={{ faq: contenido }} />
+      {ConTina ? <ConTina pagina="faq" c={contenido} /> : <Faq c={contenido} campo={sinCampo} />}
 
       <JsonLd datos={jsonLdFaq()} />
     </>

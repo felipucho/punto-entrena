@@ -1,6 +1,3 @@
-"use client";
-
-import { tinaField, useTina } from "tinacms/dist/react";
 import type contenido from "@content/paginas/planes.json";
 import BotonWhatsApp from "@/components/BotonWhatsApp";
 import { claseSuelta, incluyenTodosLosPlanes, negocio, planes } from "@/data/site";
@@ -8,6 +5,7 @@ import { textoDescuentoFamiliar } from "@/lib/faq";
 import { formatearPrecio, minusculaInicial, numeroEnPalabras, precioPorClase } from "@/lib/formato";
 import { diasDeApertura } from "@/lib/horarios";
 import { paseLibre, planPorId } from "@/lib/planes";
+import type { Campo } from "@/lib/tina";
 import { mensajePlan } from "@/lib/whatsapp";
 
 function textoClases(cantidad: number): string {
@@ -38,26 +36,19 @@ if (clasesPasePorSuelta >= 2) {
  * /planes. Los textos fijos salen de content/paginas/planes.json y se editan con Tina (npm run dev → /admin).
  * Precios, nombres de planes, la tabla y los consejos que nombran planes salen de src/data/site.ts y src/lib.
  */
-export default function Planes(props: {
-  query: string;
-  variables: { relativePath: string };
-  data: { planes: typeof contenido };
-}) {
-  const { data } = useTina(props);
-  const c = data.planes;
-
+export default function Planes({ c, campo }: { c: typeof contenido; campo: Campo }) {
   return (
     <>
       <div className="contenedor pt-section">
-        <h1 data-tina-field={tinaField(c, "titulo")}>{c.titulo}</h1>
-        <p className="intro mt-4" data-tina-field={tinaField(c, "intro")}>
+        <h1 data-tina-field={campo(c, "titulo")}>{c.titulo}</h1>
+        <p className="intro mt-4" data-tina-field={campo(c, "intro")}>
           {c.intro}
         </p>
       </div>
 
       <section aria-labelledby="planes-y-clase-suelta" className="seccion">
         <div className="contenedor">
-          <h2 id="planes-y-clase-suelta" className="revelar mb-4" data-tina-field={tinaField(c, "planesTitulo")}>
+          <h2 id="planes-y-clase-suelta" className="revelar mb-4" data-tina-field={campo(c, "planesTitulo")}>
             {`${c.planesTitulo.antes} `}
             {nombreSuelta}
             {` ${c.planesTitulo.despues}`}
@@ -86,7 +77,7 @@ export default function Planes(props: {
                     className="w-full px-3 leading-tight max-sm:text-sm sm:text-base max-sm:gap-1.5 max-sm:pl-4 max-sm:pr-3 max-sm:[&_.btn-icono]:hidden max-sm:[&_.btn-flecha-afuera]:hidden"
                   >
                     {/* Un solo span: dentro del .btn (flex con gap) el texto queda en un único ítem. */}
-                    <span data-tina-field={tinaField(c, "planBoton")}>
+                    <span data-tina-field={campo(c, "planBoton")}>
                       {c.planBoton}
                       <span className="sr-only"> de {minusculaInicial(plan.nombre)}, por WhatsApp</span>
                     </span>
@@ -103,7 +94,7 @@ export default function Planes(props: {
                 <h3 className="text-lg leading-tight sm:text-xl">{claseSuelta.nombre}</h3>
                 <p className="numeral text-[2rem] leading-none text-accent">{formatearPrecio(claseSuelta.precio)}</p>
               </div>
-              <p className="mt-1.5 text-muted" data-tina-field={tinaField(c, "sueltaTexto")}>
+              <p className="mt-1.5 text-muted" data-tina-field={campo(c, "sueltaTexto")}>
                 {c.sueltaTexto}
               </p>
             </div>
@@ -112,7 +103,7 @@ export default function Planes(props: {
               variante="secundario"
               className="w-full sm:w-auto sm:shrink-0"
             >
-              <span data-tina-field={tinaField(c, "sueltaBoton")}>
+              <span data-tina-field={campo(c, "sueltaBoton")}>
                 {c.sueltaBoton}
                 <span className="sr-only"> con una {nombreSuelta}, por WhatsApp</span>
               </span>
@@ -130,7 +121,7 @@ export default function Planes(props: {
       <div className="seccion">
         <div className="contenedor grid gap-8 md:grid-cols-2 lg:gap-12">
           <section aria-labelledby="precio-por-clase">
-            <h2 id="precio-por-clase" className="revelar mb-4" data-tina-field={tinaField(c, "precioTitulo")}>
+            <h2 id="precio-por-clase" className="revelar mb-4" data-tina-field={campo(c, "precioTitulo")}>
               {c.precioTitulo}
             </h2>
             <div className="superficie-amarilla bloque-dato max-w-xl">
@@ -146,10 +137,10 @@ export default function Planes(props: {
                 </caption>
                 <thead>
                   <tr>
-                    <th scope="col" data-tina-field={tinaField(c, "tablaColumnaPlan")}>
+                    <th scope="col" data-tina-field={campo(c, "tablaColumnaPlan")}>
                       {c.tablaColumnaPlan}
                     </th>
-                    <th scope="col" className="text-right" data-tina-field={tinaField(c, "tablaColumnaPrecio")}>
+                    <th scope="col" className="text-right" data-tina-field={campo(c, "tablaColumnaPrecio")}>
                       {c.tablaColumnaPrecio}
                     </th>
                   </tr>
@@ -172,7 +163,7 @@ export default function Planes(props: {
           </section>
 
           <section aria-labelledby="cual-me-conviene" className="border-t border-border pt-8 md:border-t-0 md:pt-0">
-            <h2 id="cual-me-conviene" className="revelar mb-4" data-tina-field={tinaField(c, "convieneTitulo")}>
+            <h2 id="cual-me-conviene" className="revelar mb-4" data-tina-field={campo(c, "convieneTitulo")}>
               {c.convieneTitulo}
             </h2>
             <div className="prosa">

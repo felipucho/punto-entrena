@@ -1,9 +1,9 @@
 import contenido from "@content/paginas/objetivos.json";
-import { ObjetivosDocument } from "@tina/__generated__/types";
 import Objetivos from "@/components/paginas/Objetivos";
 import { negocio, objetivos } from "@/data/site";
 import { formatearLista } from "@/lib/formato";
 import { metadataDePagina } from "@/lib/seo";
+import { editorDeTina, sinCampo } from "@/lib/tina";
 
 const { localidad } = negocio.direccion;
 
@@ -18,13 +18,9 @@ export const metadata = metadataDePagina({
 
 // TODO: validar los textos de "Tu primer mes" (content/paginas/objetivos.json) con un profe antes de publicar
 // (los mitos de site.ts también están en BORRADOR).
-// Los textos se leen del JSON al compilar, sin servidor de Tina. En /admin, Tina toma el control y los edita en vivo.
-export default function Pagina() {
-  return (
-    <Objetivos
-      query={ObjetivosDocument}
-      variables={{ relativePath: "objetivos.json" }}
-      data={{ objetivos: contenido }}
-    />
-  );
+// Los textos se leen del JSON al compilar. En /admin (solo en local), ConTina los edita en vivo.
+export default async function Pagina() {
+  const ConTina = await editorDeTina();
+  if (ConTina) return <ConTina pagina="objetivos" c={contenido} />;
+  return <Objetivos c={contenido} campo={sinCampo} />;
 }

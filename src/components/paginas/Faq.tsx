@@ -1,10 +1,8 @@
-"use client";
-
-import { tinaField, useTina } from "tinacms/dist/react";
 import type contenido from "@content/paginas/faq.json";
 import BotonWhatsApp from "@/components/BotonWhatsApp";
 import { comoFunciona, negocio, queLlevar } from "@/data/site";
 import { preguntasResueltas } from "@/lib/faq";
+import type { Campo } from "@/lib/tina";
 
 /** Nombre compartido de los <details>: el navegador deja una sola duda abierta por vez. */
 const GRUPO_DUDAS = "dudas";
@@ -14,19 +12,12 @@ const GRUPO_DUDAS = "dudas";
  * Los pasos, lo que hay que llevar y las preguntas siguen en src/data/site.ts y src/lib/faq.ts: las preguntas
  * también arman el JSON-LD, que se renderiza en la página (servidor).
  */
-export default function Faq(props: {
-  query: string;
-  variables: { relativePath: string };
-  data: { faq: typeof contenido };
-}) {
-  const { data } = useTina(props);
-  const c = data.faq;
-
+export default function Faq({ c, campo }: { c: typeof contenido; campo: Campo }) {
   return (
     <>
       <div className="contenedor pt-section">
-        <h1 data-tina-field={tinaField(c, "titulo")}>{c.titulo}</h1>
-        <p className="intro mt-4" data-tina-field={tinaField(c, "intro")}>
+        <h1 data-tina-field={campo(c, "titulo")}>{c.titulo}</h1>
+        <p className="intro mt-4" data-tina-field={campo(c, "intro")}>
           {c.intro}
         </p>
       </div>
@@ -39,7 +30,7 @@ export default function Faq(props: {
         <div className="contenedor grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,65ch)] lg:gap-16">
           <div className="grid content-start gap-8 sm:grid-cols-2 lg:grid-cols-1">
             <section aria-labelledby="como-funciona">
-              <h2 id="como-funciona" className="revelar mb-4" data-tina-field={tinaField(c, "comoEmpiezoTitulo")}>
+              <h2 id="como-funciona" className="revelar mb-4" data-tina-field={campo(c, "comoEmpiezoTitulo")}>
                 {c.comoEmpiezoTitulo}
               </h2>
               <ol className="lista-pasos">
@@ -50,7 +41,7 @@ export default function Faq(props: {
             </section>
 
             <section aria-labelledby="que-llevar">
-              <h2 id="que-llevar" className="revelar mb-4" data-tina-field={tinaField(c, "queLlevarTitulo")}>
+              <h2 id="que-llevar" className="revelar mb-4" data-tina-field={campo(c, "queLlevarTitulo")}>
                 {c.queLlevarTitulo}
               </h2>
               {/*
@@ -66,7 +57,7 @@ export default function Faq(props: {
           </div>
 
           <section aria-labelledby="dudas-comunes" className="max-w-[65ch]">
-            <h2 id="dudas-comunes" className="revelar mb-4" data-tina-field={tinaField(c, "dudasTitulo")}>
+            <h2 id="dudas-comunes" className="revelar mb-4" data-tina-field={campo(c, "dudasTitulo")}>
               {c.dudasTitulo}
             </h2>
             {/*
@@ -91,7 +82,7 @@ export default function Faq(props: {
 
       <div className="contenedor pb-section">
         <BotonWhatsApp mensaje={negocio.mensajeWhatsappFaq}>
-          <span data-tina-field={tinaField(c, "boton")}>
+          <span data-tina-field={campo(c, "boton")}>
             {c.boton}
             <span className="sr-only"> por WhatsApp</span>
           </span>

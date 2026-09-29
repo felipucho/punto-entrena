@@ -1,13 +1,14 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
 import contenido from "@content/paginas/inicio.json";
-import { InicioDocument, type InicioQuery } from "@tina/__generated__/types";
+import type { InicioQuery } from "@tina/__generated__/types";
 import Foto from "@/components/Foto";
 import Inicio from "@/components/paginas/Inicio";
 import { negocio, plantas, profes } from "@/data/site";
 import { formatearPrecio, minusculaInicial, precioPorClase } from "@/lib/formato";
 import { paseLibre } from "@/lib/planes";
 import { metadataDePagina, tituloInicio } from "@/lib/seo";
+import { editorDeTina, sinCampo } from "@/lib/tina";
 
 const { localidad, provincia } = negocio.direccion;
 
@@ -75,18 +76,17 @@ const mosaicoDeProfes = (
   </span>
 );
 
-// Los textos se leen del JSON al compilar, sin servidor de Tina. En /admin, Tina toma el control y los edita en vivo.
-export default function Pagina() {
-  return (
-    <Inicio
-      query={InicioDocument}
-      variables={{ relativePath: "inicio.json" }}
-      data={{ inicio: contenido } as InicioQuery}
-      hayVideo={hayVideo}
-      fotos={{
-        ...Object.fromEntries(Object.keys(fotosDeTarjetas).map((id) => [id, fotoDeTarjeta(id)])),
-        equipo: mosaicoDeProfes,
-      }}
-    />
-  );
+const fotos = {
+  ...Object.fromEntries(Object.keys(fotosDeTarjetas).map((id) => [id, fotoDeTarjeta(id)])),
+  equipo: mosaicoDeProfes,
+};
+
+// Tina tipa los grupos como opcionales; el JSON los trae todos.
+const c = contenido as InicioQuery["inicio"];
+
+// Los textos se leen del JSON al compilar. En /admin (solo en local), ConTina los edita en vivo.
+export default async function Pagina() {
+  const ConTina = await editorDeTina();
+  if (ConTina) return <ConTina pagina="inicio" c={c} fotos={fotos} hayVideo={hayVideo} />;
+  return <Inicio c={c} campo={sinCampo} fotos={fotos} hayVideo={hayVideo} />;
 }

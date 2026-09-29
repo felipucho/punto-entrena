@@ -1,11 +1,11 @@
 import contenido from "@content/paginas/instalaciones.json";
-import { InstalacionesDocument } from "@tina/__generated__/types";
 import Foto from "@/components/Foto";
 import Instalaciones, { type FotosDePlanta } from "@/components/paginas/Instalaciones";
 import { fotosInstalaciones } from "@/data/fotos-instalaciones";
 import { negocio, plantas, type Planta } from "@/data/site";
 import { minusculaInicial, numeroEnPalabras as enPalabras } from "@/lib/formato";
 import { metadataDePagina } from "@/lib/seo";
+import { editorDeTina, sinCampo } from "@/lib/tina";
 
 const LARGO_MAXIMO_DESCRIPCION = 155;
 
@@ -75,14 +75,11 @@ function fotosDePlanta(planta: Planta): FotosDePlanta {
   };
 }
 
-// Los textos se leen del JSON al compilar, sin servidor de Tina. En /admin, Tina toma el control y los edita en vivo.
-export default function Pagina() {
-  return (
-    <Instalaciones
-      query={InstalacionesDocument}
-      variables={{ relativePath: "instalaciones.json" }}
-      data={{ instalaciones: contenido }}
-      fotos={Object.fromEntries(plantas.map((planta) => [planta.id, fotosDePlanta(planta)]))}
-    />
-  );
+const fotos = Object.fromEntries(plantas.map((planta) => [planta.id, fotosDePlanta(planta)]));
+
+// Los textos se leen del JSON al compilar. En /admin (solo en local), ConTina los edita en vivo.
+export default async function Pagina() {
+  const ConTina = await editorDeTina();
+  if (ConTina) return <ConTina pagina="instalaciones" c={contenido} fotos={fotos} />;
+  return <Instalaciones c={contenido} campo={sinCampo} fotos={fotos} />;
 }

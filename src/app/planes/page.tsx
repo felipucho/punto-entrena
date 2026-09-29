@@ -1,10 +1,10 @@
 import contenido from "@content/paginas/planes.json";
-import { PlanesDocument } from "@tina/__generated__/types";
 import Planes from "@/components/paginas/Planes";
 import { claseSuelta, negocio, planes } from "@/data/site";
 import { formatearPrecio, precioPorClase } from "@/lib/formato";
 import { paseLibre } from "@/lib/planes";
 import { metadataDePagina } from "@/lib/seo";
+import { editorDeTina, sinCampo } from "@/lib/tina";
 
 const { localidad } = negocio.direccion;
 
@@ -20,7 +20,9 @@ export const metadata = metadataDePagina({
   ruta: "/planes",
 });
 
-// Los textos se leen del JSON al compilar, sin servidor de Tina. En /admin, Tina toma el control y los edita en vivo.
-export default function Pagina() {
-  return <Planes query={PlanesDocument} variables={{ relativePath: "planes.json" }} data={{ planes: contenido }} />;
+// Los textos se leen del JSON al compilar. En /admin (solo en local), ConTina los edita en vivo.
+export default async function Pagina() {
+  const ConTina = await editorDeTina();
+  if (ConTina) return <ConTina pagina="planes" c={contenido} />;
+  return <Planes c={contenido} campo={sinCampo} />;
 }

@@ -1,9 +1,6 @@
-"use client";
-
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { tinaField, useTina } from "tinacms/dist/react";
-import type { InicioQuery, InicioQueryVariables } from "@tina/__generated__/types";
+import type { InicioQuery } from "@tina/__generated__/types";
 import BotonWhatsApp from "@/components/BotonWhatsApp";
 import EstadoEnVivo from "@/components/EstadoEnVivo";
 import HeroVideo from "@/components/HeroVideo";
@@ -20,6 +17,7 @@ import {
 import { horarioGeneral, horarioGeneralCorto } from "@/lib/horarios";
 import { paseLibre } from "@/lib/planes";
 import type { Ruta } from "@/lib/rutas";
+import type { Campo } from "@/lib/tina";
 
 const { localidad } = negocio.direccion;
 
@@ -36,24 +34,22 @@ const datosRapidos = [
 
 /**
  * La home. Los textos fijos salen de content/paginas/inicio.json y se editan con Tina (npm run dev → /admin):
- * useTina los actualiza en vivo mientras se editan y tinaField marca cada uno para editarlo con un clic.
+ * ahí ConTina los actualiza en vivo y campo marca cada uno para editarlo con un clic.
  * Lo que sale de src/data/site.ts o se calcula (plantas, profes, precios, horarios) sigue en el código.
  */
 export default function Inicio({
+  c,
+  campo,
   fotos,
   hayVideo,
-  ...props
 }: {
-  query: string;
-  variables: InicioQueryVariables;
-  data: InicioQuery;
+  c: InicioQuery["inicio"];
+  campo: Campo;
   /** La foto de cada tarjeta, por id. Se arma en el servidor porque Foto lee public/fotos/ del disco. */
   fotos: Record<string, ReactNode>;
   /** Si public/video/ ya tiene el video del hero. Se resuelve en el servidor. */
   hayVideo: boolean;
 }) {
-  const { data } = useTina(props);
-  const c = data.inicio;
   // Tina tipa los grupos como opcionales, pero el JSON los trae todos.
   const t = c.tarjetas as Record<
     "planes" | "horarios" | "instalaciones" | "equipo" | "objetivos",
@@ -75,9 +71,9 @@ export default function Inicio({
       href: "/faq",
       enlace: c.planillaEnlace,
       campos: {
-        titulo: tinaField(c, "planillaTitulo"),
-        texto: tinaField(c, "planillaTexto"),
-        enlace: tinaField(c, "planillaEnlace"),
+        titulo: campo(c, "planillaTitulo"),
+        texto: campo(c, "planillaTexto"),
+        enlace: campo(c, "planillaEnlace"),
       },
     },
     {
@@ -87,9 +83,9 @@ export default function Inicio({
       href: "/instalaciones",
       enlace: c.plantasEnlace,
       campos: {
-        titulo: tinaField(c, "plantasTitulo"),
-        texto: tinaField(c, "plantasTexto"),
-        enlace: tinaField(c, "plantasEnlace"),
+        titulo: campo(c, "plantasTitulo"),
+        texto: campo(c, "plantasTexto"),
+        enlace: campo(c, "plantasEnlace"),
       },
     },
     {
@@ -99,9 +95,9 @@ export default function Inicio({
       href: "/equipo",
       enlace: c.profesEnlace,
       campos: {
-        titulo: tinaField(c, "profesTitulo"),
-        texto: tinaField(c, "profesTexto"),
-        enlace: tinaField(c, "profesEnlace"),
+        titulo: campo(c, "profesTitulo"),
+        texto: campo(c, "profesTexto"),
+        enlace: campo(c, "profesEnlace"),
       },
     },
   ];
@@ -112,35 +108,35 @@ export default function Inicio({
       href: "/planes",
       titulo: t.planes.titulo,
       frase: t.planes.frase,
-      campos: { titulo: tinaField(t.planes, "titulo"), frase: tinaField(t.planes, "frase") },
+      campos: { titulo: campo(t.planes, "titulo"), frase: campo(t.planes, "frase") },
     },
     {
       id: "horarios",
       href: "/horarios",
       titulo: t.horarios.titulo,
       frase: t.horarios.frase,
-      campos: { titulo: tinaField(t.horarios, "titulo"), frase: tinaField(t.horarios, "frase") },
+      campos: { titulo: campo(t.horarios, "titulo"), frase: campo(t.horarios, "frase") },
     },
     {
       id: "instalaciones",
       href: "/instalaciones",
       titulo: t.instalaciones.titulo,
       frase: t.instalaciones.frase,
-      campos: { titulo: tinaField(t.instalaciones, "titulo"), frase: tinaField(t.instalaciones, "frase") },
+      campos: { titulo: campo(t.instalaciones, "titulo"), frase: campo(t.instalaciones, "frase") },
     },
     {
       id: "equipo",
       href: "/equipo",
       titulo: t.equipo.titulo,
       frase: t.equipo.frase,
-      campos: { titulo: tinaField(t.equipo, "titulo"), frase: tinaField(t.equipo, "frase") },
+      campos: { titulo: campo(t.equipo, "titulo"), frase: campo(t.equipo, "frase") },
     },
     {
       id: "objetivos",
       href: "/objetivos",
       titulo: t.objetivos.titulo,
       frase: t.objetivos.frase,
-      campos: { titulo: tinaField(t.objetivos, "titulo"), frase: tinaField(t.objetivos, "frase") },
+      campos: { titulo: campo(t.objetivos, "titulo"), frase: campo(t.objetivos, "frase") },
     },
   ];
 
@@ -160,10 +156,10 @@ export default function Inicio({
          */}
         <div className="contenedor relative flex min-h-[64svh] flex-col justify-end pt-20 pb-14 sm:min-h-[72svh] sm:pt-24 sm:pb-24">
           <h1 className="titular-mixto max-w-[14ch] text-[clamp(3.25rem,1.2rem+9vw,7.5rem)] leading-[0.88]">
-            <span className="linea entra" data-tina-field={tinaField(c, "heroLinea1")}>
+            <span className="linea entra" data-tina-field={campo(c, "heroLinea1")}>
               {c.heroLinea1}
             </span>{" "}
-            <span className="linea acento entra retraso-1" data-tina-field={tinaField(c, "heroLinea2")}>
+            <span className="linea acento entra retraso-1" data-tina-field={campo(c, "heroLinea2")}>
               {c.heroLinea2}
             </span>
           </h1>
@@ -174,7 +170,7 @@ export default function Inicio({
           </p>
           <p
             className="bajada entra retraso-3 mt-4 max-w-[34ch] text-lg text-sobre-oscuro sm:text-xl"
-            data-tina-field={tinaField(c, "heroBajada")}
+            data-tina-field={campo(c, "heroBajada")}
           >
             {c.heroBajada}
           </p>
@@ -183,7 +179,7 @@ export default function Inicio({
             mensaje={negocio.mensajeWhatsappGeneral}
             className="entra retraso-4 mt-8 self-start"
           >
-            <span data-tina-field={tinaField(c, "heroBoton")}>
+            <span data-tina-field={campo(c, "heroBoton")}>
               {c.heroBoton}
               <span className="sr-only"> por WhatsApp</span>
             </span>
@@ -200,14 +196,14 @@ export default function Inicio({
 
       <section aria-labelledby="que-es" className="seccion">
         <div className="contenedor">
-          <h2 id="que-es" className="revelar mb-5" data-tina-field={tinaField(c, "queEsTitulo")}>
+          <h2 id="que-es" className="revelar mb-5" data-tina-field={campo(c, "queEsTitulo")}>
             {c.queEsTitulo}
           </h2>
           {/* Desde lg el texto y el bloque de datos van lado a lado en vez de uno debajo del otro. */}
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-start lg:gap-12">
             <div className="prosa text-lg">
-              <p data-tina-field={tinaField(c, "queEsIntro")}>{c.queEsIntro}</p>
-              <p data-tina-field={tinaField(c, "queEsTexto")}>{c.queEsTexto}</p>
+              <p data-tina-field={campo(c, "queEsIntro")}>{c.queEsIntro}</p>
+              <p data-tina-field={campo(c, "queEsTexto")}>{c.queEsTexto}</p>
             </div>
 
             {/* El bloque de dato de las placas: amarillo, en Anton, con las cifras grandes arriba. */}
@@ -285,7 +281,7 @@ export default function Inicio({
             <Link
               href="/planes"
               className="btn btn-secundario self-start sm:shrink-0 sm:self-auto"
-              data-tina-field={tinaField(c, "precioBoton")}
+              data-tina-field={campo(c, "precioBoton")}
             >
               {c.precioBoton}
             </Link>
@@ -295,7 +291,7 @@ export default function Inicio({
 
       <section aria-labelledby="conoce-mas" className="seccion">
         <div className="contenedor">
-          <h2 id="conoce-mas" className="revelar mb-6" data-tina-field={tinaField(c, "conoceMasTitulo")}>
+          <h2 id="conoce-mas" className="revelar mb-6" data-tina-field={campo(c, "conoceMasTitulo")}>
             {c.conoceMasTitulo}
           </h2>
           {/*
@@ -348,15 +344,15 @@ export default function Inicio({
             <h2
               id="cierre"
               className="con-punto revelar mb-4 text-[clamp(2.25rem,1.6rem+3vw,4rem)]"
-              data-tina-field={tinaField(c, "cierreTitulo")}
+              data-tina-field={campo(c, "cierreTitulo")}
             >
               {c.cierreTitulo}
             </h2>
-            <p className="max-w-[65ch] text-lg" data-tina-field={tinaField(c, "cierreTexto")}>
+            <p className="max-w-[65ch] text-lg" data-tina-field={campo(c, "cierreTexto")}>
               {c.cierreTexto}
             </p>
             <BotonWhatsApp mensaje={negocio.mensajeWhatsappGeneral} className="mt-7">
-              <span data-tina-field={tinaField(c, "cierreBoton")}>
+              <span data-tina-field={campo(c, "cierreBoton")}>
                 {c.cierreBoton}
                 <span className="sr-only"> por WhatsApp</span>
               </span>

@@ -1,12 +1,10 @@
-"use client";
-
 import type { ReactNode } from "react";
-import { tinaField, useTina } from "tinacms/dist/react";
 import type contenido from "@content/paginas/instalaciones.json";
 import BotonWhatsApp from "@/components/BotonWhatsApp";
 import Selector from "@/components/Selector";
 import { negocio, plantas, type Planta } from "@/data/site";
 import { minusculaInicial, numeroEnPalabras as enPalabras } from "@/lib/formato";
+import type { Campo } from "@/lib/tina";
 
 const cantidadDePlantas = enPalabras(plantas.length);
 
@@ -25,12 +23,15 @@ export type FotosDePlanta = {
  * El copy sale de content/paginas/instalaciones.json; el foco se toma del dato para que el texto no se desfase si cambia.
  * Si se agrega una planta nueva, hay que sumar su texto acá (y en el JSON); mientras falte, esa subsección no se muestra.
  */
-const QUE_ENTRENAS: Record<string, (planta: Planta, textos: Textos["queEntrenas"]) => { texto: string; campo: string }> =
+const QUE_ENTRENAS: Record<
+  string,
+  (planta: Planta, textos: Textos["queEntrenas"], campo: Campo) => { texto: string; campo: string }
+> =
   {
-    "planta-baja": (_planta, textos) => ({ texto: textos.plantaBaja, campo: tinaField(textos, "plantaBaja") }),
-    "planta-alta": (planta, textos) => ({
+    "planta-baja": (_planta, textos, campo) => ({ texto: textos.plantaBaja, campo: campo(textos, "plantaBaja") }),
+    "planta-alta": (planta, textos, campo) => ({
       texto: `${textos.plantaAlta.antesDelFoco} ${minusculaInicial(planta.foco)}${textos.plantaAlta.despuesDelFoco}`,
-      campo: tinaField(textos.plantaAlta),
+      campo: campo(textos.plantaAlta),
     }),
   };
 
@@ -38,9 +39,19 @@ const QUE_ENTRENAS: Record<string, (planta: Planta, textos: Textos["queEntrenas"
  * Contenido de la pestaña de una planta. En desktop, "Cómo se entrena" y "Equipamiento" van lado a lado;
  * las fotos de la planta, en una fila que se desliza de costado.
  */
-function PanelPlanta({ planta, textos, fotos }: { planta: Planta; textos: Textos; fotos: FotosDePlanta }) {
+function PanelPlanta({
+  planta,
+  textos,
+  fotos,
+  campo,
+}: {
+  planta: Planta;
+  textos: Textos;
+  fotos: FotosDePlanta;
+  campo: Campo;
+}) {
   const idTitulo = `${planta.id}-titulo`;
-  const queEntrenas = QUE_ENTRENAS[planta.id]?.(planta, textos.queEntrenas);
+  const queEntrenas = QUE_ENTRENAS[planta.id]?.(planta, textos.queEntrenas, campo);
   const nombreEnMinuscula = minusculaInicial(planta.nombre);
   const tituloFotos = `Fotos de la ${nombreEnMinuscula}`;
   // Sin texto de "Cómo se entrena", los destacados usan todo el ancho.
@@ -55,7 +66,7 @@ function PanelPlanta({ planta, textos, fotos }: { planta: Planta; textos: Textos
       <div className={`grid gap-6 ${columnas}`}>
         {queEntrenas !== undefined && (
           <div>
-            <h3 className="etiqueta" data-tina-field={tinaField(textos, "comoSeEntrenaTitulo")}>
+            <h3 className="etiqueta" data-tina-field={campo(textos, "comoSeEntrenaTitulo")}>
               {textos.comoSeEntrenaTitulo}
             </h3>
             <p className="mt-3 max-w-[65ch] text-lg" data-tina-field={queEntrenas.campo}>
@@ -65,7 +76,7 @@ function PanelPlanta({ planta, textos, fotos }: { planta: Planta; textos: Textos
         )}
 
         <div>
-          <h3 className="etiqueta" data-tina-field={tinaField(textos, "equipamientoTitulo")}>
+          <h3 className="etiqueta" data-tina-field={campo(textos, "equipamientoTitulo")}>
             {textos.equipamientoTitulo}
           </h3>
           {/*
@@ -97,22 +108,15 @@ function PanelPlanta({ planta, textos, fotos }: { planta: Planta; textos: Textos
  * /instalaciones. Los textos fijos salen de content/paginas/instalaciones.json y se editan con Tina (npm run dev → /admin).
  * Lo que sale de src/data/site.ts o se calcula (plantas, foco, destacados, cantidad de plantas) sigue en el código.
  */
-export default function Instalaciones({
-  fotos,
-  ...props
-}: {
-  query: string;
-  variables: { relativePath: string };
-  data: { instalaciones: Textos };
+export default function Instalaciones({ c, campo, fotos }: {
+  c: Textos;
+  campo: Campo;
   /** Las fotos de cada planta, por id de planta. */
   fotos: Record<string, FotosDePlanta>;
 }) {
-  const { data } = useTina(props);
-  const c = data.instalaciones;
-
   return (
     <div className="contenedor pt-section pb-section">
-      <h1 data-tina-field={tinaField(c, "titulo")}>{c.titulo}</h1>
+      <h1 data-tina-field={campo(c, "titulo")}>{c.titulo}</h1>
       <p className="intro mt-4">
         Tenemos {cantidadDePlantas} plantas y con cualquier plan usás las {cantidadDePlantas}.
       </p>
@@ -135,13 +139,13 @@ export default function Instalaciones({
               <span className="text-sm font-normal text-balance">{planta.foco}</span>
             </span>
           ),
-          contenido: <PanelPlanta planta={planta} textos={c} fotos={fotos[planta.id]} />,
+          contenido: <PanelPlanta planta={planta} textos={c} fotos={fotos[planta.id]} campo={campo} />,
         }))}
       />
 
       <div className="mt-section">
         <BotonWhatsApp mensaje={negocio.mensajeWhatsappInstalaciones}>
-          <span data-tina-field={tinaField(c, "boton")}>
+          <span data-tina-field={campo(c, "boton")}>
             {c.boton}
             <span className="sr-only"> por WhatsApp</span>
           </span>

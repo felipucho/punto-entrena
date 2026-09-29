@@ -1,7 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { tinaField, useTina } from "tinacms/dist/react";
 import type contenido from "@content/paginas/contacto.json";
 import BotonWhatsApp from "@/components/BotonWhatsApp";
 import { negocio } from "@/data/site";
@@ -9,6 +6,7 @@ import { direccionCompleta, direccionCorta, telHref, urlMapa, urlMapaEmbebido } 
 import { diasDeApertura, horarioGeneral } from "@/lib/horarios";
 import { paseLibre } from "@/lib/planes";
 import { redesActivas } from "@/lib/redes";
+import type { Campo } from "@/lib/tina";
 
 const redes = redesActivas();
 
@@ -23,19 +21,12 @@ const nombrePase = paseLibre().nombre.toLowerCase();
  * Teléfono, redes, horario y dirección siguen en src/data/site.ts; el primer párrafo de "otra localidad" queda
  * en el código porque mezcla la localidad, un enlace y los días.
  */
-export default function Contacto(props: {
-  query: string;
-  variables: { relativePath: string };
-  data: { contacto: typeof contenido };
-}) {
-  const { data } = useTina(props);
-  const c = data.contacto;
-
+export default function Contacto({ c, campo }: { c: typeof contenido; campo: Campo }) {
   return (
     <>
       <div className="contenedor pt-section">
-        <h1 data-tina-field={tinaField(c, "titulo")}>{c.titulo}</h1>
-        <p className="intro mt-4" data-tina-field={tinaField(c, "intro")}>
+        <h1 data-tina-field={campo(c, "titulo")}>{c.titulo}</h1>
+        <p className="intro mt-4" data-tina-field={campo(c, "intro")}>
           {c.intro}
         </p>
       </div>
@@ -53,13 +44,13 @@ export default function Contacto(props: {
               <h2
                 id="whatsapp-telefono-horario"
                 className="revelar mb-4"
-                data-tina-field={tinaField(c, "whatsappTitulo")}
+                data-tina-field={campo(c, "whatsappTitulo")}
               >
                 {c.whatsappTitulo}
               </h2>
               <p>
                 <BotonWhatsApp mensaje={negocio.mensajeWhatsappGeneral}>
-                  <span data-tina-field={tinaField(c, "whatsappBoton")}>
+                  <span data-tina-field={campo(c, "whatsappBoton")}>
                     {c.whatsappBoton}
                     <span className="sr-only"> por WhatsApp</span>
                   </span>
@@ -73,7 +64,7 @@ export default function Contacto(props: {
                 <div className="grid grid-cols-[7rem_minmax(0,1fr)] items-baseline gap-x-4">
                   <dt
                     className="font-bold uppercase tracking-[0.08em] text-muted"
-                    data-tina-field={tinaField(c, "etiquetaTelefono")}
+                    data-tina-field={campo(c, "etiquetaTelefono")}
                   >
                     {c.etiquetaTelefono}
                   </dt>
@@ -87,7 +78,7 @@ export default function Contacto(props: {
                   <div className="grid grid-cols-[7rem_minmax(0,1fr)] items-baseline gap-x-4">
                     <dt
                       className="font-bold uppercase tracking-[0.08em] text-muted"
-                      data-tina-field={tinaField(c, "etiquetaRedes")}
+                      data-tina-field={campo(c, "etiquetaRedes")}
                     >
                       {c.etiquetaRedes}
                     </dt>
@@ -113,7 +104,7 @@ export default function Contacto(props: {
                 <div className="grid grid-cols-[7rem_minmax(0,1fr)] items-baseline gap-x-4">
                   <dt
                     className="font-bold uppercase tracking-[0.08em] text-muted"
-                    data-tina-field={tinaField(c, "etiquetaHorario")}
+                    data-tina-field={campo(c, "etiquetaHorario")}
                   >
                     {c.etiquetaHorario}
                   </dt>
@@ -124,7 +115,7 @@ export default function Contacto(props: {
 
             <section aria-labelledby="donde-estamos">
               {/* El texto editable va antes de la localidad, separado por un espacio. */}
-              <h2 id="donde-estamos" className="revelar mb-4" data-tina-field={tinaField(c, "dondeTitulo")}>
+              <h2 id="donde-estamos" className="revelar mb-4" data-tina-field={campo(c, "dondeTitulo")}>
                 {`${c.dondeTitulo} `}
                 {localidad}
               </h2>
@@ -139,7 +130,7 @@ export default function Contacto(props: {
                   target="_blank"
                   rel="noopener"
                   className="btn btn-secundario"
-                  data-tina-field={tinaField(c, "comoLlegarBoton")}
+                  data-tina-field={campo(c, "comoLlegarBoton")}
                 >
                   {c.comoLlegarBoton}
                   <span className="sr-only"> en Google Maps (se abre en una pestaña nueva)</span>
@@ -165,7 +156,7 @@ export default function Contacto(props: {
               <h2
                 id="otra-localidad"
                 className="con-punto mb-4"
-                data-tina-field={tinaField(c, "otraLocalidadTitulo")}
+                data-tina-field={campo(c, "otraLocalidadTitulo")}
               >
                 {c.otraLocalidadTitulo}
               </h2>
@@ -177,12 +168,12 @@ export default function Contacto(props: {
                   </Link>
                   . Con ese plan podés venir todos los días, de {diasHabiles}.
                 </p>
-                <p data-tina-field={tinaField(c, "otraLocalidadAviso")}>{c.otraLocalidadAviso}</p>
+                <p data-tina-field={campo(c, "otraLocalidadAviso")}>{c.otraLocalidadAviso}</p>
               </div>
             </div>
             <p>
               <BotonWhatsApp mensaje={`Hola, no vivo en ${localidad} y me interesa el ${nombrePase}. ¿Cómo hago para ir la primera vez?`}>
-                <span data-tina-field={tinaField(c, "otraLocalidadBoton")}>
+                <span data-tina-field={campo(c, "otraLocalidadBoton")}>
                   {c.otraLocalidadBoton}
                   <span className="sr-only"> por WhatsApp</span>
                 </span>
