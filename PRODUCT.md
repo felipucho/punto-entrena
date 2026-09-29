@@ -30,7 +30,7 @@ Atención personalizada: una planilla individual que arman los profes según el 
 
 - Next.js 16 (App Router), React 19 y Tailwind v4, render estático: 10 rutas más not-found.
 - Única fuente de datos: `src/data/site.ts`. Todo lo derivado se calcula (precio por clase, horarios por profe, estado en vivo, JSON-LD, respuestas del FAQ). Un dato en `null` oculta lo que depende de él.
-- JS de cliente solo en `EstadoEnVivo`, `HeroVideo`, `MenuMobile` y `Selector`.
+- JS de cliente solo en `EstadoEnVivo`, `HeroVideo`, `MenuMobile` y `Selector`. Las páginas se renderizan en el servidor; Tina (`ConTina`, `useTina`) se carga solo en desarrollo para editar en `/admin`.
 - Estructura y rutas están cerradas. Los textos se reescribieron en septiembre 2026 con técnicas de copywriting y psicología de marketing, y se volvieron a reescribir ese mismo mes para sacar obviedades y que suenen humanos (ver "Voz y persuasión"); todo cambio de texto posterior sigue esas reglas. La etapa de diseño cambia solo la capa visual: tokens de `src/app/estilos/tokens.css`, estilos de componentes, fotos, video y logo.
 - Todo el contenido es texto real (nunca dentro de imágenes), con datos estructurados y carga rápida en celular.
 - Pendientes que no se inventan: frase y pregunta frecuente de cada profe, horas más tranquilas, referencia para llegar, cómo se aplica el descuento familiar, confirmación de qué llevar, si el teléfono es celular (+54 9), enlace de Facebook, dominio y coordenadas.
@@ -55,7 +55,7 @@ Atención personalizada: una planilla individual que arman los profes según el 
 ## Evidence on Hand
 
 - Textos finales y datos reales en el código: precios, grilla de profes, plantas y equipamiento, primer mes y mito por perfil.
-- Ausentes, no se fabrican: fotos, video del lugar, logo original, frases de profes, reseñas o testimonios. `public/` está vacío; cada foto faltante está marcada con `Foto` y el video tiene sus specs en `src/components/HeroVideo.tsx`.
+- Ausentes, no se fabrican: video del lugar, logo original, frases de profes, reseñas o testimonios. Hay fotos reales de las dos plantas y retratos de los cuatro profes en `public/fotos/` (el hero usa una de la planta baja mientras no hay video); cada foto que falta está marcada con `Foto` como lugar reservado y el video tiene sus specs en `src/components/HeroVideo.tsx`.
 - No se usan fotos de stock ni imágenes generadas presentadas como del gimnasio.
 
 ## Product Principles
