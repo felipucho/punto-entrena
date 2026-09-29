@@ -5,9 +5,11 @@ import Image from "next/image";
 type Props = {
   /**
    * Qué va a mostrar la foto real. Se usa en la etiqueta visible y en el aria-label del lugar reservado, en el alt
-   * de la foto real y, pasada a slug, en el nombre del archivo.
+   * de la foto real y, pasada a slug, en el nombre del archivo (salvo que se pase `archivo`).
    */
   descripcion: string;
+  /** Ruta de la foto en public/fotos/, sin extensión y con subcarpetas si las tiene ("planta-alta/prensa-45"). */
+  archivo?: string;
   /** aspect-ratio CSS, por ejemplo "4 / 3" o "16 / 9". */
   proporcion?: string;
   /**
@@ -33,9 +35,8 @@ function slug(descripcion: string): string {
     .replace(/^-|-$/g, "");
 }
 
-/** /fotos/<slug>.<extensión> si la foto ya está en public/fotos/; si no, null. Se resuelve en el build. */
-function fotoReal(descripcion: string): string | null {
-  const nombre = slug(descripcion);
+/** /fotos/<nombre>.<extensión> si la foto ya está en public/fotos/; si no, null. Se resuelve en el build. */
+function fotoReal(nombre: string): string | null {
   const extension = EXTENSIONES.find((ext) => existsSync(path.join(process.cwd(), "public", "fotos", nombre + ext)));
   return extension ? `/fotos/${nombre}${extension}` : null;
 }
@@ -49,12 +50,13 @@ function fotoReal(descripcion: string): string | null {
  */
 export default function ImagePlaceholder({
   descripcion,
+  archivo,
   proporcion = "4 / 3",
   decorativa = false,
   sizes = "100vw",
   className = "",
 }: Props) {
-  const foto = fotoReal(descripcion);
+  const foto = fotoReal(archivo ?? slug(descripcion));
 
   if (foto !== null) {
     return (

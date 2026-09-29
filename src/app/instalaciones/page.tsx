@@ -2,12 +2,12 @@ import contenido from "../../../content/paginas/instalaciones.json";
 import { InstalacionesDocument } from "../../../tina/__generated__/types";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
 import Instalaciones, { type FotosDePlanta } from "@/components/paginas/Instalaciones";
+import { fotosInstalaciones } from "@/data/fotos-instalaciones";
 import { negocio, plantas, type Planta } from "@/data/site";
 import { minusculaInicial, numeroEnPalabras as enPalabras } from "@/lib/formato";
 import { metadataDePagina } from "@/lib/seo";
 
 const LARGO_MAXIMO_DESCRIPCION = 155;
-const FOTOS_POR_GALERIA = 6;
 
 const cantidadDePlantas = enPalabras(plantas.length);
 
@@ -36,39 +36,41 @@ export const metadata = metadataDePagina({
 });
 
 /**
- * Seis fotos por planta: tres escenas generales y los primeros destacados en uso.
- * Todo sale del nombre, el foco y los destacados de la planta.
+ * Las fotos de cada planta, por id. Salen de src/data/fotos-instalaciones.ts (archivos en public/fotos/<planta>/).
+ * Un destacado sin foto real deja su lugar reservado. Se arman acá porque ImagePlaceholder lee public/fotos/ del disco.
+ * Las fotos vienen de celular, en vertical: la galería las muestra 3 / 4 para no recortarlas.
+ * Los archivos ya vienen en el gris de Punto (864 × 1152, de --negro-grano a --gris-100): el filtro de .foto img
+ * se apaga para no desaturar ni contrastar dos veces.
  */
-function fotosDeGaleria(planta: Planta): string[] {
-  const nombre = minusculaInicial(planta.nombre);
-  const escenas = [
-    `vista general de la ${nombre}`,
-    `alumnos entrenando ${minusculaInicial(planta.foco)}`,
-    `un profe acompañando a un alumno en la ${nombre}`,
-  ];
-  const enUso = planta.destacados
-    .slice(0, FOTOS_POR_GALERIA - escenas.length)
-    .map((destacado) => `${minusculaInicial(destacado)} en uso`);
-  return [...escenas, ...enUso];
-}
-
-/** Las fotos de cada planta, por id. Se arman acá porque ImagePlaceholder lee public/fotos/ del disco. */
 function fotosDePlanta(planta: Planta): FotosDePlanta {
   const nombreEnMinuscula = minusculaInicial(planta.nombre);
+  const reales = fotosInstalaciones[planta.id];
   return {
     equipamiento: Object.fromEntries(
-      planta.destacados.map((destacado) => [
-        destacado,
-        <ImagePlaceholder
-          key={destacado}
-          descripcion={`${minusculaInicial(destacado)} de la ${nombreEnMinuscula}`}
-          proporcion="1 / 1"
-          className="[&>span]:text-xs"
-        />,
-      ]),
+      planta.destacados.map((destacado) => {
+        const foto = reales?.equipamiento[destacado];
+        return [
+          destacado,
+          <ImagePlaceholder
+            key={destacado}
+            archivo={foto && `${planta.id}/${foto.archivo}`}
+            descripcion={foto?.descripcion ?? `${minusculaInicial(destacado)} de la ${nombreEnMinuscula}`}
+            proporcion="1 / 1"
+            sizes="(min-width: 64rem) 12rem, 30vw"
+            className="[&_img]:filter-none [&>span]:text-xs"
+          />,
+        ];
+      }),
     ),
-    galeria: fotosDeGaleria(planta).map((foto) => (
-      <ImagePlaceholder key={foto} descripcion={foto} proporcion="4 / 3" />
+    galeria: (reales?.galeria ?? []).map((foto) => (
+      <ImagePlaceholder
+        key={foto.archivo}
+        archivo={`${planta.id}/${foto.archivo}`}
+        descripcion={foto.descripcion}
+        proporcion="3 / 4"
+        sizes="(min-width: 26rem) 18rem, 75vw"
+        className="[&_img]:filter-none"
+      />
     )),
   };
 }
