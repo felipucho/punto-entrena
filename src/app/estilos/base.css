@@ -5,10 +5,27 @@
     /* 17 px de base respetando el tamaño que elija cada persona en su navegador. */
     font-size: 106.25%;
     color-scheme: dark;
-    /* Alto del botón flotante de WhatsApp: un elemento enfocado nunca queda tapado por él. */
+    /*
+     * Arriba, el alto de la cabecera fija (más su borde, la barra de avance y el anillo de foco); abajo, el del botón
+     * flotante de WhatsApp: un elemento enfocado nunca queda tapado.
+     */
+    scroll-padding-top: calc(var(--alto-cabecera) + 0.75rem);
     scroll-padding-bottom: 5rem;
     -webkit-text-size-adjust: 100%;
     background-color: var(--color-bg);
+  }
+
+  /* Con la flecha de volver arriba a la vista, lo enfocado abajo tiene que quedar por encima de ella. */
+  html:has(.btn-arriba[data-visible]) {
+    scroll-padding-bottom: 9rem;
+  }
+
+  /*
+   * Con el foco en la cabecera no hay reserva arriba: ella misma cae en esa franja y el navegador movería la página
+   * en cada Tab para "mostrar" un link que ya se ve.
+   */
+  html:has(.cabecera :focus) {
+    scroll-padding-top: 0;
   }
 
   body {

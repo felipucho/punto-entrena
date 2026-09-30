@@ -59,6 +59,37 @@
   }
 }
 
+@keyframes avance {
+  from {
+    inline-size: 0;
+  }
+  to {
+    inline-size: 100%;
+  }
+}
+
+/* La flecha sale por arriba acelerando y vuelve a entrar desde abajo frenando (la curva de --ease-salida). */
+@keyframes despega {
+  0% {
+    opacity: 1;
+    translate: 0 0;
+    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45);
+  }
+  40% {
+    opacity: 0;
+    translate: 0 -1.5rem;
+  }
+  41% {
+    opacity: 0;
+    translate: 0 1rem;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  100% {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   /* Entrada del hero, escalonada: cada pieza lleva --retraso. */
   .entra {
@@ -87,6 +118,27 @@
 
   .btn-flotante {
     animation: flotante-entra var(--dur-lenta) var(--ease-salida) 600ms backwards;
+  }
+
+  /* Al tocar la flecha de volver arriba, despega. */
+  .btn-arriba[data-despega] .btn-arriba-flecha {
+    animation: despega 650ms;
+  }
+
+  /*
+   * La barra de avance de la cabecera, atada al scroll de la página. Escondida, la cabecera deja asomar 3 px: la
+   * barra con su punto queda arriba de todo mientras se lee.
+   */
+  @supports (animation-timeline: scroll()) {
+    .cabecera-progreso {
+      display: block;
+      animation: avance linear both;
+      animation-timeline: scroll(root);
+    }
+
+    .cabecera[data-oculta]:not(:has([aria-expanded="true"], :focus-visible)) {
+      translate: 0 calc(-100% + 3px);
+    }
   }
 
   /* Revelado al entrar en pantalla, donde el navegador sabe atar la animación al scroll. */

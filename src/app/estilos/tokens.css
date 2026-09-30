@@ -65,6 +65,8 @@
   /* Geometría del logo: esquinas vivas, el corte diagonal de la barra de la P y la pata con su cuña amarilla. */
   --radius: 0.125rem;
   --corte: 0.75rem;
+  /* Alto de la cabecera fija (min-h-18 en Header): lo que se reserva arriba al llevar un elemento a la vista. */
+  --alto-cabecera: 4.5rem;
   /* Compacto a propósito: la información de cada página tiene que verse con poco scroll. */
   --space-section: clamp(2.5rem, 1.5rem + 3.5vw, 4.5rem);
   --ease-salida: cubic-bezier(0.22, 1, 0.36, 1);

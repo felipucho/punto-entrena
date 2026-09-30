@@ -34,7 +34,10 @@ export default function MenuMobile({ enlaces, destacado }: Props) {
     setAbierto(false);
   }
 
-  // Cierra con Escape y devuelve el foco al botón.
+  /*
+   * Cierra con Escape (y devuelve el foco al botón) o cuando el foco o un toque se van afuera de la nav: con la
+   * cabecera fija el menú queda clavado arriba y taparía lo que se está por usar.
+   */
   useEffect(() => {
     if (!abierto) return;
     function alTocarTecla(evento: KeyboardEvent) {
@@ -42,9 +45,29 @@ export default function MenuMobile({ enlaces, destacado }: Props) {
       setAbierto(false);
       boton.current?.focus();
     }
+    function alSalir(evento: Event) {
+      const nav = boton.current?.closest("nav");
+      if (nav && !nav.contains(evento.target as Node)) setAbierto(false);
+    }
     document.addEventListener("keydown", alTocarTecla);
-    return () => document.removeEventListener("keydown", alTocarTecla);
+    document.addEventListener("focusin", alSalir);
+    document.addEventListener("pointerdown", alSalir);
+    return () => {
+      document.removeEventListener("keydown", alTocarTecla);
+      document.removeEventListener("focusin", alSalir);
+      document.removeEventListener("pointerdown", alSalir);
+    };
   }, [abierto]);
+
+  // Al pasar a escritorio (girar la tablet, agrandar la ventana) la lista queda en fila: el menú se da por cerrado.
+  useEffect(() => {
+    const escritorio = window.matchMedia("(min-width: 64rem)");
+    function alCambiar() {
+      if (escritorio.matches) setAbierto(false);
+    }
+    escritorio.addEventListener("change", alCambiar);
+    return () => escritorio.removeEventListener("change", alCambiar);
+  }, []);
 
   const cerrar = () => setAbierto(false);
 

@@ -3,6 +3,7 @@ import { Anton, Roboto } from "next/font/google";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import JsonLd from "@/components/JsonLd";
+import VolverArriba from "@/components/VolverArriba";
 import WhatsAppFlotante from "@/components/WhatsAppFlotante";
 import { negocio } from "@/data/site";
 import { jsonLdGimnasio, plantillaTitulo, siteUrl, tituloInicio } from "@/lib/seo";
@@ -59,6 +60,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           {children}
         </main>
         <Footer />
+        <VolverArriba />
         <WhatsAppFlotante />
         <JsonLd datos={jsonLdGimnasio()} />
       </body>
