@@ -16,15 +16,15 @@
   "profesTexto": "Nuestros profes están para ayudarte a entrenar, resolver tus dudas y acompañarte durante el proceso. Antes de venir, podés consultar quién está en tu horario.",
   "profesEnlace": "Mirá cuándo está cada uno",
   "precioBoton": "Ver todos los precios",
-  "conoceMasTitulo": "Lo que querés saber antes de venir",
+  "conoceMasTitulo": "Conocé cómo funciona PUNTO",
   "tarjetas": {
     "planes": {
-      "titulo": "Planes",
-      "frase": "Cuánto sale cada plan y cuál te conviene."
+      "titulo": "Precios, abonos y promociones",
+      "frase": "Conocé nuestras opciones y elegí la que mejor se adapte a vos."
     },
     "horarios": {
       "titulo": "Horarios",
-      "frase": "Qué profe está y quién atiende ahora."
+      "frase": "Consultá nuestros horarios y quién está para acompañarte en cada turno."
     },
     "instalaciones": {
       "titulo": "Instalaciones",
@@ -32,11 +32,11 @@
     },
     "equipo": {
       "titulo": "Equipo",
-      "frase": "Quiénes son y qué estudiaron."
+      "frase": "Conocé nuestros profes, su formación y en qué se especializan."
     },
     "objetivos": {
       "titulo": "Objetivos",
-      "frase": "Cómo sería tu primer mes adaptado a vos."
+      "frase": "Conocé cómo empezar según tu objetivo, tu nivel y experiencia."
     }
   },
   "cierreTitulo": "Empezá solo con mensaje",
