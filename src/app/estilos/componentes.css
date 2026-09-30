@@ -569,9 +569,10 @@
   }
 
   /*
-   * Volver arriba: círculo negro con la flecha del pill apuntando para arriba, apilado encima del botón de WhatsApp
-   * (mismo alto y mismo anillo negro). VolverArriba lo marca data-visible cerca del final: sube desde el botón de
-   * WhatsApp y crece. Al pasar se enciende de amarillo, la flecha se estira para arriba y aparece el punto.
+   * Volver arriba: círculo de vidrio ahumado (negro translúcido con desenfoque, se ve la página detrás) con borde y
+   * flecha amarillos, apilado encima del botón de WhatsApp (mismo alto). VolverArriba lo marca data-visible cerca del
+   * final: sube desde el botón de WhatsApp y crece. Al pasar se llena de amarillo, la flecha pasa a negro y se estira
+   * para arriba, y aparece el punto.
    * Mientras está escondido no se ve ni se enfoca (visibility); si tenía el foco de teclado, se queda.
    */
   .btn-arriba {
@@ -583,16 +584,15 @@
     place-items: center;
     inline-size: 3rem;
     block-size: 3rem;
-    border: 1.5px solid var(--color-border-fuerte);
+    border: 1.5px solid color-mix(in srgb, var(--color-accent) 60%, transparent);
     border-radius: 50%;
-    background-color: var(--color-oscuro);
-    background-image: var(--grano);
-    color: var(--color-titulo);
+    background-color: color-mix(in srgb, var(--color-oscuro) 45%, transparent);
+    -webkit-backdrop-filter: blur(10px) saturate(1.4);
+    backdrop-filter: blur(10px) saturate(1.4);
+    color: var(--color-accent);
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    box-shadow:
-      0 0 0 2px var(--color-oscuro),
-      0 0.5rem 1.5rem -0.5rem var(--color-oscuro);
+    box-shadow: 0 0.5rem 1.5rem -0.5rem var(--color-oscuro);
     opacity: 0;
     visibility: hidden;
     translate: 0 1rem;
@@ -603,6 +603,7 @@
       scale var(--dur-media) var(--ease-salida),
       visibility var(--dur-media),
       border-color var(--dur-rapida) ease,
+      background-color var(--dur-rapida) ease,
       color var(--dur-rapida) ease;
   }
 
@@ -631,13 +632,11 @@
     box-shadow: 0 0 0 8px var(--color-oscuro);
   }
 
-  /* La flecha del pill ("deslizá"), girada para arriba. */
   .btn-arriba-flecha {
-    inline-size: 1.4rem;
-    block-size: 0.8rem;
+    inline-size: 1.125rem;
+    block-size: 1.35rem;
     background-color: currentColor;
-    mask: var(--flecha) center / contain no-repeat;
-    rotate: -90deg;
+    mask: var(--flecha-arriba) center / contain no-repeat;
     transition: translate var(--dur-media) var(--ease-salida);
   }
 
@@ -663,7 +662,8 @@
   @media (hover: hover) {
     .btn-arriba:hover {
       border-color: var(--color-accent);
-      color: var(--color-accent);
+      background-color: var(--color-accent);
+      color: var(--color-accent-fg);
     }
 
     .btn-arriba:hover .btn-arriba-flecha {
@@ -978,10 +978,16 @@
   }
 
   /*
-   * Cabecera fija: al bajar se va para arriba y al subir vuelve (CabeceraFija marca data-oculta). No se va con el
-   * menú del celular abierto ni con el foco de teclado adentro. Despegada del principio, una sombra la separa.
+   * Cabecera fija que acompaña el scroll: CabeceraFija escribe en --desplazo cuánto está corrida hacia arriba, así
+   * entra de a poco al subir. Solo cuando se acomoda sola (data-acomoda, al frenar a medio camino) lleva transición.
+   * Con el menú del celular abierto o el foco de teclado adentro, entera y de golpe. Despegada, una sombra la separa.
    */
   .cabecera {
+    translate: 0 calc(var(--desplazo, 0px) * -1);
+    transition: box-shadow var(--dur-media) var(--ease-salida);
+  }
+
+  .cabecera[data-acomoda] {
     transition:
       translate var(--dur-media) var(--ease-salida),
       box-shadow var(--dur-media) var(--ease-salida);
@@ -991,53 +997,13 @@
     box-shadow: 0 0.75rem 1.5rem -1.25rem var(--color-oscuro);
   }
 
-  .cabecera[data-oculta]:not(:has([aria-expanded="true"], :focus-visible)) {
-    translate: 0 -100%;
+  .cabecera[data-oculta] {
     box-shadow: none;
   }
 
-  /*
-   * Si el foco de teclado entra con la cabecera escondida, vuelve sin transición: si arrancara afuera de pantalla, el
-   * navegador movería la página para mostrar el link y se perdería el lugar de lectura.
-   */
-  .cabecera:has(:focus-visible) {
+  .cabecera:has([aria-expanded="true"], :focus-visible) {
+    translate: none;
     transition: none;
-  }
-
-  /*
-   * Avance de la lectura: la barra de la P, que se estira con el scroll, con el punto en la punta. Pisa el borde de
-   * abajo de la cabecera, así que cuando ella se va queda asomada arriba de todo. Solo se muestra donde el navegador
-   * ata la animación al scroll (ver movimiento.css). Una línea negra fina la separa de las placas amarillas.
-   */
-  .cabecera-progreso {
-    display: none;
-    position: absolute;
-    inset-block-start: 100%;
-    inset-inline-start: 0;
-    block-size: 3px;
-    inline-size: 0;
-    background-color: var(--color-accent);
-    box-shadow: 0 1px 0 var(--color-oscuro);
-    pointer-events: none;
-  }
-
-  .cabecera-progreso::after {
-    content: "";
-    position: absolute;
-    inset-block-start: 50%;
-    inset-inline-end: 0;
-    inline-size: 0.4375rem;
-    block-size: 0.4375rem;
-    border-radius: 50%;
-    background-color: var(--color-punto);
-    box-shadow: 0 0 0 1px var(--color-oscuro);
-    translate: 0 -50%;
-    scale: 0;
-    transition: scale var(--dur-media) var(--ease-salida);
-  }
-
-  .cabecera[data-despegada] .cabecera-progreso::after {
-    scale: 1;
   }
 
   /* Header: isotipo redibujado del logo + el nombre en texto, armado como el logo horizontal. */

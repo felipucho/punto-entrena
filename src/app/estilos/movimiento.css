@@ -59,15 +59,6 @@
   }
 }
 
-@keyframes avance {
-  from {
-    inline-size: 0;
-  }
-  to {
-    inline-size: 100%;
-  }
-}
-
 /* La flecha sale por arriba acelerando y vuelve a entrar desde abajo frenando (la curva de --ease-salida). */
 @keyframes despega {
   0% {
@@ -123,22 +114,6 @@
   /* Al tocar la flecha de volver arriba, despega. */
   .btn-arriba[data-despega] .btn-arriba-flecha {
     animation: despega 650ms;
-  }
-
-  /*
-   * La barra de avance de la cabecera, atada al scroll de la página. Escondida, la cabecera deja asomar 3 px: la
-   * barra con su punto queda arriba de todo mientras se lee.
-   */
-  @supports (animation-timeline: scroll()) {
-    .cabecera-progreso {
-      display: block;
-      animation: avance linear both;
-      animation-timeline: scroll(root);
-    }
-
-    .cabecera[data-oculta]:not(:has([aria-expanded="true"], :focus-visible)) {
-      translate: 0 calc(-100% + 3px);
-    }
   }
 
   /* Revelado al entrar en pantalla, donde el navegador sabe atar la animación al scroll. */

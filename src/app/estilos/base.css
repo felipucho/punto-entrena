@@ -6,7 +6,7 @@
     font-size: 106.25%;
     color-scheme: dark;
     /*
-     * Arriba, el alto de la cabecera fija (más su borde, la barra de avance y el anillo de foco); abajo, el del botón
+     * Arriba, el alto de la cabecera fija (más su borde y el anillo de foco); abajo, el del botón
      * flotante de WhatsApp: un elemento enfocado nunca queda tapado.
      */
     scroll-padding-top: calc(var(--alto-cabecera) + 0.75rem);
