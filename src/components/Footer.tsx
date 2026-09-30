@@ -9,53 +9,52 @@ export default function Footer() {
 
   return (
     // Negro pleno con grano y el isotipo recortado contra el borde derecho como marca de agua (la cuña y el punto
-    // en un amarillo apagado). Compacto: marca y contacto arriba, legales en una línea abajo. El padding de abajo deja
-    // lugar a los botones flotantes en todos los anchos: sin él, WhatsApp tapa los links legales. Desde 640 px los
-    // legales van a la derecha, justo arriba de la flecha de volver arriba: por eso crece un poco más.
-    <footer className="relative isolate overflow-hidden border-t border-border bg-oscuro bg-(image:--grano) pb-20 sm:pb-24">
+    // en un amarillo apagado). Compacto: marca y dirección a la izquierda, redes y teléfono juntos a la derecha; abajo
+    // los legales con el © debajo, siempre a la izquierda. Los botones flotantes (WhatsApp y volver arriba) van
+    // apilados a la derecha: en celular el padding de abajo los deja debajo del ©; desde 640 px alcanza con menos,
+    // pero tiene que dejar los links de arriba a la derecha por encima de la flecha.
+    <footer className="relative isolate overflow-hidden border-t border-border bg-oscuro bg-(image:--grano) pb-20 sm:pb-16">
       <Isotipo className="pointer-events-none absolute -right-10 -bottom-16 -z-10 h-56 w-auto text-surface-alt [--color-punto:color-mix(in_srgb,var(--color-accent)_30%,transparent)] lg:-bottom-20 lg:h-72" />
-      <div className="contenedor py-8 sm:py-10">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <div className="contenedor pt-7 sm:pt-8">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="flex items-center gap-2 font-bold text-titulo">
               <Isotipo className="h-6 w-auto shrink-0" />
               {negocio.nombre}
             </p>
-            <address className="mt-2 flex flex-col text-sm not-italic text-muted sm:flex-row sm:items-center sm:gap-x-2">
-              <span>{direccionCompleta()}</span>
-              <span aria-hidden="true" className="hidden sm:inline">
-                ·
-              </span>
-              <a href={telHref()} className="enlace inline-flex min-h-11 items-center self-start font-normal sm:self-auto">
-                {telefonoInternacional()}
-              </a>
-            </address>
+            <address className="mt-1 text-sm not-italic text-muted">{direccionCompleta()}</address>
           </div>
 
-          {redes.length > 0 && (
-            <ul aria-label="Redes" className="flex flex-wrap gap-x-5">
-              {redes.map((red) => (
-                <li key={red.url}>
-                  <a href={red.url} target="_blank" rel="noopener" className="enlace inline-flex min-h-11 items-center">
-                    {red.nombre}
-                    <span className="sr-only"> (se abre en una pestaña nueva)</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          )}
+          <ul aria-label="Contacto" className="flex flex-wrap gap-x-5">
+            {redes.map((red) => (
+              <li key={red.url}>
+                <a href={red.url} target="_blank" rel="noopener" className="enlace inline-flex min-h-11 items-center">
+                  {red.nombre}
+                  <span className="sr-only"> (se abre en una pestaña nueva)</span>
+                </a>
+              </li>
+            ))}
+            <li>
+              <a href={telHref()} title={telefonoInternacional()} className="enlace inline-flex min-h-11 items-center">
+                Número
+                <span className="sr-only">: {telefonoInternacional()}</span>
+              </a>
+            </li>
+          </ul>
         </div>
 
-        <div className="mt-4 flex flex-wrap items-center gap-x-5 border-t border-border pt-2 text-sm text-muted">
-          <p className="basis-full pt-3 sm:basis-auto sm:pt-0 sm:mr-auto">
+        <div className="mt-4 border-t border-border pt-1 text-muted">
+          <div className="flex gap-x-5 text-sm">
+            <Link href="/privacidad" className="enlace inline-flex min-h-11 items-center font-normal">
+              Privacidad
+            </Link>
+            <Link href="/terminos" className="enlace inline-flex min-h-11 items-center font-normal">
+              Términos
+            </Link>
+          </div>
+          <p className="text-xs">
             © {new Date().getFullYear()} {negocio.nombre}
           </p>
-          <Link href="/privacidad" className="enlace inline-flex min-h-11 items-center font-normal">
-            Privacidad
-          </Link>
-          <Link href="/terminos" className="enlace inline-flex min-h-11 items-center font-normal">
-            Términos
-          </Link>
         </div>
       </div>
     </footer>
