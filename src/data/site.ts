@@ -16,6 +16,8 @@ export type Negocio = {
   direccion: Direccion;
   telefono: { visible: string; tel: string; whatsapp: string };
   redes: { instagram: string | null; facebook: string | null };
+  /** Ficha de Google Maps del gimnasio: link corto y coordenadas del pin. null = se usa la búsqueda por dirección. */
+  mapa: { url: string; latitud: number; longitud: number } | null;
   zonaHoraria: string;
   edadMinima: number;
   mediosDePago: string;
@@ -80,7 +82,8 @@ export type Pregunta = {
 export const negocio: Negocio = {
   nombre: "Punto Entrenamiento y Salud",
   slogan: "Vos elegís tu objetivo. Punto te acompaña.",
-  // URL base: process.env.NEXT_PUBLIC_SITE_URL (dominio pendiente), fallback "http://localhost:3000".
+  // URL base: process.env.NEXT_PUBLIC_SITE_URL (dominio pendiente); en Vercel, el dominio de producción del proyecto;
+  // en local, "http://localhost:3000". Ver src/lib/seo.ts.
   direccion: {
     calle: "Roque Sáenz Peña 28",
     localidad: "Las Varillas",
@@ -97,9 +100,11 @@ export const negocio: Negocio = {
     whatsapp: "5493533442104", // formato wa.me
   },
   redes: {
-    instagram: "https://www.instagram.com/punto.entrenamiento/",
+    instagram: "https://www.instagram.com/punto.entrena/",
     facebook: null, // TODO: URL de la página de Facebook
   },
+  // Ficha "Punto - Entrenamiento y Salud". Las coordenadas son las del pin de esa ficha.
+  mapa: { url: "https://maps.app.goo.gl/hb8WCrLYg3QDYdo37", latitud: -31.8711774, longitud: -62.7195609 },
   zonaHoraria: "America/Argentina/Cordoba",
   edadMinima: 12,
   mediosDePago: "Aceptamos todos los medios de pago.",

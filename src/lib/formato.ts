@@ -91,7 +91,7 @@ export function urlMapaEmbebido(): string {
   return `https://www.google.com/maps?q=${consultaMapa}&output=embed`;
 }
 
-/** URL para abrir la dirección en Google Maps. */
+/** URL para abrir el gimnasio en Google Maps: la ficha si está cargada en site.ts y, si no, la búsqueda por dirección. */
 export function urlMapa(): string {
-  return `https://www.google.com/maps?q=${consultaMapa}`;
+  return negocio.mapa?.url ?? `https://www.google.com/maps?q=${consultaMapa}`;
 }

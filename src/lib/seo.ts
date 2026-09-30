@@ -7,15 +7,20 @@ import type { Ruta } from "@/lib/rutas";
 
 // Una variable vacía (típica de un .env de plantilla) cuenta como no definida.
 // new URL(...).origin saca la barra final y falla con un error claro si falta el protocolo.
-const urlConfigurada = process.env.NEXT_PUBLIC_SITE_URL?.trim() || "http://localhost:3000";
+// Vercel expone el dominio de producción del proyecto sin protocolo: sirve de respaldo si falta NEXT_PUBLIC_SITE_URL.
+const dominioVercel = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim();
+const urlConfigurada =
+  process.env.NEXT_PUBLIC_SITE_URL?.trim() || (dominioVercel ? `https://${dominioVercel}` : "http://localhost:3000");
 
-/** URL base del sitio. TODO Felipe: definir el dominio y cargarlo en NEXT_PUBLIC_SITE_URL. */
+/** URL base del sitio: NEXT_PUBLIC_SITE_URL, si no el dominio de producción de Vercel y, en local, localhost. */
 export const siteUrl = new URL(urlConfigurada).origin;
 
 /** Avisa en el build de producción si el sitio todavía apunta a localhost. Se llama una vez, desde el sitemap. */
 export function avisarSiFaltaDominio() {
   if (process.env.NODE_ENV === "production" && new URL(siteUrl).hostname === "localhost") {
-    console.warn("NEXT_PUBLIC_SITE_URL no está definida: canonical, sitemap, robots y JSON-LD apuntan a localhost.");
+    console.warn(
+      "NEXT_PUBLIC_SITE_URL no está definida: canonical, og:url, og:image, twitter:image, sitemap, robots y JSON-LD apuntan a localhost.",
+    );
   }
 }
 
@@ -108,9 +113,11 @@ export function jsonLdGimnasio() {
       postalCode: negocio.direccion.codigoPostal,
       addressCountry: negocio.direccion.pais,
     },
+    ...(negocio.mapa
+      ? { geo: { "@type": "GeoCoordinates", latitude: negocio.mapa.latitud, longitude: negocio.mapa.longitud } }
+      : {}),
     openingHoursSpecification: horariosSchema(),
     ...(redes.length > 0 ? { sameAs: redes } : {}),
-    // TODO Felipe: agregar "geo" (GeoCoordinates) con las coordenadas exactas del gimnasio.
     // TODO: agregar "logo" cuando esté el vector original del logo.
   };
 }
