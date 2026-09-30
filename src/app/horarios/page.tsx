@@ -4,7 +4,6 @@ import { negocio } from "@/data/site";
 import { minusculaInicial } from "@/lib/formato";
 import { horarioGeneral } from "@/lib/horarios";
 import { metadataDePagina } from "@/lib/seo";
-import { editorDeTina, sinCampo } from "@/lib/tina";
 
 const LARGO_MAXIMO_DESCRIPCION = 155;
 
@@ -18,9 +17,7 @@ export const metadata = metadataDePagina({
   ruta: "/horarios",
 });
 
-// Los textos se leen del JSON al compilar. En /admin (solo en local), ConTina los edita en vivo.
-export default async function Pagina() {
-  const ConTina = await editorDeTina();
-  if (ConTina) return <ConTina pagina="horarios" c={contenido} />;
-  return <Horarios c={contenido} campo={sinCampo} />;
+// Los textos se leen del JSON al compilar.
+export default function Pagina() {
+  return <Horarios c={contenido} />;
 }

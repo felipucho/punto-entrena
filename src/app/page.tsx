@@ -7,7 +7,6 @@ import { negocio, plantas, profes } from "@/data/site";
 import { formatearPrecio, minusculaInicial, precioPorClase } from "@/lib/formato";
 import { paseLibre } from "@/lib/planes";
 import { metadataDePagina, tituloInicio } from "@/lib/seo";
-import { editorDeTina, sinCampo } from "@/lib/tina";
 
 const { localidad, provincia } = negocio.direccion;
 
@@ -84,9 +83,7 @@ const fotos = {
   equipo: mosaicoDeProfes,
 };
 
-// Los textos se leen del JSON al compilar. En /admin (solo en local), ConTina los edita en vivo.
-export default async function Pagina() {
-  const ConTina = await editorDeTina();
-  if (ConTina) return <ConTina pagina="inicio" c={contenido} fotos={fotos} hayVideo={hayVideo} />;
-  return <Inicio c={contenido} campo={sinCampo} fotos={fotos} hayVideo={hayVideo} />;
+// Los textos se leen del JSON al compilar.
+export default function Pagina() {
+  return <Inicio c={contenido} fotos={fotos} hayVideo={hayVideo} />;
 }

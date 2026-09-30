@@ -5,7 +5,6 @@ import { textoDescuentoFamiliar } from "@/lib/faq";
 import { formatearPrecio, minusculaInicial, numeroEnPalabras, precioPorClase } from "@/lib/formato";
 import { diasDeApertura } from "@/lib/horarios";
 import { paseLibre, planPorId } from "@/lib/planes";
-import type { Campo } from "@/lib/tina";
 import { mensajePlan } from "@/lib/whatsapp";
 
 function textoClases(cantidad: number): string {
@@ -33,22 +32,20 @@ if (clasesPasePorSuelta >= 2) {
 }
 
 /**
- * /planes. Los textos fijos salen de content/paginas/planes.json y se editan con Tina (npm run dev → /admin).
+ * /planes. Los textos fijos salen de content/paginas/planes.json.
  * Precios, nombres de planes, la tabla y los consejos que nombran planes salen de src/data/site.ts y src/lib.
  */
-export default function Planes({ c, campo }: { c: typeof contenido; campo: Campo }) {
+export default function Planes({ c }: { c: typeof contenido }) {
   return (
     <>
       <div className="contenedor pt-section">
-        <h1 data-tina-field={campo(c, "titulo")}>{c.titulo}</h1>
-        <p className="intro mt-4" data-tina-field={campo(c, "intro")}>
-          {c.intro}
-        </p>
+        <h1>{c.titulo}</h1>
+        <p className="intro mt-4">{c.intro}</p>
       </div>
 
       <section aria-labelledby="planes-y-clase-suelta" className="seccion">
         <div className="contenedor">
-          <h2 id="planes-y-clase-suelta" className="revelar mb-4" data-tina-field={campo(c, "planesTitulo")}>
+          <h2 id="planes-y-clase-suelta" className="revelar mb-4">
             {`${c.planesTitulo.antes} `}
             {nombreSuelta}
             {` ${c.planesTitulo.despues}`}
@@ -78,7 +75,7 @@ export default function Planes({ c, campo }: { c: typeof contenido; campo: Campo
                     className="w-full px-3 leading-tight max-sm:text-sm sm:text-base max-sm:gap-1.5 max-sm:pl-4 max-sm:pr-3 max-sm:[&_.btn-icono]:hidden max-sm:[&_.btn-flecha-afuera]:hidden"
                   >
                     {/* Un solo span: dentro del .btn (flex con gap) el texto queda en un único ítem. */}
-                    <span data-tina-field={campo(c, "planBoton")}>
+                    <span>
                       {c.planBoton}
                       <span className="sr-only"> de {minusculaInicial(plan.nombre)}, por WhatsApp</span>
                     </span>
@@ -95,18 +92,14 @@ export default function Planes({ c, campo }: { c: typeof contenido; campo: Campo
                 <h3 className="text-lg leading-tight sm:text-xl">{claseSuelta.nombre}</h3>
                 <p className="numeral text-[2rem] leading-none text-accent">{formatearPrecio(claseSuelta.precio)}</p>
               </div>
-              {c.sueltaTexto.trim() !== "" && (
-                <p className="mt-1.5 text-muted" data-tina-field={campo(c, "sueltaTexto")}>
-                  {c.sueltaTexto}
-                </p>
-              )}
+              {c.sueltaTexto.trim() !== "" && <p className="mt-1.5 text-muted">{c.sueltaTexto}</p>}
             </div>
             <BotonWhatsApp
               mensaje={`Hola, me gustaría probar con una ${nombreSuelta}. ¿Cómo hago?`}
               variante="secundario"
               className="w-full sm:w-auto sm:shrink-0"
             >
-              <span data-tina-field={campo(c, "sueltaBoton")}>
+              <span>
                 {c.sueltaBoton}
                 <span className="sr-only"> con una {nombreSuelta}, por WhatsApp</span>
               </span>
@@ -124,9 +117,7 @@ export default function Planes({ c, campo }: { c: typeof contenido; campo: Campo
       <div className="seccion">
         <div className="contenedor grid gap-8 md:grid-cols-2 lg:gap-12">
           <section aria-labelledby="precio-por-clase">
-            <h2 id="precio-por-clase" className="revelar mb-4" data-tina-field={campo(c, "precioTitulo")}>
-              {c.precioTitulo}
-            </h2>
+            <h2 id="precio-por-clase" className="revelar mb-4">{c.precioTitulo}</h2>
             <div className="superficie-amarilla bloque-dato max-w-xl">
               {/*
                * La tabla va en placa amarilla, en Anton, como el cuadro de precios de las placas: .tabla-placa ya pone
@@ -140,12 +131,8 @@ export default function Planes({ c, campo }: { c: typeof contenido; campo: Campo
                 </caption>
                 <thead>
                   <tr>
-                    <th scope="col" data-tina-field={campo(c, "tablaColumnaPlan")}>
-                      {c.tablaColumnaPlan}
-                    </th>
-                    <th scope="col" className="text-right" data-tina-field={campo(c, "tablaColumnaPrecio")}>
-                      {c.tablaColumnaPrecio}
-                    </th>
+                    <th scope="col">{c.tablaColumnaPlan}</th>
+                    <th scope="col" className="text-right">{c.tablaColumnaPrecio}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -166,9 +153,7 @@ export default function Planes({ c, campo }: { c: typeof contenido; campo: Campo
           </section>
 
           <section aria-labelledby="cual-me-conviene" className="border-t border-border pt-8 md:border-t-0 md:pt-0">
-            <h2 id="cual-me-conviene" className="revelar mb-4" data-tina-field={campo(c, "convieneTitulo")}>
-              {c.convieneTitulo}
-            </h2>
+            <h2 id="cual-me-conviene" className="revelar mb-4">{c.convieneTitulo}</h2>
             <div className="prosa">
               <p>
                 Si arrancás de cero, te recomendamos el plan de {dosVeces.nombre}. En general, con eso ya empezás a

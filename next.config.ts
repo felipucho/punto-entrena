@@ -1,7 +1,5 @@
 import type { NextConfig } from "next";
 
-const enDesarrollo = process.env.NODE_ENV === "development";
-
 /** Headers de seguridad básicos para todas las rutas. HSTS lo agrega Vercel. */
 const headersDeSeguridad = [
   { key: "X-Content-Type-Options", value: "nosniff" },
@@ -21,10 +19,6 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [{ source: "/:path*", headers: headersDeSeguridad }];
-  },
-  // El editor de Tina vive en public/admin/index.html y solo existe en local (npm run dev); así se entra con /admin.
-  async redirects() {
-    return enDesarrollo ? [{ source: "/admin", destination: "/admin/index.html", permanent: false }] : [];
   },
 };
 

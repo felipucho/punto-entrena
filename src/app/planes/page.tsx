@@ -4,7 +4,6 @@ import { claseSuelta, negocio, planes } from "@/data/site";
 import { formatearPrecio, precioPorClase } from "@/lib/formato";
 import { paseLibre } from "@/lib/planes";
 import { metadataDePagina } from "@/lib/seo";
-import { editorDeTina, sinCampo } from "@/lib/tina";
 
 const { localidad } = negocio.direccion;
 
@@ -20,9 +19,7 @@ export const metadata = metadataDePagina({
   ruta: "/planes",
 });
 
-// Los textos se leen del JSON al compilar. En /admin (solo en local), ConTina los edita en vivo.
-export default async function Pagina() {
-  const ConTina = await editorDeTina();
-  if (ConTina) return <ConTina pagina="planes" c={contenido} />;
-  return <Planes c={contenido} campo={sinCampo} />;
+// Los textos se leen del JSON al compilar.
+export default function Pagina() {
+  return <Planes c={contenido} />;
 }

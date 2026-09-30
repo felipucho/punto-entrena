@@ -2,7 +2,6 @@ import contenido from "@content/paginas/privacidad.json";
 import Privacidad from "@/components/paginas/Privacidad";
 import { negocio } from "@/data/site";
 import { metadataDePagina } from "@/lib/seo";
-import { editorDeTina, sinCampo } from "@/lib/tina";
 
 export const metadata = metadataDePagina({
   titulo: "Política de privacidad",
@@ -11,9 +10,7 @@ export const metadata = metadataDePagina({
 });
 
 // TODO: revisar antes de publicar. Texto legal redactado sin asesoramiento profesional.
-// Los textos se leen del JSON al compilar. En /admin (solo en local), ConTina los edita en vivo.
-export default async function Pagina() {
-  const ConTina = await editorDeTina();
-  if (ConTina) return <ConTina pagina="privacidad" c={contenido} />;
-  return <Privacidad c={contenido} campo={sinCampo} />;
+// Los textos se leen del JSON al compilar.
+export default function Pagina() {
+  return <Privacidad c={contenido} />;
 }

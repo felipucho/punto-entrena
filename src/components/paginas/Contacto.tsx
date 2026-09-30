@@ -6,7 +6,6 @@ import { direccionCompleta, direccionCorta, telHref, urlMapa, urlMapaEmbebido } 
 import { diasDeApertura, horarioGeneral } from "@/lib/horarios";
 import { paseLibre } from "@/lib/planes";
 import { redesActivas } from "@/lib/redes";
-import type { Campo } from "@/lib/tina";
 
 const redes = redesActivas();
 
@@ -17,18 +16,16 @@ const diasHabiles = diasDeApertura();
 const nombrePase = paseLibre().nombre.toLowerCase();
 
 /**
- * /contacto. Los textos fijos salen de content/paginas/contacto.json y se editan con Tina (npm run dev → /admin).
+ * /contacto. Los textos fijos salen de content/paginas/contacto.json.
  * Teléfono, redes, horario y dirección siguen en src/data/site.ts; el primer párrafo de "otra localidad" queda
  * en el código porque mezcla la localidad, un enlace y los días.
  */
-export default function Contacto({ c, campo }: { c: typeof contenido; campo: Campo }) {
+export default function Contacto({ c }: { c: typeof contenido }) {
   return (
     <>
       <div className="contenedor pt-section">
-        <h1 data-tina-field={campo(c, "titulo")}>{c.titulo}</h1>
-        <p className="intro mt-4" data-tina-field={campo(c, "intro")}>
-          {c.intro}
-        </p>
+        <h1>{c.titulo}</h1>
+        <p className="intro mt-4">{c.intro}</p>
       </div>
 
       {/*
@@ -41,16 +38,10 @@ export default function Contacto({ c, campo }: { c: typeof contenido; campo: Cam
           {/* En tablet las dos secciones van lado a lado, con el mapa abajo; en desktop, apiladas junto al mapa. */}
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-1">
             <section aria-labelledby="whatsapp-telefono-horario">
-              <h2
-                id="whatsapp-telefono-horario"
-                className="revelar mb-4"
-                data-tina-field={campo(c, "whatsappTitulo")}
-              >
-                {c.whatsappTitulo}
-              </h2>
+              <h2 id="whatsapp-telefono-horario" className="revelar mb-4">{c.whatsappTitulo}</h2>
               <p>
                 <BotonWhatsApp mensaje={negocio.mensajeWhatsappGeneral}>
-                  <span data-tina-field={campo(c, "whatsappBoton")}>
+                  <span>
                     {c.whatsappBoton}
                     <span className="sr-only"> por WhatsApp</span>
                   </span>
@@ -62,12 +53,7 @@ export default function Contacto({ c, campo }: { c: typeof contenido; campo: Cam
                */}
               <dl className="mt-5">
                 <div className="grid grid-cols-[7rem_minmax(0,1fr)] items-baseline gap-x-4">
-                  <dt
-                    className="font-bold uppercase tracking-[0.08em] text-muted"
-                    data-tina-field={campo(c, "etiquetaTelefono")}
-                  >
-                    {c.etiquetaTelefono}
-                  </dt>
+                  <dt className="font-bold uppercase tracking-[0.08em] text-muted">{c.etiquetaTelefono}</dt>
                   <dd>
                     <a href={telHref()} className="enlace inline-flex min-h-11 items-center">
                       {negocio.telefono.visible}
@@ -76,12 +62,7 @@ export default function Contacto({ c, campo }: { c: typeof contenido; campo: Cam
                 </div>
                 {redes.length > 0 && (
                   <div className="grid grid-cols-[7rem_minmax(0,1fr)] items-baseline gap-x-4">
-                    <dt
-                      className="font-bold uppercase tracking-[0.08em] text-muted"
-                      data-tina-field={campo(c, "etiquetaRedes")}
-                    >
-                      {c.etiquetaRedes}
-                    </dt>
+                    <dt className="font-bold uppercase tracking-[0.08em] text-muted">{c.etiquetaRedes}</dt>
                     <dd>
                       <ul className="flex flex-wrap gap-x-5">
                         {redes.map((red) => (
@@ -102,12 +83,7 @@ export default function Contacto({ c, campo }: { c: typeof contenido; campo: Cam
                   </div>
                 )}
                 <div className="grid grid-cols-[7rem_minmax(0,1fr)] items-baseline gap-x-4">
-                  <dt
-                    className="font-bold uppercase tracking-[0.08em] text-muted"
-                    data-tina-field={campo(c, "etiquetaHorario")}
-                  >
-                    {c.etiquetaHorario}
-                  </dt>
+                  <dt className="font-bold uppercase tracking-[0.08em] text-muted">{c.etiquetaHorario}</dt>
                   <dd className="pt-2.5">{horarioGeneral()}</dd>
                 </div>
               </dl>
@@ -115,7 +91,7 @@ export default function Contacto({ c, campo }: { c: typeof contenido; campo: Cam
 
             <section aria-labelledby="donde-estamos">
               {/* El texto editable va antes de la localidad, separado por un espacio. */}
-              <h2 id="donde-estamos" className="revelar mb-4" data-tina-field={campo(c, "dondeTitulo")}>
+              <h2 id="donde-estamos" className="revelar mb-4">
                 {`${c.dondeTitulo} `}
                 {localidad}
               </h2>
@@ -125,13 +101,7 @@ export default function Contacto({ c, campo }: { c: typeof contenido; campo: Cam
                 {referencia !== null && <p className="mt-2 text-muted">{referencia}</p>}
               </address>
               <p className="mt-5">
-                <a
-                  href={urlMapa()}
-                  target="_blank"
-                  rel="noopener"
-                  className="btn btn-secundario"
-                  data-tina-field={campo(c, "comoLlegarBoton")}
-                >
+                <a href={urlMapa()} target="_blank" rel="noopener" className="btn btn-secundario">
                   {c.comoLlegarBoton}
                   <span className="sr-only"> en Google Maps (se abre en una pestaña nueva)</span>
                 </a>
@@ -153,29 +123,19 @@ export default function Contacto({ c, campo }: { c: typeof contenido; campo: Cam
         <div className="contenedor">
           <div className="superficie-amarilla bloque-dato grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-10">
             <div>
-              <h2
-                id="otra-localidad"
-                className="con-punto mb-4"
-                data-tina-field={campo(c, "otraLocalidadTitulo")}
-              >
-                {c.otraLocalidadTitulo}
-              </h2>
+              <h2 id="otra-localidad" className="con-punto mb-4">{c.otraLocalidadTitulo}</h2>
               <div className="prosa">
                 <p>
                   Si no sabés qué días vas a andar por {localidad}, te conviene el{" "}
-                  <Link href="/planes" className="enlace">
-                    {nombrePase}
-                  </Link>
+                  <Link href="/planes" className="enlace">{nombrePase}</Link>
                   . Con ese plan podés venir todos los días, de {diasHabiles}.
                 </p>
-                {c.otraLocalidadAviso.trim() !== "" && (
-                  <p data-tina-field={campo(c, "otraLocalidadAviso")}>{c.otraLocalidadAviso}</p>
-                )}
+                {c.otraLocalidadAviso.trim() !== "" && <p>{c.otraLocalidadAviso}</p>}
               </div>
             </div>
             <p>
               <BotonWhatsApp mensaje={`Hola, no vivo en ${localidad} y me interesa el ${nombrePase}. ¿Cómo hago para ir la primera vez?`}>
-                <span data-tina-field={campo(c, "otraLocalidadBoton")}>
+                <span>
                   {c.otraLocalidadBoton}
                   <span className="sr-only"> por WhatsApp</span>
                 </span>

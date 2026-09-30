@@ -2,7 +2,6 @@ import type contenido from "@content/paginas/objetivos.json";
 import BotonWhatsApp from "@/components/BotonWhatsApp";
 import Selector from "@/components/Selector";
 import { objetivos } from "@/data/site";
-import type { Campo } from "@/lib/tina";
 
 type Contenido = typeof contenido;
 
@@ -18,10 +17,10 @@ const campoPrimerMes: Partial<Record<string, keyof Contenido["primerMes"]>> = {
 };
 
 /**
- * /objetivos. Los textos fijos salen de content/paginas/objetivos.json y se editan con Tina (npm run dev → /admin).
+ * /objetivos. Los textos fijos salen de content/paginas/objetivos.json.
  * El nombre, el mito y el mensaje de WhatsApp de cada objetivo siguen en src/data/site.ts.
  */
-export default function Objetivos({ c, campo }: { c: Contenido; campo: Campo }) {
+export default function Objetivos({ c }: { c: Contenido }) {
   /**
    * Un objetivo por vez, con pestañas, para no apilarlos todos en la página.
    * El id de cada pestaña es el del objetivo, así los links del Footer (/objetivos#adultos) abren el que corresponde.
@@ -36,27 +35,19 @@ export default function Objetivos({ c, campo }: { c: Contenido; campo: Campo }) 
       etiqueta: objetivo.nombre,
       contenido: (
         <>
-          <h2 id={idTitulo} className="con-punto mb-4">
-            {objetivo.nombre}
-          </h2>
+          <h2 id={idTitulo} className="con-punto mb-4">{objetivo.nombre}</h2>
           {/* En lg, "Tu primer mes" y el mito van lado a lado para acortar el panel. */}
           <div className="grid items-start gap-6 lg:grid-cols-2 lg:gap-12">
             {textoPrimerMes !== undefined && (
               <div className="max-w-[65ch]">
-                <h3 className="etiqueta" data-tina-field={campo(c, "primerMesEtiqueta")}>
-                  {c.primerMesEtiqueta}
-                </h3>
-                <p className="mt-4 text-lg" data-tina-field={campo(c.primerMes, clavePrimerMes)}>
-                  {textoPrimerMes}
-                </p>
+                <h3 className="etiqueta">{c.primerMesEtiqueta}</h3>
+                <p className="mt-4 text-lg">{textoPrimerMes}</p>
               </div>
             )}
             {/* El mito va en placa amarilla y se tacha con una línea al mostrarse el panel. */}
             {objetivo.mito !== null && (
               <div className="superficie-amarilla bloque-dato max-w-[65ch]">
-                <h3 className="etiqueta" data-tina-field={campo(c, "mitoEtiqueta")}>
-                  {c.mitoEtiqueta}
-                </h3>
+                <h3 className="etiqueta">{c.mitoEtiqueta}</h3>
                 <p className="tachado numeral mt-4 text-[clamp(1.5rem,1.2rem+1.2vw,2rem)] leading-[1.1] uppercase">
                   “{objetivo.mito.mito}”
                 </p>
@@ -66,7 +57,7 @@ export default function Objetivos({ c, campo }: { c: Contenido; campo: Campo }) 
           </div>
           <div className="mt-6">
             <BotonWhatsApp mensaje={objetivo.whatsapp}>
-              <span data-tina-field={campo(c, "boton")}>
+              <span>
                 {c.boton}
                 <span className="sr-only"> por WhatsApp: {objetivo.nombre.toLowerCase()}</span>
               </span>
@@ -79,12 +70,10 @@ export default function Objetivos({ c, campo }: { c: Contenido; campo: Campo }) 
 
   return (
     <div className="contenedor pt-section pb-section">
-      <h1 className="text-[clamp(2.125rem,1.35rem+3.2vw,4rem)]" data-tina-field={campo(c, "titulo")}>
-        {c.titulo}
-      </h1>
-      <p className="intro mt-4" data-tina-field={campo(c, "intro")}>
+      <h1 className="text-[clamp(2.125rem,1.35rem+3.2vw,4rem)]">{c.titulo}</h1>
+      <p className="intro mt-4">
         {c.intro}
-        {hayMitos && c.introMito?.trim() ? ` ${c.introMito}` : ""}
+        {hayMitos && c.introMito.trim() !== "" ? ` ${c.introMito}` : ""}
       </p>
       <Selector
         titulo={c.selectorTitulo}

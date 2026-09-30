@@ -5,7 +5,6 @@ import { formatearLista, telHref } from "@/lib/formato";
 import { capitalizar } from "@/lib/horarios";
 import { redesActivas } from "@/lib/redes";
 import { urlWhatsApp } from "@/lib/whatsapp";
-import type { Campo } from "@/lib/tina";
 
 /** "WhatsApp, Instagram y el mapa de Google": las redes en null no se mencionan. */
 const serviciosDeTerceros = formatearLista(["WhatsApp", ...redesActivas().map((red) => red.nombre), "el mapa de Google"]);
@@ -20,15 +19,15 @@ function EnlaceWhatsApp() {
 }
 
 /**
- * /terminos. Los textos fijos salen de content/paginas/terminos.json y se editan con Tina (npm run dev → /admin).
+ * /terminos. Los textos fijos salen de content/paginas/terminos.json.
  * El nombre del gimnasio, las redes y el teléfono siguen en src/data/site.ts: los textos que los rodean se parten
- * en "antes" y "después". Los párrafos con más de un campo marcan la sección entera.
+ * en "antes" y "después".
  */
-export default function Terminos({ c, campo }: { c: typeof contenido; campo: Campo }) {
+export default function Terminos({ c }: { c: typeof contenido }) {
   return (
     <div className="contenedor pt-section pb-section">
-      <h1 data-tina-field={campo(c, "titulo")}>{c.titulo}</h1>
-      <p className="intro mt-4" data-tina-field={campo(c, "introAntes")}>
+      <h1>{c.titulo}</h1>
+      <p className="intro mt-4">
         {c.introAntes}{" "}
         {negocio.nombre}
         {" " + c.introDespues}
@@ -36,23 +35,13 @@ export default function Terminos({ c, campo }: { c: typeof contenido; campo: Cam
 
       <div className="mt-12 max-w-[65ch] space-y-12">
         <section aria-labelledby="terminos-precios">
-          <h2
-            id="terminos-precios"
-            className="mb-4 text-[1.75rem] sm:text-[2rem]"
-            data-tina-field={campo(c.precios, "titulo")}
-          >
-            {c.precios.titulo}
-          </h2>
+          <h2 id="terminos-precios" className="mb-4 text-[1.75rem] sm:text-[2rem]">{c.precios.titulo}</h2>
           <div className="prosa">
-            <p data-tina-field={campo(c.precios)}>
+            <p>
               {c.precios.textoAntes}{" "}
-              <Link href="/planes" className="enlace">
-                {c.precios.enlacePlanes}
-              </Link>{" "}
+              <Link href="/planes" className="enlace">{c.precios.enlacePlanes}</Link>{" "}
               {c.precios.textoMedio}{" "}
-              <Link href="/horarios" className="enlace">
-                {c.precios.enlaceHorarios}
-              </Link>{" "}
+              <Link href="/horarios" className="enlace">{c.precios.enlaceHorarios}</Link>{" "}
               {c.precios.textoDespues}{" "}
               <EnlaceWhatsApp />.
             </p>
@@ -60,28 +49,16 @@ export default function Terminos({ c, campo }: { c: typeof contenido; campo: Cam
         </section>
 
         <section aria-labelledby="terminos-entrenamiento">
-          <h2
-            id="terminos-entrenamiento"
-            className="mb-4 text-[1.75rem] sm:text-[2rem]"
-            data-tina-field={campo(c.entrenamiento, "titulo")}
-          >
-            {c.entrenamiento.titulo}
-          </h2>
+          <h2 id="terminos-entrenamiento" className="mb-4 text-[1.75rem] sm:text-[2rem]">{c.entrenamiento.titulo}</h2>
           <div className="prosa">
-            <p data-tina-field={campo(c.entrenamiento, "texto")}>{c.entrenamiento.texto}</p>
+            <p>{c.entrenamiento.texto}</p>
           </div>
         </section>
 
         <section aria-labelledby="terminos-terceros">
-          <h2
-            id="terminos-terceros"
-            className="mb-4 text-[1.75rem] sm:text-[2rem]"
-            data-tina-field={campo(c.terceros, "titulo")}
-          >
-            {c.terceros.titulo}
-          </h2>
+          <h2 id="terminos-terceros" className="mb-4 text-[1.75rem] sm:text-[2rem]">{c.terceros.titulo}</h2>
           <div className="prosa">
-            <p data-tina-field={campo(c.terceros, "texto")}>
+            <p>
               {capitalizar(serviciosDeTerceros)}
               {" " + c.terceros.texto}
             </p>
@@ -89,21 +66,13 @@ export default function Terminos({ c, campo }: { c: typeof contenido; campo: Cam
         </section>
 
         <section aria-labelledby="terminos-datos">
-          <h2
-            id="terminos-datos"
-            className="mb-4 text-[1.75rem] sm:text-[2rem]"
-            data-tina-field={campo(c.datos, "titulo")}
-          >
-            {c.datos.titulo}
-          </h2>
+          <h2 id="terminos-datos" className="mb-4 text-[1.75rem] sm:text-[2rem]">{c.datos.titulo}</h2>
           <div className="prosa">
-            <p data-tina-field={campo(c.datos)}>
+            <p>
               {c.datos.texto + " "}
               <EnlaceWhatsApp />
               {" " + c.datos.textoTelefono}{" "}
-              <a href={telHref()} className="enlace whitespace-nowrap">
-                {negocio.telefono.visible}
-              </a>
+              <a href={telHref()} className="enlace whitespace-nowrap">{negocio.telefono.visible}</a>
               .
             </p>
           </div>

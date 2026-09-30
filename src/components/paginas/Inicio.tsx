@@ -17,7 +17,6 @@ import {
 import { horarioGeneral, horarioGeneralCorto } from "@/lib/horarios";
 import { paseLibre } from "@/lib/planes";
 import type { Ruta } from "@/lib/rutas";
-import type { Campo } from "@/lib/tina";
 
 const { localidad } = negocio.direccion;
 
@@ -33,18 +32,15 @@ const datosRapidos = [
 ];
 
 /**
- * La home. Los textos fijos salen de content/paginas/inicio.json y se editan con Tina (npm run dev → /admin):
- * ahí ConTina los actualiza en vivo y campo marca cada uno para editarlo con un clic.
+ * La home. Los textos fijos salen de content/paginas/inicio.json.
  * Lo que sale de src/data/site.ts o se calcula (plantas, profes, precios, horarios) sigue en el código.
  */
 export default function Inicio({
   c,
-  campo,
   fotos,
   hayVideo,
 }: {
   c: typeof contenido;
-  campo: Campo;
   /** La foto de cada tarjeta, por id. Se arma en el servidor porque Foto lee public/fotos/ del disco. */
   fotos: Record<string, ReactNode>;
   /** Si public/video/ ya tiene el video del hero. Se resuelve en el servidor. */
@@ -58,7 +54,6 @@ export default function Inicio({
     texto: string;
     href: Ruta;
     enlace: string;
-    campos: { titulo: string; texto: string; enlace: string };
   }[] = [
     {
       id: "planilla",
@@ -66,11 +61,6 @@ export default function Inicio({
       texto: c.planillaTexto,
       href: "/faq",
       enlace: c.planillaEnlace,
-      campos: {
-        titulo: campo(c, "planillaTitulo"),
-        texto: campo(c, "planillaTexto"),
-        enlace: campo(c, "planillaEnlace"),
-      },
     },
     {
       id: "plantas",
@@ -78,11 +68,6 @@ export default function Inicio({
       texto: c.plantasTexto,
       href: "/instalaciones",
       enlace: c.plantasEnlace,
-      campos: {
-        titulo: campo(c, "plantasTitulo"),
-        texto: campo(c, "plantasTexto"),
-        enlace: campo(c, "plantasEnlace"),
-      },
     },
     {
       id: "profes",
@@ -90,49 +75,39 @@ export default function Inicio({
       texto: c.profesTexto,
       href: "/equipo",
       enlace: c.profesEnlace,
-      campos: {
-        titulo: campo(c, "profesTitulo"),
-        texto: campo(c, "profesTexto"),
-        enlace: campo(c, "profesEnlace"),
-      },
     },
   ];
 
-  const tarjetas: { id: string; href: Ruta; titulo: string; frase: string; campos: { titulo: string; frase: string } }[] = [
+  const tarjetas: { id: string; href: Ruta; titulo: string; frase: string }[] = [
     {
       id: "planes",
       href: "/planes",
       titulo: t.planes.titulo,
       frase: t.planes.frase,
-      campos: { titulo: campo(t.planes, "titulo"), frase: campo(t.planes, "frase") },
     },
     {
       id: "horarios",
       href: "/horarios",
       titulo: t.horarios.titulo,
       frase: t.horarios.frase,
-      campos: { titulo: campo(t.horarios, "titulo"), frase: campo(t.horarios, "frase") },
     },
     {
       id: "instalaciones",
       href: "/instalaciones",
       titulo: t.instalaciones.titulo,
       frase: t.instalaciones.frase,
-      campos: { titulo: campo(t.instalaciones, "titulo"), frase: campo(t.instalaciones, "frase") },
     },
     {
       id: "equipo",
       href: "/equipo",
       titulo: t.equipo.titulo,
       frase: t.equipo.frase,
-      campos: { titulo: campo(t.equipo, "titulo"), frase: campo(t.equipo, "frase") },
     },
     {
       id: "objetivos",
       href: "/objetivos",
       titulo: t.objetivos.titulo,
       frase: t.objetivos.frase,
-      campos: { titulo: campo(t.objetivos, "titulo"), frase: campo(t.objetivos, "frase") },
     },
   ];
 
@@ -152,22 +127,15 @@ export default function Inicio({
          */}
         <div className="contenedor relative flex min-h-[64svh] flex-col justify-end pt-20 pb-14 sm:min-h-[72svh] sm:pt-24 sm:pb-24">
           <h1 className="titular-mixto max-w-[14ch] text-[clamp(3.25rem,1.2rem+9vw,7.5rem)] leading-[0.88]">
-            <span className="linea entra" data-tina-field={campo(c, "heroLinea1")}>
-              {c.heroLinea1}
-            </span>{" "}
-            <span className="linea acento entra retraso-1" data-tina-field={campo(c, "heroLinea2")}>
-              {c.heroLinea2}
-            </span>
+            <span className="linea entra">{c.heroLinea1}</span>{" "}
+            <span className="linea acento entra retraso-1">{c.heroLinea2}</span>
           </h1>
           <p className="entra-barre retraso-2 mt-5 text-lg sm:text-2xl">
             <span className="cinta">
               {negocio.nombre} · <span className="whitespace-nowrap">{localidad}</span>
             </span>
           </p>
-          <p
-            className="bajada entra retraso-3 mt-4 max-w-[34ch] text-lg text-sobre-oscuro sm:text-xl"
-            data-tina-field={campo(c, "heroBajada")}
-          >
+          <p className="bajada entra retraso-3 mt-4 max-w-[34ch] text-lg text-sobre-oscuro sm:text-xl">
             {c.heroBajada}
           </p>
           <BotonWhatsApp
@@ -175,7 +143,7 @@ export default function Inicio({
             mensaje={negocio.mensajeWhatsappGeneral}
             className="entra retraso-4 mt-8 self-start"
           >
-            <span data-tina-field={campo(c, "heroBoton")}>
+            <span>
               {c.heroBoton}
               <span className="sr-only"> por WhatsApp</span>
             </span>
@@ -192,14 +160,12 @@ export default function Inicio({
 
       <section aria-labelledby="que-es" className="seccion">
         <div className="contenedor">
-          <h2 id="que-es" className="revelar mb-5" data-tina-field={campo(c, "queEsTitulo")}>
-            {c.queEsTitulo}
-          </h2>
+          <h2 id="que-es" className="revelar mb-5">{c.queEsTitulo}</h2>
           {/* Desde lg el texto y el bloque de datos van lado a lado en vez de uno debajo del otro. */}
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-start lg:gap-12">
             <div className="prosa text-lg">
-              <p data-tina-field={campo(c, "queEsIntro")}>{c.queEsIntro}</p>
-              <p data-tina-field={campo(c, "queEsTexto")}>{c.queEsTexto}</p>
+              <p>{c.queEsIntro}</p>
+              <p>{c.queEsTexto}</p>
             </div>
 
             {/* El bloque de dato de las placas: amarillo, en Anton, con las cifras grandes arriba. */}
@@ -247,17 +213,11 @@ export default function Inicio({
                   key={bloque.id}
                   className="revelar flex snap-start flex-col rounded-card border border-border bg-surface p-5 md:border-0 md:bg-transparent md:p-0"
                 >
-                  <h3 data-tina-field={bloque.campos.titulo}>{bloque.titulo}</h3>
-                  {/* whitespace-pre-line: un salto de renglón en Tina (una planta por renglón) se ve en la página. */}
-                  <p className="mt-2 max-w-[65ch] grow whitespace-pre-line text-muted" data-tina-field={bloque.campos.texto}>
-                    {bloque.texto}
-                  </p>
+                  <h3>{bloque.titulo}</h3>
+                  {/* whitespace-pre-line: un salto de renglón en el JSON (una planta por renglón) se ve en la página. */}
+                  <p className="mt-2 max-w-[65ch] grow whitespace-pre-line text-muted">{bloque.texto}</p>
                   {/* El link queda abajo de todo, alineado entre bloques, con 44 px de alto para tocarlo cómodo. */}
-                  <Link
-                    href={bloque.href}
-                    className="enlace enlace-flecha mt-3 min-h-11 self-start py-2"
-                    data-tina-field={bloque.campos.enlace}
-                  >
+                  <Link href={bloque.href} className="enlace enlace-flecha mt-3 min-h-11 self-start py-2">
                     {bloque.enlace}
                   </Link>
                 </li>
@@ -274,11 +234,7 @@ export default function Inicio({
               Con el {nombrePaseLibre}, si venís todos los días, cada clase te sale{" "}
               <span className="inline-block bg-fg px-2 py-0.5 leading-[1.1] whitespace-nowrap text-placa">{formatearPrecio(precioPorClase(plan))}</span>.
             </p>
-            <Link
-              href="/planes"
-              className="btn btn-secundario self-start sm:shrink-0 sm:self-auto"
-              data-tina-field={campo(c, "precioBoton")}
-            >
+            <Link href="/planes" className="btn btn-secundario self-start sm:shrink-0 sm:self-auto">
               {c.precioBoton}
             </Link>
           </div>
@@ -287,9 +243,7 @@ export default function Inicio({
 
       <section aria-labelledby="conoce-mas" className="seccion">
         <div className="contenedor">
-          <h2 id="conoce-mas" className="revelar mb-6" data-tina-field={campo(c, "conoceMasTitulo")}>
-            {c.conoceMasTitulo}
-          </h2>
+          <h2 id="conoce-mas" className="revelar mb-6">{c.conoceMasTitulo}</h2>
           {/*
            * Tarjetas bajas: hasta xl la foto es una miniatura al costado del texto (una columna en mobile, dos
            * desde md, tres desde lg); desde xl las cinco van en una sola fila, con la foto arriba. En lg no
@@ -314,13 +268,10 @@ export default function Inicio({
                     <h3
                       id={`tarjeta-${tarjeta.id}`}
                       className="text-lg transition-colors duration-200 group-hover:text-accent"
-                      data-tina-field={tarjeta.campos.titulo}
                     >
                       {tarjeta.titulo}
                     </h3>
-                    <p id={`tarjeta-${tarjeta.id}-frase`} className="mt-1 text-muted" data-tina-field={tarjeta.campos.frase}>
-                      {tarjeta.frase}
-                    </p>
+                    <p id={`tarjeta-${tarjeta.id}-frase`} className="mt-1 text-muted">{tarjeta.frase}</p>
                   </div>
                 </Link>
               </li>
@@ -337,18 +288,12 @@ export default function Inicio({
         <Isotipo className="pointer-events-none absolute -right-12 -bottom-20 -z-10 h-80 w-auto text-surface [--color-punto:var(--color-border)] sm:right-4 md:-bottom-24 md:h-[28rem]" />
         <div className="contenedor grid gap-8 md:grid-cols-2 md:gap-12">
           <div>
-            <h2
-              id="cierre"
-              className="con-punto revelar mb-4 text-[clamp(2.25rem,1.6rem+3vw,4rem)]"
-              data-tina-field={campo(c, "cierreTitulo")}
-            >
+            <h2 id="cierre" className="con-punto revelar mb-4 text-[clamp(2.25rem,1.6rem+3vw,4rem)]">
               {c.cierreTitulo}
             </h2>
-            <p className="max-w-[65ch] text-lg" data-tina-field={campo(c, "cierreTexto")}>
-              {c.cierreTexto}
-            </p>
+            <p className="max-w-[65ch] text-lg">{c.cierreTexto}</p>
             <BotonWhatsApp mensaje={negocio.mensajeWhatsappGeneral} className="mt-7">
-              <span data-tina-field={campo(c, "cierreBoton")}>
+              <span>
                 {c.cierreBoton}
                 <span className="sr-only"> por WhatsApp</span>
               </span>

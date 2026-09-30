@@ -12,9 +12,6 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    // Generado por Tina (npm run dev): no se edita a mano.
-    "tina/__generated__/**",
-    "public/admin/**",
   ]),
 ]);
 

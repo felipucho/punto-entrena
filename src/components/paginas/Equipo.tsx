@@ -5,7 +5,6 @@ import Selector from "@/components/Selector";
 import { negocio, profes, type ColumnaGrilla, type Profe } from "@/data/site";
 import { nombreCorto } from "@/lib/formato";
 import { NOMBRE_COLUMNA, describirSegmentos, horariosDeProfe } from "@/lib/horarios";
-import type { Campo } from "@/lib/tina";
 
 type Contenido = typeof contenido;
 
@@ -13,7 +12,7 @@ type Contenido = typeof contenido;
 const COLUMNAS = Object.keys(NOMBRE_COLUMNA) as ColumnaGrilla[];
 
 /** Lo que se ve al elegir un profe: nombre, frase, cuándo atiende y la pregunta que más le hacen. */
-function InfoDeProfe({ profe, c, campo }: { profe: Profe; c: Contenido; campo: Campo }) {
+function InfoDeProfe({ profe, c }: { profe: Profe; c: Contenido }) {
   const horarios = horariosDeProfe(profe.id);
   const columnasConHorario = COLUMNAS.filter((columna) => horarios[columna].length > 0);
 
@@ -34,9 +33,7 @@ function InfoDeProfe({ profe, c, campo }: { profe: Profe; c: Contenido; campo: C
 
         {columnasConHorario.length > 0 && (
           <div>
-            <h3 className="etiqueta" data-tina-field={campo(c, "horariosEtiqueta")}>
-              {c.horariosEtiqueta} {profe.corto}
-            </h3>
+            <h3 className="etiqueta">{c.horariosEtiqueta} {profe.corto}</h3>
             {/* Los grupos de días van lado a lado cuando hay ancho; entre lg y xl el panel es angosto y se apilan. */}
             <dl className="mt-3 grid gap-3 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-1 xl:grid-cols-2">
               {columnasConHorario.map((columna) => (
@@ -51,9 +48,7 @@ function InfoDeProfe({ profe, c, campo }: { profe: Profe; c: Contenido; campo: C
 
         {profe.preguntaFrecuente !== null && (
           <div>
-            <h3 className="etiqueta" data-tina-field={campo(c, "preguntaEtiqueta")}>
-              {c.preguntaEtiqueta} {profe.corto}
-            </h3>
+            <h3 className="etiqueta">{c.preguntaEtiqueta} {profe.corto}</h3>
             <p className="mt-3 font-semibold text-titulo">{profe.preguntaFrecuente.pregunta}</p>
             <p className="mt-2">{profe.preguntaFrecuente.respuesta}</p>
           </div>
@@ -64,25 +59,23 @@ function InfoDeProfe({ profe, c, campo }: { profe: Profe; c: Contenido; campo: C
 }
 
 /**
- * /equipo. Los textos fijos salen de content/paginas/equipo.json y se editan con Tina (npm run dev → /admin).
+ * /equipo. Los textos fijos salen de content/paginas/equipo.json.
  * Los datos de cada profe (nombre, frase, horarios, pregunta) siguen en src/data/site.ts.
  */
-export default function Equipo({ c, campo, fotos }: {
+export default function Equipo({
+  c,
+  fotos,
+}: {
   c: Contenido;
-  campo: Campo;
   /** El retrato de cada profe, por id. Se arma en el servidor porque Foto lee public/fotos/ del disco. */
   fotos: Record<string, ReactNode>;
 }) {
   return (
     <>
       <div className="contenedor pt-section">
-        <h1 data-tina-field={campo(c, "titulo")}>
-          {c.titulo} {nombreCorto}
-        </h1>
+        <h1>{c.titulo} {nombreCorto}</h1>
         <p className="intro mt-4">{negocio.formacionProfes}</p>
-        <p className="intro mt-3" data-tina-field={campo(c, "intro")}>
-          {c.intro}
-        </p>
+        <p className="intro mt-3">{c.intro}</p>
       </div>
 
       {/*
@@ -118,14 +111,14 @@ export default function Equipo({ c, campo, fotos }: {
                 </span>
               </>
             ),
-            contenido: <InfoDeProfe profe={profe} c={c} campo={campo} />,
+            contenido: <InfoDeProfe profe={profe} c={c} />,
           }))}
         />
       </div>
 
       <div className="contenedor pb-section">
         <BotonWhatsApp mensaje={negocio.mensajeWhatsappEquipo}>
-          <span data-tina-field={campo(c, "boton")}>
+          <span>
             {c.boton}
             <span className="sr-only"> por WhatsApp</span>
           </span>

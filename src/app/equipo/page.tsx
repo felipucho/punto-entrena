@@ -4,7 +4,6 @@ import Equipo from "@/components/paginas/Equipo";
 import { negocio, profes } from "@/data/site";
 import { formatearLista, nombreCorto } from "@/lib/formato";
 import { metadataDePagina } from "@/lib/seo";
-import { editorDeTina, sinCampo } from "@/lib/tina";
 
 export const metadata = metadataDePagina({
   titulo: "Los profes y sus horarios",
@@ -37,9 +36,7 @@ const retratos = Object.fromEntries(
     ]),
   );
 
-// Los textos se leen del JSON al compilar. En /admin (solo en local), ConTina los edita en vivo.
-export default async function Pagina() {
-  const ConTina = await editorDeTina();
-  if (ConTina) return <ConTina pagina="equipo" c={contenido} fotos={retratos} />;
-  return <Equipo c={contenido} campo={sinCampo} fotos={retratos} />;
+// Los textos se leen del JSON al compilar.
+export default function Pagina() {
+  return <Equipo c={contenido} fotos={retratos} />;
 }
