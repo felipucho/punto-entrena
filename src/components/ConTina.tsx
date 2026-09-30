@@ -1,6 +1,6 @@
 "use client";
 
-import type { ComponentProps, ComponentType } from "react";
+import { useMemo, type ComponentProps, type ComponentType } from "react";
 import { tinaField, useTina } from "tinacms/dist/react";
 import {
   ContactoDocument,
@@ -55,7 +55,10 @@ type Props<N extends NombrePagina> = {
  */
 export default function ConTina<N extends NombrePagina>({ pagina, c, ...extra }: Props<N>) {
   const { Vista, query } = PAGINAS[pagina];
-  const { data } = useTina({ query, variables: { relativePath: `${pagina}.json` }, data: { [pagina]: c } });
+  // useTina copia `data` al estado en un efecto que depende de ella: con un objeto nuevo en cada render entra en un
+  // bucle infinito y pisa lo que manda el editor. Por eso se memoiza.
+  const inicial = useMemo(() => ({ [pagina]: c }), [pagina, c]);
+  const { data } = useTina({ query, variables: { relativePath: `${pagina}.json` }, data: inicial });
   const VistaDePagina = Vista as ComponentType<Record<string, unknown>>;
   return <VistaDePagina {...extra} c={data[pagina]} campo={tinaField} />;
 }
