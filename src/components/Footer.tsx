@@ -9,8 +9,9 @@ export default function Footer() {
 
   return (
     // Negro pleno con grano y el isotipo recortado contra el borde derecho como marca de agua (la cuña y el punto
-    // en un amarillo apagado). Compacto: marca y contacto arriba, legales en una línea abajo.
-    <footer className="relative isolate overflow-hidden border-t border-border bg-oscuro bg-(image:--grano) pb-20 sm:pb-0">
+    // en un amarillo apagado). Compacto: marca y contacto arriba, legales en una línea abajo. El pb-20 deja lugar al
+    // botón flotante de WhatsApp en todos los anchos: sin él, tapa los links legales.
+    <footer className="relative isolate overflow-hidden border-t border-border bg-oscuro bg-(image:--grano) pb-20">
       <Isotipo className="pointer-events-none absolute -right-10 -bottom-16 -z-10 h-56 w-auto text-surface-alt [--color-punto:color-mix(in_srgb,var(--color-accent)_30%,transparent)] lg:-bottom-20 lg:h-72" />
       <div className="contenedor py-8 sm:py-10">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">

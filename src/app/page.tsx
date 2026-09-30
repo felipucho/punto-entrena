@@ -1,7 +1,6 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
 import contenido from "@content/paginas/inicio.json";
-import type { InicioQuery } from "@tina/__generated__/types";
 import Foto from "@/components/Foto";
 import Inicio from "@/components/paginas/Inicio";
 import { negocio, plantas, profes } from "@/data/site";
@@ -22,8 +21,12 @@ export const metadata = metadataDePagina({
   absoluto: true,
 });
 
-/** El video del hero se muestra solo cuando está subido a public/video/ (specs en HeroVideo.tsx). */
-const hayVideo = existsSync(path.join(process.cwd(), "public", "video", "hero-720.mp4"));
+/** El video del hero se muestra solo cuando están subidos los cuatro archivos a public/video/ (specs en HeroVideo.tsx). */
+const hayVideo = ["1080", "720"].every((calidad) =>
+  ["webm", "mp4"].every((formato) =>
+    existsSync(path.join(process.cwd(), "public", "video", `hero-${calidad}.${formato}`)),
+  ),
+);
 
 /**
  * Foto de cada tarjeta de la home: qué muestra y, si ya existe, el archivo en public/fotos/.
@@ -81,12 +84,9 @@ const fotos = {
   equipo: mosaicoDeProfes,
 };
 
-// Tina tipa los grupos como opcionales; el JSON los trae todos.
-const c = contenido as InicioQuery["inicio"];
-
 // Los textos se leen del JSON al compilar. En /admin (solo en local), ConTina los edita en vivo.
 export default async function Pagina() {
   const ConTina = await editorDeTina();
-  if (ConTina) return <ConTina pagina="inicio" c={c} fotos={fotos} hayVideo={hayVideo} />;
-  return <Inicio c={c} campo={sinCampo} fotos={fotos} hayVideo={hayVideo} />;
+  if (ConTina) return <ConTina pagina="inicio" c={contenido} fotos={fotos} hayVideo={hayVideo} />;
+  return <Inicio c={contenido} campo={sinCampo} fotos={fotos} hayVideo={hayVideo} />;
 }

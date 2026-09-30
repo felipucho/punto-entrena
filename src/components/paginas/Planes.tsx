@@ -56,7 +56,8 @@ export default function Planes({ c, campo }: { c: typeof contenido; campo: Campo
           {/*
            * Tarjetas compactas: dos columnas en mobile y los cuatro planes en una sola fila desde lg.
            * El precio va en Anton (.numeral), en amarillo, con un tamaño fluido que arranca más chico en la
-           * columna angosta de 375 px.
+           * columna angosta de 375 px. Por debajo de 24 rem baja a 1,65 rem: a 320 px "$ 40.000" no entra en la
+           * tarjeta con el tamaño mínimo del clamp.
            * El nombre ocupa siempre dos líneas en mobile y baja a text-lg entre lg y xl para entrar en una:
            * así los precios de una misma fila quedan alineados.
            * En mobile el botón va sin ícono ni flecha para que el texto entre en dos renglones.
@@ -67,7 +68,7 @@ export default function Planes({ c, campo }: { c: typeof contenido; campo: Campo
                 <h3 className="min-h-[2lh] text-lg leading-tight sm:min-h-0 sm:text-xl lg:text-lg xl:text-xl">
                   {plan.nombre}
                 </h3>
-                <p className="numeral mt-3 text-[clamp(2.25rem,1.8rem+1.6vw,3rem)] leading-none text-accent">
+                <p className="numeral mt-3 text-[clamp(2.25rem,1.8rem+1.6vw,3rem)] leading-none text-accent max-[24rem]:text-[1.65rem]">
                   {formatearPrecio(plan.precio)}
                 </p>
                 <p className="mt-1.5 text-muted">{textoClases(plan.clasesPorMes)}</p>
@@ -94,9 +95,11 @@ export default function Planes({ c, campo }: { c: typeof contenido; campo: Campo
                 <h3 className="text-lg leading-tight sm:text-xl">{claseSuelta.nombre}</h3>
                 <p className="numeral text-[2rem] leading-none text-accent">{formatearPrecio(claseSuelta.precio)}</p>
               </div>
-              <p className="mt-1.5 text-muted" data-tina-field={campo(c, "sueltaTexto")}>
-                {c.sueltaTexto}
-              </p>
+              {c.sueltaTexto.trim() !== "" && (
+                <p className="mt-1.5 text-muted" data-tina-field={campo(c, "sueltaTexto")}>
+                  {c.sueltaTexto}
+                </p>
+              )}
             </div>
             <BotonWhatsApp
               mensaje={`Hola, me gustaría probar con una ${nombreSuelta}. ¿Cómo hago?`}

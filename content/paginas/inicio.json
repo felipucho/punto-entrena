@@ -24,7 +24,7 @@
     },
     "horarios": {
       "titulo": "Horarios",
-      "frase": "Qué profe esta y quién atiende ahora."
+      "frase": "Qué profe está y quién atiende ahora."
     },
     "instalaciones": {
       "titulo": "Instalaciones",
@@ -36,7 +36,7 @@
     },
     "objetivos": {
       "titulo": "Objetivos",
-      "frase": "Cómo seria tu primer mes adaptado a vos."
+      "frase": "Cómo sería tu primer mes adaptado a vos."
     }
   },
   "cierreTitulo": "Empezá solo con mensaje",

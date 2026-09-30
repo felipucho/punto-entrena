@@ -84,7 +84,7 @@ export default function Objetivos({ c, campo }: { c: Contenido; campo: Campo }) 
       </h1>
       <p className="intro mt-4" data-tina-field={campo(c, "intro")}>
         {c.intro}
-        {hayMitos ? ` ${c.introMito}` : ""}
+        {hayMitos && c.introMito?.trim() ? ` ${c.introMito}` : ""}
       </p>
       <Selector
         titulo={c.selectorTitulo}

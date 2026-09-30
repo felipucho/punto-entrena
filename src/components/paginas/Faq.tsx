@@ -17,9 +17,11 @@ export default function Faq({ c, campo }: { c: typeof contenido; campo: Campo })
     <>
       <div className="contenedor pt-section">
         <h1 data-tina-field={campo(c, "titulo")}>{c.titulo}</h1>
-        <p className="intro mt-4" data-tina-field={campo(c, "intro")}>
-          {c.intro}
-        </p>
+        {c.intro.trim() !== "" && (
+          <p className="intro mt-4" data-tina-field={campo(c, "intro")}>
+            {c.intro}
+          </p>
+        )}
       </div>
 
       {/*

@@ -83,7 +83,7 @@ export default function HeroVideo({ hayVideo, children }: { hayVideo: boolean; c
   return (
     <section className="superficie-oscura hero relative isolate overflow-hidden text-sobre-oscuro">
       <div aria-hidden="true" className="hero-capa absolute inset-0 bg-oscuro" />
-      <Image src={fotoHero} alt="" fill preload sizes="100vw" className="hero-capa object-cover" />
+      <Image src={fotoHero} alt="" fill preload fetchPriority="high" sizes="100vw" className="hero-capa object-cover" />
       {hayVideo && calidad && (
         <video
           key={calidad}

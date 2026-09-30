@@ -1,15 +1,15 @@
 {
   "titulo": "Cómo arrancás según lo que buscás",
-  "intro": "¿No sabés si el gimnasio es para vos? Elegí tu caso y mira cómo es el primer mes.",
+  "intro": "¿No sabés si el gimnasio es para vos? Elegí tu caso y mirá cómo es el primer mes.",
   "introMito": "",
   "selectorTitulo": "Según tu objetivo",
   "primerMesEtiqueta": "Tu primer mes",
   "primerMes": {
-    "adultos": "Antes de empezar, los profes te preguntan cuales son tus objetivos, si alguna vez entrenaste y cuántas veces por semana queres venir. Con eso te arman la planilla.",
+    "adultos": "Antes de empezar, los profes te preguntan cuáles son tus objetivos, si alguna vez entrenaste y cuántas veces por semana querés venir. Con eso te arman la planilla.",
     "adultosMayores": "Los profes primero te preguntan si tenés alguna molestia y qué te gustaría mejorar, como la fuerza o el equilibrio. Arrancás con un peso que puedas manejar bien, respetando las indicaciones de tu médico. En base a tu progreso, puede ir cambiando.",
-    "rehabilitacion": "Lo primero es contarles a los profes qué lesión tuviste y qué movimientos te molestan hoy. Si tu médico te dio indicaciones, traelas y la planilla se arma respetándolas. La carga va subiendo según cómo va responde tu cuerpo.",
+    "rehabilitacion": "Lo primero es contarles a los profes qué lesión tuviste y qué movimientos te molestan hoy. Si tu médico te dio indicaciones, traelas y la planilla se arma respetándolas. La carga va subiendo según cómo va respondiendo tu cuerpo.",
     "principiantes": "Primero contás si hiciste algún deporte y qué te gustaría lograr. Empezás con ejercicios básicos y los profes te muestran cómo se hace cada uno. Cuando ya te salen bien, se suman ejercicios nuevos o más carga.",
-    "deportistas": "Arrancás contando qué deporte hacés, cuántas veces por semana entrenás y en qué momento de la temporada estás. Según eso, los profes arman tu planilla y la ajustan cuando cambia tu calendario. Ya estan entrenando con nosotros deportistas de clubes de la zona."
+    "deportistas": "Arrancás contando qué deporte hacés, cuántas veces por semana entrenás y en qué momento de la temporada estás. Según eso, los profes arman tu planilla y la ajustan cuando cambia tu calendario. Ya están entrenando con nosotros deportistas de clubes de la zona."
   },
   "mitoEtiqueta": "Mito",
   "boton": "Contanos tu caso"

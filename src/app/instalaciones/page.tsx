@@ -56,7 +56,7 @@ function fotosDePlanta(planta: Planta): FotosDePlanta {
             archivo={foto && `${planta.id}/${foto.archivo}`}
             descripcion={foto?.descripcion ?? `${minusculaInicial(destacado)} de la ${nombreEnMinuscula}`}
             proporcion="1 / 1"
-            sizes="(min-width: 64rem) 12rem, 30vw"
+            sizes="(min-width: 64rem) 8rem, (min-width: 40rem) calc((100vw - 6rem) / 5), 30vw"
             className="[&_img]:filter-none [&>span]:text-xs"
           />,
         ];

@@ -29,9 +29,11 @@ export default function Horarios({ c, campo }: { c: typeof contenido; campo: Cam
             {c.profesTitulo}
           </h2>
           <GrillaHorarios />
-          <p className="mt-4 max-w-[65ch]" data-tina-field={campo(c, "profesNota")}>
-            {c.profesNota}
-          </p>
+          {c.profesNota.trim() !== "" && (
+            <p className="mt-4 max-w-[65ch]" data-tina-field={campo(c, "profesNota")}>
+              {c.profesNota}
+            </p>
+          )}
         </div>
       </section>
 

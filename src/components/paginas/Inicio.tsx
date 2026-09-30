@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import type { InicioQuery } from "@tina/__generated__/types";
+import type contenido from "@content/paginas/inicio.json";
 import BotonWhatsApp from "@/components/BotonWhatsApp";
 import EstadoEnVivo from "@/components/EstadoEnVivo";
 import HeroVideo from "@/components/HeroVideo";
@@ -43,18 +43,14 @@ export default function Inicio({
   fotos,
   hayVideo,
 }: {
-  c: InicioQuery["inicio"];
+  c: typeof contenido;
   campo: Campo;
   /** La foto de cada tarjeta, por id. Se arma en el servidor porque Foto lee public/fotos/ del disco. */
   fotos: Record<string, ReactNode>;
   /** Si public/video/ ya tiene el video del hero. Se resuelve en el servidor. */
   hayVideo: boolean;
 }) {
-  // Tina tipa los grupos como opcionales, pero el JSON los trae todos.
-  const t = c.tarjetas as Record<
-    "planes" | "horarios" | "instalaciones" | "equipo" | "objetivos",
-    { titulo: string; frase: string }
-  >;
+  const t = c.tarjetas;
 
   const comoEsEntrenar: {
     id: string;

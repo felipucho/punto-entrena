@@ -168,7 +168,9 @@ export default function Contacto({ c, campo }: { c: typeof contenido; campo: Cam
                   </Link>
                   . Con ese plan podés venir todos los días, de {diasHabiles}.
                 </p>
-                <p data-tina-field={campo(c, "otraLocalidadAviso")}>{c.otraLocalidadAviso}</p>
+                {c.otraLocalidadAviso.trim() !== "" && (
+                  <p data-tina-field={campo(c, "otraLocalidadAviso")}>{c.otraLocalidadAviso}</p>
+                )}
               </div>
             </div>
             <p>

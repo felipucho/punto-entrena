@@ -27,6 +27,13 @@ export default function Header() {
         </Link>
         <nav aria-label="Principal">
           <MenuMobile enlaces={navegacion} destacado={enlaceContacto} />
+          {/*
+           * Sin JavaScript el botón "Menú" no abre nada: se oculta y la lista queda a la vista, en fila y con salto de
+           * renglón. Con !important le gana al display: none de la utilidad hidden.
+           */}
+          <noscript>
+            <style>{`#menu-principal{display:flex!important;position:static!important;flex-flow:row wrap!important;gap:.25rem .75rem;border:0!important;background:transparent!important;padding:0!important}.btn-menu{display:none!important}header .contenedor{flex-wrap:wrap}`}</style>
+          </noscript>
         </nav>
       </div>
     </header>
