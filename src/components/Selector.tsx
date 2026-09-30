@@ -43,6 +43,7 @@ const sinHash = () => "";
  * Fila de botones (pestañas) que muestra el contenido de una opción por vez, para no apilar todo en la página.
  * Sigue el patrón de pestañas de WAI-ARIA: flechas izquierda y derecha, Inicio y Fin.
  * Todos los paneles vienen en el HTML estático; los que no están elegidos quedan con el atributo hidden.
+ * El panel elegido entra animado solo después de un cambio (data-entra); en la carga inicial pinta quieto.
  */
 export default function Selector({ opciones, titulo, claseLista = "", claseBoton = "", clasePanel = "" }: Props) {
   const hash = useSyncExternalStore(suscribirHash, hashActual, sinHash);
@@ -59,6 +60,12 @@ export default function Selector({ opciones, titulo, claseLista = "", claseBoton
   const ids = opciones.map((opcion) => opcion.id);
   const claveIds = ids.join(" ");
   const activa = elegida ?? (ids.includes(hash) ? hash : ids[0]);
+
+  // La opción que pintó el HTML. El panel entra animado (data-entra) recién cuando la activa deja de ser esa: en la
+  // carga pinta quieto, y tocar la pestaña que ya está abierta no lo anima.
+  const [activaInicial] = useState(activa);
+  const [cambio, setCambio] = useState(false);
+  if (!cambio && activa !== activaInicial) setCambio(true);
 
   // Next.js navega a "#id" de la misma página con history.pushState, que no dispara hashchange:
   // esos clicks se leen del link mismo.
@@ -144,6 +151,7 @@ export default function Selector({ opciones, titulo, claseLista = "", claseBoton
           aria-labelledby={opcion.id}
           tabIndex={0}
           hidden={opcion.id !== activa}
+          data-entra={cambio || undefined}
           className={clasePanel}
         >
           {opcion.contenido}

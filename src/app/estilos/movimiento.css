@@ -115,8 +115,11 @@
     block-size: auto;
   }
 
-  /* El panel de pestañas elegido entra con un desplazamiento corto: se nota que cambió sin marear. */
-  [role="tabpanel"]:not([hidden]) {
+  /*
+   * Al cambiar de opción, el panel elegido entra con un desplazamiento corto: se nota que cambió sin marear.
+   * data-entra lo pone Selector; en la carga el panel pinta quieto y no atrasa el contenido principal.
+   */
+  [role="tabpanel"][data-entra]:not([hidden]) {
     animation: panel-entra var(--dur-media) var(--ease-salida);
   }
 
