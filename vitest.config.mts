@@ -3,7 +3,12 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   resolve: {
-    alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) },
+    // Los mismos alias que tsconfig.json: @/ (src), @content/ (JSON de las páginas) y @tina/ (tipos generados).
+    alias: {
+      "@content": fileURLToPath(new URL("./content", import.meta.url)),
+      "@tina": fileURLToPath(new URL("./tina", import.meta.url)),
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
+    },
   },
   test: {
     include: ["src/**/*.test.ts"],
