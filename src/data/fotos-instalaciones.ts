@@ -111,31 +111,12 @@ export const fotosInstalaciones: Readonly<Record<string, FotosInstalacionesDePla
         descripcion: "Planta alta: una columna de poleas en primer plano, y bancos y máquinas de musculación hacia el fondo.",
       },
       {
-        archivo: "vista-general-bancos-de-press", // IMG_3315
-        descripcion:
-          "Planta alta: banco de press plano con barra en el centro y una máquina de polea con asiento en primer plano.",
-      },
-      {
-        archivo: "vista-general-bancos-y-maquinas", // IMG_3316
-        descripcion:
-          "Planta alta: un banco con almohadillas rojas y naranjas en primer plano, bancos con soportes y más máquinas al fondo.",
-      },
-      {
         archivo: "bicicleta-de-spinning-y-trx", // IMG_3325
         descripcion: "Bicicleta de spinning frente a la pared, con TRX colgados detrás y un cajón de madera al costado.",
       },
       {
         archivo: "maquina-de-piernas-con-respaldo-alto", // IMG_3321
         descripcion: "Máquina de piernas sentado con respaldo alto, rodillo largo al frente y pila de placas atrás.",
-      },
-      {
-        archivo: "maquina-de-piernas-con-respaldo-gris", // IMG_3322
-        descripcion:
-          "Máquina de piernas sentado con respaldo gris regulable y rodillo acolchado abajo; a la izquierda, otra máquina de piernas.",
-      },
-      {
-        archivo: "maquina-de-piernas-con-banco-acolchado", // IMG_3320
-        descripcion: "Máquina de piernas con banco acolchado, rodillos al frente y pila de placas detrás.",
       },
       {
         archivo: "maquina-de-cadera-fox", // IMG_3317
@@ -147,38 +128,13 @@ export const fotosInstalaciones: Readonly<Record<string, FotosInstalacionesDePla
         descripcion: "Máquina de aperturas (mariposa): brazos con almohadillas, respaldo acolchado y pila de placas.",
       },
       {
-        archivo: "maquina-de-press-sentado", // IMG_3331
-        descripcion: "Máquina de press sentado con respaldo alto, agarres a los costados y pila de placas.",
-      },
-      {
-        archivo: "banco-de-press-inclinado", // IMG_3333
-        descripcion: "Banco de press inclinado con la barra olímpica en los soportes, sobre piso de granito.",
-      },
-      {
         archivo: "banco-de-press-plano-con-discos", // IMG_3334
         descripcion: "Banco de press plano con la barra en los soportes y un árbol con discos al centro; al fondo, más bancos.",
-      },
-      {
-        archivo: "polea-alta-con-asiento", // IMG_3327
-        descripcion: "Polea alta con asiento y agarre triangular; atrás, máquinas de piernas y el resto de la sala.",
-      },
-      {
-        archivo: "maquina-de-remo", // IMG_3329
-        descripcion: "Máquina sentada con agarres verticales, apoyo acolchado y pila de placas, para trabajar remando.",
       },
       {
         archivo: "remo-en-t-con-apoyo-de-pecho", // IMG_3336
         descripcion:
           "Remo en T con apoyo rojo para el pecho, agarre en T y pernos para los discos; en primer plano, un banco con respaldo vertical.",
-      },
-      {
-        archivo: "banco-scott", // IMG_3335
-        descripcion: "Banco Scott (predicador) con apoyo acolchado inclinado para los brazos.",
-      },
-      {
-        archivo: "banco-con-polea-y-apoyapies", // IMG_3330
-        descripcion:
-          "Banco plano acolchado con apoyapiés de chapa y, a un costado, una columna de poleas con pila de placas.",
       },
     ],
   },
