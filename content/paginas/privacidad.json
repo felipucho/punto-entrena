@@ -8,7 +8,7 @@
   },
   "cookies": {
     "titulo": "Cookies y estadísticas",
-    "texto": "No usamos cookies propias ni herramientas de analítica. No medimos cuántas personas entran ni qué páginas miran."
+    "texto": "No usamos cookies propias. Para saber cuántas personas entran, qué páginas miran y desde qué sitio llegan, usamos Vercel Web Analytics, que no usa cookies ni guarda tu IP: cuenta visitas de forma anónima y agregada."
   },
   "mapa": {
     "titulo": "Mapa de Google",

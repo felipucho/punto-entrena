@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Anton, Roboto } from "next/font/google";
 import Footer from "@/components/Footer";
@@ -63,6 +64,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <VolverArriba />
         <WhatsAppFlotante />
         <JsonLd datos={jsonLdGimnasio()} />
+        <Analytics />
       </body>
     </html>
   );
