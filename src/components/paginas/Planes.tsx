@@ -8,7 +8,7 @@ import { paseLibre, planPorId } from "@/lib/planes";
 import { mensajePlan } from "@/lib/whatsapp";
 
 function textoClases(cantidad: number): string {
-  return `${cantidad} ${cantidad === 1 ? "clase" : "clases"} por mes`;
+  return `${cantidad} ${cantidad === 1 ? "día" : "días"} por mes`;
 }
 
 const diasHabiles = diasDeApertura();
@@ -22,12 +22,11 @@ const nombreSuelta = claseSuelta.nombre.toLowerCase();
 const precioClasePase = precioPorClase(pase);
 /** Cuántas clases del pase libre entran en el precio de una clase suelta. */
 const clasesPasePorSuelta = Math.floor(claseSuelta.precio / precioClasePase);
-const hayRedondeo = planes.some((p) => p.precio % p.clasesPorMes !== 0);
 
 const lecturaTabla: string[] = [];
 if (clasesPasePorSuelta >= 2) {
   lecturaTabla.push(
-    `Con el ${nombrePase}, cada clase te sale ${formatearPrecio(precioClasePase)}. Por lo que pagás una ${nombreSuelta}, venís ${numeroEnPalabras(clasesPasePorSuelta)} veces.`,
+    `Con el ${nombrePase}, cada día te sale ${formatearPrecio(precioClasePase)}. Por lo que pagás un ${nombreSuelta}, venís ${numeroEnPalabras(clasesPasePorSuelta)} veces.`,
   );
 }
 
@@ -126,7 +125,7 @@ export default function Planes({ c }: { c: typeof contenido }) {
               <table className="tabla-placa w-full border-collapse text-left">
                 <caption className="mb-4 text-left">
                   <span className="etiqueta">
-                    Precio por clase de cada plan{hayRedondeo ? " (redondeado al peso)" : ""} y de la {nombreSuelta}
+                    Precio por día de cada plan y del {nombreSuelta}
                   </span>
                 </caption>
                 <thead>

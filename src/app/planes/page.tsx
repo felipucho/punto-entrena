@@ -15,7 +15,7 @@ const precioClasePase = precioPorClase(pase);
 
 export const metadata = metadataDePagina({
   titulo: "Planes y precios",
-  descripcion: `Planes de gimnasio en ${localidad} desde ${formatearPrecio(masBarato.precio)} por mes. Con el ${nombrePase}, cada clase te sale ${formatearPrecio(precioClasePase)}. Para probar, una ${nombreSuelta} sale ${formatearPrecio(claseSuelta.precio)}.`,
+  descripcion: `Planes de gimnasio en ${localidad} desde ${formatearPrecio(masBarato.precio)} por mes. Con el ${nombrePase}, cada día te sale ${formatearPrecio(precioClasePase)}. Para probar, un ${nombreSuelta} sale ${formatearPrecio(claseSuelta.precio)}.`,
   ruta: "/planes",
 });
 

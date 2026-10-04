@@ -15,7 +15,7 @@ const nombrePaseLibre = minusculaInicial(plan.nombre);
 
 export const metadata = metadataDePagina({
   titulo: tituloInicio,
-  descripcion: `Gimnasio de musculación y funcional en ${localidad}, ${provincia}. Los profes te arman tu planilla. Con el ${nombrePaseLibre}, cada clase sale ${formatearPrecio(precioPorClase(plan))}.`,
+  descripcion: `Gimnasio de musculación y funcional en ${localidad}, ${provincia}. Los profes te arman tu planilla. Con el ${nombrePaseLibre}, cada día sale ${formatearPrecio(precioPorClase(plan))}.`,
   ruta: "/",
   absoluto: true,
 });

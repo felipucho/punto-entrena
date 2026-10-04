@@ -124,7 +124,7 @@ export const planes: readonly Plan[] = [
   { id: "3-veces", nombre: "3 veces por semana", clasesPorMes: 12, precio: 55000 },
   { id: "pase-libre", nombre: "Pase libre", clasesPorMes: 20, precio: 60000 },
 ];
-export const claseSuelta = { nombre: "Clase suelta", precio: 15000 } as const;
+export const claseSuelta = { nombre: "Día suelto", precio: 15000 } as const;
 export const incluyenTodosLosPlanes =
   "Con cualquier plan usás las dos plantas y tenés tu planilla, que los profes van ajustando.";
 // Brief "¿Cuál me conviene?": si arrancás de cero, con 2 veces por semana ya ves cambios;

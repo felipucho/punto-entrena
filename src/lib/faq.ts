@@ -12,7 +12,7 @@ export function textoDescuentoFamiliar(): string {
 const respuestasInterpoladas: Record<ClaveInterpolada, () => string> = {
   paseLibre: () => {
     const plan = paseLibre();
-    return `Es el plan para venir todos los días, de ${diasDeApertura()}. Son ${plan.clasesPorMes} clases por mes a ${formatearPrecio(plan.precio)}, o sea ${formatearPrecio(precioPorClase(plan))} cada una. Te conviene si tenés horarios rotativos o venís de otra localidad.`;
+    return `Es el plan para venir todos los días, de ${diasDeApertura()}. Son ${plan.clasesPorMes} días por mes a ${formatearPrecio(plan.precio)}, o sea ${formatearPrecio(precioPorClase(plan))} cada una. Te conviene si tenés horarios rotativos o venís de otra localidad.`;
   },
   descuentoFamiliar: () => {
     const { porcentaje, familiares } = negocio.descuentoFamiliar;
@@ -21,7 +21,7 @@ const respuestasInterpoladas: Record<ClaveInterpolada, () => string> = {
   edadMinima: () =>
     `Desde los ${negocio.edadMinima} años.`,
   claseSuelta: () =>
-    `Sí, con una ${claseSuelta.nombre.toLowerCase()}, que sale ${formatearPrecio(claseSuelta.precio)}. Si te gusta, después elegís el plan.`,
+    `Sí, con un ${claseSuelta.nombre.toLowerCase()}, que sale ${formatearPrecio(claseSuelta.precio)}. Si te gusta, después elegís el plan.`,
   mediosDePago: () => negocio.mediosDePago,
 };
 
