@@ -19,8 +19,28 @@ export type FotosInstalacionesDePlanta = {
 
 export const fotosInstalaciones: Readonly<Record<string, FotosInstalacionesDePlanta>> = {
   "planta-baja": {
-    // Racks, TRX, mancuernas, banco multiarticular y cintas todavía no tienen foto propia: solo aparecen en las vistas generales.
-    equipamiento: {},
+    // El banco multiarticular todavía no tiene foto propia: solo aparece en las vistas generales.
+    equipamiento: {
+      "Racks regulables": {
+        archivo: "racks-con-discos-y-banco", // IMG_5830
+        descripcion:
+          "Fila de racks de potencia con discos guardados a los costados, una barra montada y un banco regulable en el rack más cercano.",
+      },
+      TRX: {
+        archivo: "trx-en-la-pared", // IMG_5832
+        descripcion: "Correas de TRX colgadas de un caño en la pared, con un banco de apoyo al lado.",
+      },
+      "Mancuernas y pesas rusas": {
+        archivo: "mancuernas-y-pesas-rusas", // IMG_5820
+        descripcion:
+          "Hilera de mancuernas en su soporte, pesas rusas y bolsas de arena en un rack vertical, con un banco regulable en primer plano.",
+      },
+      "Cintas para correr": {
+        archivo: "cintas-curvas-sin-motor", // IMG_5826
+        descripcion:
+          "Dos cintas curvas sin motor frente al ventanal, con una bicicleta fija a la izquierda y pelotas medicinales a la derecha.",
+      },
+    },
     galeria: [
       {
         archivo: "vista-general-desde-recepcion", // IMG_3309
@@ -41,6 +61,15 @@ export const fotosInstalaciones: Readonly<Record<string, FotosInstalacionesDePla
         archivo: "vista-desde-arriba-cajones-y-pelotas", // IMG_3312
         descripcion:
           "Planta baja vista desde arriba: piso de goma con cajones de madera, pelotas amarillas y discos, racks a la izquierda y la escalera al fondo.",
+      },
+      {
+        archivo: "bolsas-de-arena-y-wall-balls", // IMG_5829
+        descripcion:
+          "Rack vertical con bolsas de arena de 5 a 25 kg, bandas colgadas de la pared, steps, wall balls y pesas rusas.",
+      },
+      {
+        archivo: "cajones-pliometricos-y-pelotas", // IMG_5831
+        descripcion: "Cajones de madera para saltar, pelotas de pilates y una escalera metálica, con un rack al fondo.",
       },
     ],
   },
