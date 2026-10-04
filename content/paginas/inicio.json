@@ -32,14 +32,14 @@
     },
     "equipo": {
       "titulo": "Equipo",
-      "frase": "Conocé nuestros profes, su formación y en qué se especializan."
+      "frase": "Quiénes son nuestros profes, su formación y en qué se especializan."
     },
     "objetivos": {
       "titulo": "Objetivos",
-      "frase": "Conocé cómo empezar según tu objetivo, tu nivel y experiencia."
+      "frase": "Descubrí cómo empezar según tu objetivo, tu nivel y tu experiencia."
     }
   },
-  "cierreTitulo": "Empezá solo con mensaje",
+  "cierreTitulo": "Empezá solo con un mensaje",
   "cierreTexto": "Decinos qué buscás y a qué hora podés venir. Nosotros te ayudamos a empezar.",
   "cierreBoton": "Quiero empezar"
 }
