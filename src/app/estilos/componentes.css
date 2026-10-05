@@ -1326,11 +1326,29 @@
     z-index: 1;
     inline-size: 6.5rem;
     background-color: var(--color-surface);
-    box-shadow: 1px 0 0 var(--color-border);
   }
 
   .tabla-grilla thead .columna-fija {
     background-color: var(--color-placa);
+  }
+
+  /* Líneas grises suaves entre filas y columnas. */
+  .tabla-grilla {
+    --linea-grilla: color-mix(in srgb, var(--gris-600) 40%, transparent);
+  }
+
+  .tabla-grilla tbody td,
+  .tabla-grilla tbody th {
+    block-size: 3rem;
+    border-bottom: 1px solid var(--linea-grilla);
+  }
+
+  .tabla-grilla tbody td + td {
+    border-inline-start: 1px solid var(--linea-grilla);
+  }
+
+  .tabla-grilla tbody .columna-fija {
+    box-shadow: 1px 0 0 var(--linea-grilla);
   }
 
   /* La celda fija tiene fondo propio: sin esto no acompañaba el hover de la fila. */

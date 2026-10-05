@@ -45,9 +45,7 @@ export default function Planes({ c }: { c: typeof contenido }) {
       <section aria-labelledby="planes-y-clase-suelta" className="seccion">
         <div className="contenedor">
           <h2 id="planes-y-clase-suelta" className="revelar mb-4">
-            {`${c.planesTitulo.antes} `}
-            {nombreSuelta}
-            {` ${c.planesTitulo.despues}`}
+            {c.planesTitulo}
           </h2>
           {/*
            * Tarjetas compactas: dos columnas en mobile y los cuatro planes en una sola fila desde lg.
@@ -94,13 +92,13 @@ export default function Planes({ c }: { c: typeof contenido }) {
               {c.sueltaTexto.trim() !== "" && <p className="mt-1.5 text-muted">{c.sueltaTexto}</p>}
             </div>
             <BotonWhatsApp
-              mensaje={`Hola, me gustaría probar con una ${nombreSuelta}. ¿Cómo hago?`}
+              mensaje={`Hola, me gustaría probar con un ${nombreSuelta}. ¿Cómo hago?`}
               variante="secundario"
               className="w-full sm:w-auto sm:shrink-0"
             >
               <span>
                 {c.sueltaBoton}
-                <span className="sr-only"> con una {nombreSuelta}, por WhatsApp</span>
+                <span className="sr-only"> con un {nombreSuelta}, por WhatsApp</span>
               </span>
             </BotonWhatsApp>
           </div>

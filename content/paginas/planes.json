@@ -1,10 +1,7 @@
 {
   "titulo": "Planes y precios",
   "intro": "Elegí cuántas veces por semana querés venir.",
-  "planesTitulo": {
-    "antes": "Planes por mes y una",
-    "despues": "para probar"
-  },
+  "planesTitulo": "Planes por mes",
   "planBoton": "Quiero este plan",
   "sueltaTexto": " ",
   "sueltaBoton": "Quiero probar un día",

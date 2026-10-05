@@ -124,7 +124,7 @@ export const planes: readonly Plan[] = [
   { id: "3-veces", nombre: "3 veces por semana", clasesPorMes: 12, precio: 55000 },
   { id: "pase-libre", nombre: "Pase libre", clasesPorMes: 20, precio: 60000 },
 ];
-export const claseSuelta = { nombre: "Día suelto", precio: 15000 } as const;
+export const claseSuelta = { nombre: "Día", precio: 15000 } as const;
 export const incluyenTodosLosPlanes =
   "Con cualquier plan usás las dos plantas y tenés tu planilla, que los profes van ajustando.";
 // Brief "¿Cuál me conviene?": si arrancás de cero, con 2 veces por semana ya ves cambios;
@@ -248,11 +248,11 @@ export const objetivos: readonly Objetivo[] = [
 // Brief deportistas: ya entrenan alumnos de clubes locales.
 
 export const comoFunciona: readonly string[] = [
-  "Nos escribís por WhatsApp y nos contás qué buscás.",
+  "Te ponés en contacto con nosotros, en persona o por WhatsApp.",
   "Los profes te arman una planilla para tu nivel y lo que querés lograr.",
   "Empezás a entrenar y los profes la van ajustando según cómo te va.",
 ];
-export const queLlevar: readonly string[] = ["Ropa cómoda", "Zapatillas", "Botella de agua", "Toalla"];
+export const queLlevar: readonly string[] = ["Ropa cómoda", "Zapatillas cómodas", "Botella de agua", "Toalla"];
 // TODO Matías: confirmar si el gimnasio pide algo más (toalla obligatoria, candado, etc.).
 
 // Podés pulir la redacción con <guia_de_textos> sin cambiar el dato.
