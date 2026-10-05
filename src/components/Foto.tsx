@@ -44,7 +44,7 @@ function fotoReal(nombre: string): string | null {
 /**
  * Foto de un lugar del sitio. Si existe public/fotos/<slug de la descripción> (.jpg, .jpeg, .png, .webp o .avif),
  * muestra la foto real con next/image, recortada a la misma proporción para no mover el layout. Si no, deja el
- * lugar reservado con la descripción.
+ * lugar reservado, decorativo y sin texto.
  * Es un span y no un div para poder ir dentro de un botón, como en /equipo.
  * Lee el disco: es un componente de servidor y no se importa desde un componente de cliente.
  */
@@ -72,15 +72,9 @@ export default function Foto({
 
   return (
     <span
-      role={decorativa ? undefined : "img"}
-      aria-label={decorativa ? undefined : `Foto: ${descripcion}`}
-      aria-hidden={decorativa || undefined}
+      aria-hidden="true"
       style={{ aspectRatio: proporcion }}
-      className={`foto-pendiente flex items-end overflow-hidden rounded-card p-3 ${className}`.trim()}
-    >
-      <span aria-hidden="true" className="text-sm leading-snug text-placeholder-fg italic">
-        Foto: {descripcion}
-      </span>
-    </span>
+      className={`foto-pendiente block overflow-hidden rounded-card ${className}`.trim()}
+    />
   );
 }

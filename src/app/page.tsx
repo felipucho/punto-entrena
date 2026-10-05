@@ -57,7 +57,7 @@ function fotoDeTarjeta(id: string) {
       archivo={archivo}
       proporcion="3 / 2"
       sizes={SIZES_MINIATURA}
-      className={`${CLASE_MINIATURA} [&_img]:filter-none [&>span]:line-clamp-2 [&>span]:text-xs xl:[&>span]:line-clamp-none xl:[&>span]:text-sm`}
+      className={`${CLASE_MINIATURA} [&_img]:filter-none`}
     />
   );
 }

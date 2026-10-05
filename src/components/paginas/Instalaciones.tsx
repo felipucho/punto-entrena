@@ -56,8 +56,7 @@ function PanelPlanta({ planta, textos, fotos }: { planta: Planta; textos: Textos
           <h3 className="etiqueta">{textos.equipamientoTitulo}</h3>
           {/*
            * Cuadrados chicos: de a 3 en mobile (de a 2 por debajo de unos 350 px, donde "multiarticular" ya no entra)
-           * y todos en una fila desde sm, sean cuantos sean. La etiqueta "Foto: …" (el span de Foto)
-           * va más chica para que entre en el cuadrado.
+           * y todos en una fila desde sm, sean cuantos sean.
            */}
           <ul className="mt-3 grid grid-cols-[repeat(auto-fill,minmax(5.75rem,1fr))] gap-3 sm:grid-flow-col sm:grid-cols-none sm:auto-cols-fr">
             {planta.destacados.map((destacado) => (

@@ -75,7 +75,7 @@ function fotosDePlanta(planta: Planta): FotosDePlanta {
             descripcion={foto?.descripcion ?? `${minusculaInicial(destacado)} de la ${nombreEnMinuscula}`}
             proporcion="1 / 1"
             sizes={SIZES_EQUIPAMIENTO}
-            className="[&_img]:filter-none [&>span]:text-xs"
+            className="[&_img]:filter-none"
           />,
         ];
       }),

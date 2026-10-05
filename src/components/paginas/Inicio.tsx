@@ -248,9 +248,7 @@ export default function Inicio({
            * Tarjetas bajas: hasta xl la foto es una miniatura al costado del texto (una columna en mobile, dos
            * desde md, tres desde lg); desde xl las cinco van en una sola fila, con la foto arriba. En lg no
            * entran cinco: palabras como "Instalaciones" no caben en el ancho de la columna.
-           * La miniatura no se estira (items-start) para que conserve la proporción de la foto. En la miniatura,
-           * la etiqueta "Foto: …" (el span de Foto) va más chica y cortada en dos líneas con "…", en vez
-           * de quedar recortada por arriba a mitad de frase.
+           * La miniatura no se estira (items-start) para que conserve la proporción de la foto.
            * Al pasar, la barra de la P recorre el borde de arriba, aparece el punto y la foto se acerca.
            * wrap-break-word es el resguardo para pantallas de 320 px, donde el texto queda muy angosto.
            */}
