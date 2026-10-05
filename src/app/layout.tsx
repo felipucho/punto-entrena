@@ -31,6 +31,7 @@ const CONTRATO_DIRECCION = `<!-- punto-placas · THESIS: el sitio es una placa d
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  verification: { google: "-NjuH-Ar5VmF0e6rIjZxZcMipBoPS32ws3Yg4uDgLb8" },
   title: { default: tituloInicio, template: plantillaTitulo },
   applicationName: negocio.nombre,
   openGraph: {
