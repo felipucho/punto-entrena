@@ -45,10 +45,10 @@ export default function Footer() {
 
         <div className="mt-4 border-t border-border pt-1 text-muted">
           <div className="flex gap-x-5 text-sm">
-            <Link href="/privacidad" className="enlace inline-flex min-h-11 items-center font-normal">
+            <Link href="/privacidad" prefetch={false} className="enlace inline-flex min-h-11 items-center font-normal">
               Privacidad
             </Link>
-            <Link href="/terminos" className="enlace inline-flex min-h-11 items-center font-normal">
+            <Link href="/terminos" prefetch={false} className="enlace inline-flex min-h-11 items-center font-normal">
               Términos
             </Link>
           </div>

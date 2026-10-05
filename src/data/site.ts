@@ -82,8 +82,7 @@ export type Pregunta = {
 export const negocio: Negocio = {
   nombre: "Punto Entrenamiento y Salud",
   slogan: "Vos elegís tu objetivo. Punto te acompaña.",
-  // URL base: process.env.NEXT_PUBLIC_SITE_URL (dominio pendiente); en Vercel, el dominio de producción del proyecto;
-  // en local, "http://localhost:3000". Ver src/lib/seo.ts.
+  // URL base: https://puntoentrena.com. Ver src/lib/seo.ts.
   direccion: {
     calle: "Roque Sáenz Peña 28",
     localidad: "Las Varillas",

@@ -56,7 +56,7 @@ export default function Contacto({ c }: { c: typeof contenido }) {
                   <dt className="font-bold uppercase tracking-[0.08em] text-muted">{c.etiquetaTelefono}</dt>
                   <dd>
                     <a href={telHref()} className="enlace inline-flex min-h-11 items-center">
-                      {negocio.telefono.visible}
+                      {negocio.telefono.visible.replaceAll(" ", " ")}
                     </a>
                   </dd>
                 </div>
@@ -112,6 +112,7 @@ export default function Contacto({ c }: { c: typeof contenido }) {
           <iframe
             src={urlMapaEmbebido()}
             loading="lazy"
+            tabIndex={-1}
             referrerPolicy="no-referrer-when-downgrade"
             title={`Mapa de ${negocio.nombre} en ${direccionCorta()}`}
             className="aspect-[4/3] w-full rounded-card border border-border grayscale-[0.4] transition-[filter] duration-500 hover:grayscale-0 focus:grayscale-0 md:aspect-video lg:aspect-auto lg:h-full lg:min-h-96"

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ScrollerFoco from "@/components/ScrollerFoco";
 import {
   DIAS_CON_GRILLA,
   capitalizar,
@@ -19,7 +20,7 @@ import {
  */
 export default function GrillaHorarios() {
   return (
-    <div
+    <ScrollerFoco
       role="region"
       aria-labelledby="grilla-titulo"
       tabIndex={0}
@@ -82,6 +83,6 @@ export default function GrillaHorarios() {
           ))}
         </tbody>
       </table>
-    </div>
+    </ScrollerFoco>
   );
 }

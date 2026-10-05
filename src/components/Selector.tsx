@@ -84,6 +84,13 @@ export default function Selector({ opciones, titulo, claseLista = "", claseBoton
     return () => document.removeEventListener("click", alHacerClick);
   }, [claveIds]);
 
+  // replaceState no dispara hashchange ni scroll ni suma una entrada al historial; el render que sigue a setElegida
+  // relee el hash (useSyncExternalStore) y, como ya coincide con la opción elegida, no cambia nada.
+  function elegir(id: string) {
+    if (hashActual() !== id) window.history.replaceState(null, "", `#${id}`);
+    setElegida(id);
+  }
+
   function alTocarTecla(evento: KeyboardEvent<HTMLButtonElement>, indice: number) {
     const ultimo = opciones.length - 1;
     let destino: number;
@@ -104,7 +111,7 @@ export default function Selector({ opciones, titulo, claseLista = "", claseBoton
         return;
     }
     evento.preventDefault();
-    setElegida(opciones[destino].id);
+    elegir(opciones[destino].id);
     botones.current[destino]?.focus();
   }
 
@@ -134,7 +141,7 @@ export default function Selector({ opciones, titulo, claseLista = "", claseBoton
               aria-selected={esActiva}
               aria-controls={`${opcion.id}-panel`}
               tabIndex={esActiva ? 0 : -1}
-              onClick={() => setElegida(opcion.id)}
+              onClick={() => elegir(opcion.id)}
               onKeyDown={(evento) => alTocarTecla(evento, indice)}
               className={claseBoton}
             >

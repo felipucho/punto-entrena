@@ -96,6 +96,13 @@
     text-underline-offset: 0.22em;
   }
 
+  a,
+  button,
+  summary,
+  [role="tab"] {
+    touch-action: manipulation;
+  }
+
   :focus-visible {
     outline: 3px solid var(--color-focus);
     outline-offset: 3px;

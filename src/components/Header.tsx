@@ -19,7 +19,7 @@ export default function Header() {
          * queda solo para lectores de pantalla, para que entre el botón del menú.
          * TODO: reemplazar el isotipo por el vector original cuando esté.
          */}
-        <Link href="/" className="marca">
+        <Link href="/" prefetch={false} className="marca">
           <Isotipo className="h-10 w-auto shrink-0" />
           <span>
             <span className="marca-nombre">{nombreCorto}</span>{" "}

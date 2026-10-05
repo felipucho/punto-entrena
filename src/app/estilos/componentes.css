@@ -89,20 +89,32 @@
     transition: scale var(--dur-media) var(--ease-salida);
   }
 
-  .tarjeta:hover,
   .tarjeta:focus-visible {
     border-color: var(--color-border-fuerte);
     background-color: var(--color-surface-alt);
   }
 
-  .tarjeta:hover::before,
   .tarjeta:focus-visible::before {
     inline-size: calc(100% + 2px);
   }
 
-  .tarjeta:hover::after,
   .tarjeta:focus-visible::after {
     scale: 1;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .tarjeta:hover {
+      border-color: var(--color-border-fuerte);
+      background-color: var(--color-surface-alt);
+    }
+
+    .tarjeta:hover::before {
+      inline-size: calc(100% + 2px);
+    }
+
+    .tarjeta:hover::after {
+      scale: 1;
+    }
   }
 
   /* La barra de la P quieta, para tarjetas que no son links: no promete un click. */
@@ -148,22 +160,21 @@
       color var(--dur-rapida) ease,
       border-color var(--dur-rapida) ease,
       background-color var(--dur-rapida) ease,
-      translate var(--dur-rapida) ease;
+      translate var(--dur-rapida) ease,
+      scale 140ms ease-out;
   }
 
   .btn:active {
     translate: 0 1px;
+    scale: 0.97;
   }
 
-  .btn-primario,
-  .btn-claro {
+  .btn-primario {
     color: var(--color-accent-fg);
   }
 
   .btn-primario::before,
-  .btn-claro::before,
-  .btn-primario::after,
-  .btn-claro::after {
+  .btn-primario::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -171,15 +182,13 @@
     clip-path: polygon(0 0, 100% 0, 100% 100%, var(--corte) 100%);
   }
 
-  .btn-primario::before,
-  .btn-claro::before {
+  .btn-primario::before {
     background-color: var(--color-accent);
     transition: background-color var(--dur-rapida) ease;
   }
 
   /* Brillo en diagonal que cruza el botón al pasar: el mismo ángulo que el corte de la pata del logo. */
-  .btn-primario::after,
-  .btn-claro::after {
+  .btn-primario::after {
     background-image: linear-gradient(
       118deg,
       transparent 35%,
@@ -191,14 +200,14 @@
     transition: background-position var(--dur-lenta) var(--ease-salida);
   }
 
-  .btn-primario:hover::before,
-  .btn-claro:hover::before {
-    background-color: var(--color-accent-hover);
-  }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-primario:hover::before {
+      background-color: var(--color-accent-hover);
+    }
 
-  .btn-primario:hover::after,
-  .btn-claro:hover::after {
-    background-position: -30% 0;
+    .btn-primario:hover::after {
+      background-position: -30% 0;
+    }
   }
 
   /* Ícono dentro del botón (WhatsApp): hereda el color del texto. */
@@ -218,8 +227,10 @@
     transition: translate var(--dur-media) var(--ease-salida);
   }
 
-  .btn:hover .btn-flecha-afuera {
-    translate: 2px -2px;
+  @media (hover: hover) and (pointer: fine) {
+    .btn:hover .btn-flecha-afuera {
+      translate: 2px -2px;
+    }
   }
 
   /* Secundario: el pill outline con flecha de las placas. */
@@ -242,17 +253,19 @@
     transition: translate var(--dur-media) var(--ease-salida);
   }
 
-  .btn-secundario:hover {
-    color: var(--color-accent);
-  }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-secundario:hover {
+      color: var(--color-accent);
+    }
 
-  .superficie-amarilla .btn-secundario:hover {
-    background-color: var(--color-fg);
-    color: var(--color-placa);
-  }
+    .superficie-amarilla .btn-secundario:hover {
+      background-color: var(--color-fg);
+      color: var(--color-placa);
+    }
 
-  .btn-secundario:hover::after {
-    translate: 4px 0;
+    .btn-secundario:hover::after {
+      translate: 4px 0;
+    }
   }
 
   /* Botón de pestaña del Selector: la opción elegida se rellena de amarillo con una barrida desde la izquierda. */
@@ -274,7 +287,12 @@
     cursor: pointer;
     transition:
       border-color var(--dur-rapida) ease,
-      color var(--dur-media) var(--ease-salida);
+      color var(--dur-media) var(--ease-salida),
+      scale 140ms ease-out;
+  }
+
+  .pestana:active {
+    scale: 0.97;
   }
 
   .pestana::before {
@@ -287,8 +305,10 @@
     transition: clip-path var(--dur-media) var(--ease-salida);
   }
 
-  .pestana:hover {
-    border-color: var(--color-border-fuerte);
+  @media (hover: hover) and (pointer: fine) {
+    .pestana:hover {
+      border-color: var(--color-border-fuerte);
+    }
   }
 
   .pestana[aria-selected="true"] {
@@ -336,14 +356,16 @@
       text-decoration-thickness var(--dur-rapida) ease;
   }
 
-  .enlace:hover {
-    color: var(--color-accent);
-    text-decoration-thickness: 3px;
-  }
+  @media (hover: hover) and (pointer: fine) {
+    .enlace:hover {
+      color: var(--color-accent);
+      text-decoration-thickness: 3px;
+    }
 
-  /* Sobre amarillo, el subrayado va negro y el hover no cambia de color (seguiría siendo negro). */
-  .superficie-amarilla .enlace:hover {
-    color: var(--color-fg);
+    /* Sobre amarillo, el subrayado va negro y el hover no cambia de color (seguiría siendo negro). */
+    .superficie-amarilla .enlace:hover {
+      color: var(--color-fg);
+    }
   }
 
   /* Link con la flecha del pill al final: "Mirá los horarios →". */
@@ -363,8 +385,10 @@
     transition: translate var(--dur-media) var(--ease-salida);
   }
 
-  .enlace-flecha:hover::after {
-    translate: 4px 0;
+  @media (hover: hover) and (pointer: fine) {
+    .enlace-flecha:hover::after {
+      translate: 4px 0;
+    }
   }
 
   /* Botón "Menú": pill outline como el secundario, sin flecha, con dos barras que se cruzan al abrir. */
@@ -376,9 +400,14 @@
     font-weight: 600;
   }
 
-  .btn-menu:hover,
   .btn-menu[aria-expanded="true"] {
     border-color: var(--color-accent);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .btn-menu:hover {
+      border-color: var(--color-accent);
+    }
   }
 
   .menu-icono {
@@ -449,9 +478,14 @@
     transition: color var(--dur-rapida) ease;
   }
 
-  .nav-enlace:hover,
   .nav-enlace[aria-current="page"] {
     color: var(--color-accent);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .nav-enlace:hover {
+      color: var(--color-accent);
+    }
   }
 
   .nav-enlace[aria-current="page"]::before {
@@ -490,9 +524,14 @@
       transition: scale var(--dur-media) var(--ease-salida);
     }
 
-    .nav-enlace:hover::after,
     .nav-enlace[aria-current="page"]::after {
       scale: 1 1;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .nav-enlace:hover::after {
+        scale: 1 1;
+      }
     }
   }
 
@@ -537,9 +576,11 @@
     clip-path: polygon(10% 0, 100% 50%, 10% 100%);
   }
 
-  .btn-pausa:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
+  @media (hover: hover) and (pointer: fine) {
+    .btn-pausa:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
   }
 
   /* Skip link: fuera de la vista hasta recibir foco, sin perder el padding de .btn. */
@@ -682,8 +723,23 @@
       background-color: ButtonText;
     }
 
-    .btn-arriba:hover .btn-arriba-flecha {
-      background-color: Highlight;
+    @media (hover: hover) {
+      .btn-arriba:hover .btn-arriba-flecha {
+        background-color: Highlight;
+      }
+    }
+
+    /* Lo mismo para los demás íconos hechos con máscara: flecha de afuera, flechas de pill y tilde. */
+    .btn-flecha-afuera,
+    .btn-secundario::after,
+    .lista-check > li::after {
+      forced-color-adjust: none;
+      background-color: ButtonText;
+    }
+
+    .enlace-flecha::after {
+      forced-color-adjust: none;
+      background-color: LinkText;
     }
   }
 
@@ -942,11 +998,17 @@
       filter var(--dur-lenta) var(--ease-salida);
   }
 
-  .tarjeta:hover .foto img,
-  .tarjeta:focus-visible .foto img,
-  .group:hover .foto img {
+  .tarjeta:focus-visible .foto img {
     scale: 1.04;
     filter: grayscale(1) contrast(1.08) brightness(1);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .tarjeta:hover .foto img,
+    .group:hover .foto img {
+      scale: 1.04;
+      filter: grayscale(1) contrast(1.08) brightness(1);
+    }
   }
 
   /*
@@ -1059,6 +1121,7 @@
     fill: var(--color-punto);
   }
 
+  /* La animación va en el <g> que envuelve al círculo, no en el círculo: Safari viejo falla con transform-origin en formas SVG. */
   .isotipo-punto {
     transform-box: fill-box;
     transform-origin: center;
@@ -1066,8 +1129,10 @@
   }
 
   /* Al pasar por el logo, el punto salta. */
-  .marca:hover .isotipo-punto {
-    translate: 0 -18%;
+  @media (hover: hover) and (pointer: fine) {
+    .marca:hover .isotipo-punto {
+      translate: 0 -18%;
+    }
   }
 
   /*
@@ -1169,7 +1234,12 @@
   .hero-velo {
     background-image:
       var(--grano),
-      linear-gradient(20deg, var(--color-oscuro-velo-fuerte) 10%, var(--color-oscuro-velo) 55%, transparent 110%);
+      linear-gradient(
+        20deg,
+        var(--color-oscuro-velo-fuerte) 10%,
+        color-mix(in srgb, var(--color-oscuro) 70%, transparent) 55%,
+        transparent 110%
+      );
   }
 
   /*
@@ -1201,11 +1271,19 @@
   }
 
   .acordeon > summary {
-    transition: color var(--dur-rapida) ease;
+    transition:
+      color var(--dur-rapida) ease,
+      scale 140ms ease-out;
   }
 
-  .acordeon > summary:hover {
-    color: var(--color-accent);
+  .acordeon > summary:active {
+    scale: 0.97;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .acordeon > summary:hover {
+      color: var(--color-accent);
+    }
   }
 
   .acordeon::before {
@@ -1334,7 +1412,7 @@
 
   /* Líneas grises suaves entre filas y columnas. */
   .tabla-grilla {
-    --linea-grilla: color-mix(in srgb, var(--gris-600) 40%, transparent);
+    --linea-grilla: color-mix(in srgb, var(--color-border-fuerte) 40%, transparent);
   }
 
   .tabla-grilla tbody td,
@@ -1352,8 +1430,10 @@
   }
 
   /* La celda fija tiene fondo propio: sin esto no acompañaba el hover de la fila. */
-  .tabla-grilla tbody tr:hover .columna-fija {
-    background-color: var(--color-surface-alt);
+  @media (hover: hover) and (pointer: fine) {
+    .tabla-grilla tbody tr:hover .columna-fija {
+      background-color: var(--color-surface-alt);
+    }
   }
 
   /* Franja cerrada: rayado en el ángulo del corte del logo. */

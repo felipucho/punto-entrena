@@ -123,9 +123,9 @@ export function diasDeApertura(): string {
   return formatearLista(dias.map((dia) => NOMBRES_DIA[dia]));
 }
 
-/** "de 7 a 12 y de 13 a 21" */
+/** "de 7 a 12 y de 13 a 21". Los espacios antes de cada hora son no separables (U+00A0) para que no se corte el rango. */
 export function describirSegmentos(segmentos: readonly Segmento[]): string {
-  return segmentos.map((s) => `de ${formatearHora(s.desde)} a ${formatearHora(s.hasta)}`).join(" y ");
+  return segmentos.map((s) => `de ${formatearHora(s.desde)} a ${formatearHora(s.hasta)}`).join(" y ");
 }
 
 /** "7–9 y 13–16" */
@@ -150,9 +150,9 @@ export function horarioGeneralCorto(): string {
     .map(({ dias, segmentos }) => {
       const quien = capitalizar(rangoDeDias(dias, ABREVIATURAS_DIA));
       const tramos = segmentos
-        .map((s) => `${formatearHora(s.desde)} a ${formatearHora(s.hasta)}`)
+        .map((s) => `${formatearHora(s.desde)} a ${formatearHora(s.hasta)}`)
         .join(" y ");
-      return `${quien}, ${tramos} h`;
+      return `${quien}, ${tramos} h`;
     })
     .join(". ");
 }

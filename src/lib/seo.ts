@@ -7,22 +7,11 @@ import type { Ruta } from "@/lib/rutas";
 
 // Una variable vacía (típica de un .env de plantilla) cuenta como no definida.
 // new URL(...).origin saca la barra final y falla con un error claro si falta el protocolo.
-// Vercel expone el dominio de producción del proyecto sin protocolo: sirve de respaldo si falta NEXT_PUBLIC_SITE_URL.
-const dominioVercel = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim();
-const urlConfigurada =
-  process.env.NEXT_PUBLIC_SITE_URL?.trim() || (dominioVercel ? `https://${dominioVercel}` : "http://localhost:3000");
+// El dominio va fijo: así los deploys de preview y el build local también declaran como canónico el sitio real.
+const urlConfigurada = process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://puntoentrena.com";
 
-/** URL base del sitio: NEXT_PUBLIC_SITE_URL, si no el dominio de producción de Vercel y, en local, localhost. */
+/** URL base del sitio: https://puntoentrena.com, salvo que NEXT_PUBLIC_SITE_URL diga otra cosa. */
 export const siteUrl = new URL(urlConfigurada).origin;
-
-/** Avisa en el build de producción si el sitio todavía apunta a localhost. Se llama una vez, desde el sitemap. */
-export function avisarSiFaltaDominio() {
-  if (process.env.NODE_ENV === "production" && new URL(siteUrl).hostname === "localhost") {
-    console.warn(
-      "NEXT_PUBLIC_SITE_URL no está definida: canonical, og:url, og:image, twitter:image, sitemap, robots y JSON-LD apuntan a localhost.",
-    );
-  }
-}
 
 const { localidad } = negocio.direccion;
 

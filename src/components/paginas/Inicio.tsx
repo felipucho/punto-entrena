@@ -5,6 +5,7 @@ import BotonWhatsApp from "@/components/BotonWhatsApp";
 import EstadoEnVivo from "@/components/EstadoEnVivo";
 import HeroVideo from "@/components/HeroVideo";
 import Isotipo from "@/components/Isotipo";
+import ScrollerFoco from "@/components/ScrollerFoco";
 import { negocio, plantas, profes } from "@/data/site";
 import {
   direccionCorta,
@@ -139,7 +140,6 @@ export default function Inicio({
             {c.heroBajada}
           </p>
           <BotonWhatsApp
-            variante="claro"
             mensaje={negocio.mensajeWhatsappGeneral}
             className="entra retraso-4 mt-8 self-start"
           >
@@ -201,7 +201,7 @@ export default function Inicio({
            * de las placas ("01.", erosionado) y el borde marca dónde termina, dejando ver que sigue otro.
            * Desde md, tres columnas sin borde.
            */}
-          <div
+          <ScrollerFoco
             role="region"
             aria-label={formatearLista(comoEsEntrenar.map((bloque) => bloque.titulo))}
             tabIndex={0}
@@ -223,7 +223,7 @@ export default function Inicio({
                 </li>
               ))}
             </ul>
-          </div>
+          </ScrollerFoco>
 
           {/*
            * Placa invertida: el costo por clase en Anton sobre amarillo, con el precio en la etiqueta negra. Es el

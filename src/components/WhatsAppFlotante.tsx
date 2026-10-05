@@ -13,7 +13,7 @@ export default function WhatsAppFlotante() {
       target="_blank"
       rel="noopener"
       aria-label="Escribinos por WhatsApp (se abre en una pestaña nueva)"
-      className="btn-flotante fixed right-4 bottom-4 z-40 inline-flex min-h-12 items-center gap-2 rounded-full bg-accent px-5 font-bold text-accent-fg transition-[background-color,translate] duration-200 hover:-translate-y-0.5 hover:bg-accent-hover sm:right-6 sm:bottom-6"
+      className="btn-flotante fixed right-4 bottom-4 z-40 inline-flex min-h-12 items-center gap-2 rounded-full bg-accent px-5 font-bold text-accent-fg transition-[background-color,translate,scale] duration-200 hover:-translate-y-0.5 hover:bg-accent-hover active:scale-[.97] sm:right-6 sm:bottom-6"
     >
       <IconoWhatsApp className="size-5 shrink-0" />
       WhatsApp

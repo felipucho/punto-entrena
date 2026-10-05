@@ -61,8 +61,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           {children}
         </main>
         <Footer />
-        <VolverArriba />
-        <WhatsAppFlotante />
+        <aside aria-label="Accesos rápidos">
+          <VolverArriba />
+          <WhatsAppFlotante />
+        </aside>
         <JsonLd datos={jsonLdGimnasio()} />
         <Analytics />
       </body>

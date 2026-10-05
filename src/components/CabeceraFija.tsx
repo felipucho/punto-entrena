@@ -21,6 +21,7 @@ export default function CabeceraFija({ children }: { children: React.ReactNode }
     let desplazo = 0;
     let cuadro = 0;
     let espera = 0;
+    const quieto = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     function aplicar(alto: number) {
       el!.style.setProperty("--desplazo", `${desplazo}px`);
@@ -46,9 +47,9 @@ export default function CabeceraFija({ children }: { children: React.ReactNode }
       anterior = y;
       el!.removeAttribute("data-acomoda");
 
-      // Entera con el menú abierto o el foco de teclado adentro; si no, se corre lo que se movió la página, sin pasarse
-      // de su alto ni dejar un hueco arriba de todo.
-      if (el!.querySelector('[aria-expanded="true"], :focus-visible')) desplazo = 0;
+      // Entera con movimiento reducido, con el menú abierto o con el foco de teclado adentro; si no, se corre lo que se
+      // movió la página, sin pasarse de su alto ni dejar un hueco arriba de todo.
+      if (quieto.matches || el!.querySelector('[aria-expanded="true"], :focus-visible')) desplazo = 0;
       else desplazo = Math.min(Math.max(desplazo + delta, 0), alto, y);
       aplicar(alto);
 
@@ -63,8 +64,10 @@ export default function CabeceraFija({ children }: { children: React.ReactNode }
     // La primera medida también va en un cuadro: si se vuelve a una página ya bajada, la sombra aparece sola.
     cuadro = requestAnimationFrame(medir);
     window.addEventListener("scroll", alDesplazar, { passive: true });
+    quieto.addEventListener("change", alDesplazar);
     return () => {
       window.removeEventListener("scroll", alDesplazar);
+      quieto.removeEventListener("change", alDesplazar);
       cancelAnimationFrame(cuadro);
       window.clearTimeout(espera);
     };

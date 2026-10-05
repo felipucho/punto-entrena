@@ -8,7 +8,7 @@ import { paseLibre, planPorId } from "@/lib/planes";
 import { mensajePlan } from "@/lib/whatsapp";
 
 function textoClases(cantidad: number): string {
-  return `${cantidad} ${cantidad === 1 ? "día" : "días"} por mes`;
+  return `${cantidad} ${cantidad === 1 ? "día" : "días"} por mes`;
 }
 
 const diasHabiles = diasDeApertura();

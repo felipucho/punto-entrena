@@ -6,7 +6,7 @@ type Props = {
   mensaje: string;
   /** Texto visible del botón. */
   children?: ReactNode;
-  variante?: "primario" | "secundario" | "claro";
+  variante?: "primario" | "secundario";
   className?: string;
 };
 

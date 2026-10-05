@@ -55,11 +55,11 @@ describe("horariosDeProfe", () => {
 
 describe("horario general", () => {
   it("se deriva de la grilla", () => {
-    expect(horarioGeneral()).toBe("Lunes a viernes de 7 a 12 y de 13 a 21. Sábados y domingos cerrado.");
+    expect(horarioGeneral()).toBe("Lunes a viernes de 7 a 12 y de 13 a 21. Sábados y domingos cerrado.");
   });
 
   it("tiene una versión corta", () => {
-    expect(horarioGeneralCorto()).toBe("Lun. a vie., 7 a 12 y 13 a 21 h");
+    expect(horarioGeneralCorto()).toBe("Lun. a vie., 7 a 12 y 13 a 21 h");
   });
 
   it("nombra los días de apertura", () => {
