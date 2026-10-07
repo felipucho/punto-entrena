@@ -91,7 +91,7 @@
 @media (prefers-reduced-motion: no-preference) {
   /* Entrada del hero, escalonada: cada pieza lleva --retraso. */
   .entra {
-    animation: sube var(--dur-lenta) var(--ease-salida) backwards;
+    animation: sube 450ms var(--ease-salida) backwards;
     animation-delay: var(--retraso, 0ms);
   }
 
@@ -100,7 +100,7 @@
   }
 
   .entra-barre {
-    animation: barre var(--dur-lenta) var(--ease-salida) backwards;
+    animation: barre 450ms var(--ease-salida) backwards;
     animation-delay: var(--retraso, 0ms);
   }
 
@@ -169,8 +169,8 @@
   @media (max-width: 63.99rem) {
     .menu-lista {
       transition:
-        opacity var(--dur-media) var(--ease-salida),
-        translate var(--dur-media) var(--ease-salida);
+        opacity 200ms var(--ease-salida),
+        translate 200ms var(--ease-salida);
     }
 
     @starting-style {
@@ -182,12 +182,18 @@
   }
 }
 
-/* Con movimiento reducido, los cambios de estado (toggle, pestañas, barras) son instantáneos. */
+/*
+ * Con movimiento reducido nada se desplaza, escala ni gira: esos cambios son instantáneos. Color, opacidad, sombra y
+ * filtro quedan con un fundido corto, que ayuda a notar el cambio sin mover nada.
+ */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
-    transition-duration: 0.01ms !important;
+    transition-property:
+      color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, opacity, visibility,
+      box-shadow, filter !important;
+    transition-duration: 150ms !important;
     scroll-behavior: auto !important;
   }
 

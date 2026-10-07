@@ -85,10 +85,10 @@
     inset-inline-start: -1px;
     z-index: 1;
     block-size: 4px;
-    inline-size: 2.5rem;
+    inline-size: calc(100% + 2px);
     background-color: var(--color-accent);
-    clip-path: polygon(0 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
-    transition: inline-size var(--dur-lenta) var(--ease-salida);
+    clip-path: polygon(0 0, 2.5rem 0, calc(2.5rem - 4px) 100%, 0 100%);
+    transition: clip-path var(--dur-media) var(--ease-salida);
   }
 
   .tarjeta::after {
@@ -111,7 +111,7 @@
   }
 
   .tarjeta:focus-visible::before {
-    inline-size: calc(100% + 2px);
+    clip-path: polygon(0 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
   }
 
   .tarjeta:focus-visible::after {
@@ -125,7 +125,7 @@
     }
 
     .tarjeta:hover::before {
-      inline-size: calc(100% + 2px);
+      clip-path: polygon(0 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
     }
 
     .tarjeta:hover::after {
@@ -213,7 +213,7 @@
     );
     background-size: 250% 100%;
     background-position: 130% 0;
-    transition: background-position var(--dur-lenta) var(--ease-salida);
+    transition: background-position var(--dur-media) var(--ease-salida);
   }
 
   @media (hover: hover) and (pointer: fine) {
@@ -443,7 +443,7 @@
     transition:
       translate var(--dur-media) var(--ease-salida),
       rotate var(--dur-media) var(--ease-salida),
-      inline-size var(--dur-media) var(--ease-salida);
+      scale var(--dur-media) var(--ease-salida);
   }
 
   .menu-icono::before {
@@ -451,10 +451,13 @@
     inline-size: 100%;
   }
 
+  /* Corta (62 %) y pegada a la izquierda; el escalado va desde el centro para que la cruz gire bien. */
   .menu-icono::after {
     inset-block-end: 0;
-    inline-size: 62%;
+    inline-size: 100%;
     background-color: var(--color-accent);
+    translate: -19% 0;
+    scale: 0.62 1;
   }
 
   [aria-expanded="true"] > .menu-icono::before {
@@ -463,7 +466,7 @@
   }
 
   [aria-expanded="true"] > .menu-icono::after {
-    inline-size: 100%;
+    scale: 1;
     translate: 0 -5px;
     rotate: -45deg;
   }
@@ -912,19 +915,19 @@
 
   /* Escalones de la entrada del hero (se usan con .entra y .entra-barre). */
   .retraso-1 {
-    --retraso: 120ms;
+    --retraso: 60ms;
   }
 
   .retraso-2 {
-    --retraso: 260ms;
+    --retraso: 120ms;
   }
 
   .retraso-3 {
-    --retraso: 380ms;
+    --retraso: 180ms;
   }
 
   .retraso-4 {
-    --retraso: 500ms;
+    --retraso: 240ms;
   }
 
   /* Lista numerada con el numeral erosionado de las placas encima de cada ítem ("01.", "02."…). */
@@ -1209,7 +1212,7 @@
     background-color: var(--color-border-fuerte);
     translate: -50% -50%;
     transition:
-      inset-inline-start var(--dur-lenta) var(--ease-salida),
+      translate var(--dur-lenta) var(--ease-salida),
       background-color var(--dur-media) ease;
   }
 
@@ -1218,13 +1221,14 @@
     background-color: var(--color-accent);
   }
 
+  /* Corrida desde el centro hasta 0.75rem del borde: medio ancho interno (1.5rem menos el borde) menos 0.75rem. */
   [data-estado="abierto"] .estado-perilla {
-    inset-inline-start: calc(100% - 0.75rem);
+    translate: calc(-50% + 0.75rem - 1.5px) -50%;
     background-color: var(--color-sobre-oscuro);
   }
 
   [data-estado="cerrado"] .estado-perilla {
-    inset-inline-start: 0.75rem;
+    translate: calc(-50% - 0.75rem + 1.5px) -50%;
   }
 
   /* La luz de "abierto": un anillo amarillo que se expande desde la pista. */

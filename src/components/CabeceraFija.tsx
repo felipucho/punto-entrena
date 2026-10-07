@@ -45,7 +45,12 @@ export default function CabeceraFija({ children }: { children: React.ReactNode }
       const y = Math.min(Math.max(window.scrollY, 0), tope);
       const delta = y - anterior;
       anterior = y;
-      el!.removeAttribute("data-acomoda");
+      // Si se estaba acomodando, sigue desde donde va la transición y no desde su destino: si no, salta.
+      if (el!.hasAttribute("data-acomoda")) {
+        const enCurso = parseFloat(getComputedStyle(el!).translate.split(" ")[1] ?? "0");
+        if (Number.isFinite(enCurso)) desplazo = -enCurso;
+        el!.removeAttribute("data-acomoda");
+      }
 
       // Entera con movimiento reducido, con el menú abierto o con el foco de teclado adentro; si no, se corre lo que se
       // movió la página, sin pasarse de su alto ni dejar un hueco arriba de todo.
