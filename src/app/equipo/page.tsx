@@ -1,9 +1,10 @@
 import contenido from "@content/paginas/equipo.json";
-import Foto from "@/components/Foto";
+import Foto, { rutaDeFoto } from "@/components/Foto";
+import JsonLd from "@/components/JsonLd";
 import Equipo from "@/components/paginas/Equipo";
-import { negocio, profes } from "@/data/site";
+import { negocio, type Profe, profes } from "@/data/site";
 import { formatearLista, nombreCorto } from "@/lib/formato";
-import { metadataDePagina } from "@/lib/seo";
+import { jsonLdMigas, jsonLdProfes, metadataDePagina } from "@/lib/seo";
 
 export const metadata = metadataDePagina({
   titulo: "Los profes y sus horarios",
@@ -12,6 +13,9 @@ export const metadata = metadataDePagina({
   )} son los profes de ${nombreCorto} en ${negocio.direccion.localidad}. Mirá qué días y a qué hora está cada uno.`,
   ruta: "/equipo",
 });
+
+/** Qué muestra el retrato de un profe: el alt de la foto y, pasado a slug, el nombre del archivo en public/fotos/. */
+const retratoDe = (profe: Profe) => `retrato de ${profe.nombre}`;
 
 /** El retrato de cada profe, por id. */
 const retratos = Object.fromEntries(
@@ -24,7 +28,7 @@ const retratos = Object.fromEntries(
        */
       <Foto
         key={profe.id}
-        descripcion={`retrato de ${profe.nombre}`}
+        descripcion={retratoDe(profe)}
         proporcion="1 / 1"
         sizes="(min-width: 64rem) 7rem, 22vw"
         decorativa
@@ -35,5 +39,12 @@ const retratos = Object.fromEntries(
 
 // Los textos se leen del JSON al compilar.
 export default function Pagina() {
-  return <Equipo c={contenido} fotos={retratos} />;
+  return (
+    <>
+      <Equipo c={contenido} fotos={retratos} />
+
+      <JsonLd datos={jsonLdProfes((profe) => rutaDeFoto(retratoDe(profe)))} />
+      <JsonLd datos={jsonLdMigas("/equipo")} />
+    </>
+  );
 }

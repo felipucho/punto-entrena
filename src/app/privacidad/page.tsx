@@ -1,7 +1,8 @@
 import contenido from "@content/paginas/privacidad.json";
+import JsonLd from "@/components/JsonLd";
 import Privacidad from "@/components/paginas/Privacidad";
 import { negocio } from "@/data/site";
-import { metadataDePagina } from "@/lib/seo";
+import { jsonLdMigas, metadataDePagina } from "@/lib/seo";
 
 export const metadata = metadataDePagina({
   titulo: "Política de privacidad",
@@ -12,5 +13,11 @@ export const metadata = metadataDePagina({
 // TODO: revisar antes de publicar. Texto legal redactado sin asesoramiento profesional.
 // Los textos se leen del JSON al compilar.
 export default function Pagina() {
-  return <Privacidad c={contenido} />;
+  return (
+    <>
+      <Privacidad c={contenido} />
+
+      <JsonLd datos={jsonLdMigas("/privacidad")} />
+    </>
+  );
 }

@@ -1,8 +1,19 @@
 import { describe, expect, it } from "vitest";
-import { negocio } from "@/data/site";
+import { claseSuelta, negocio, planes, profes } from "@/data/site";
 import { urlMapa } from "@/lib/formato";
 import { redesActivas } from "@/lib/redes";
-import { imagenCompartir, jsonLdGimnasio, metadataDePagina, plantillaTitulo } from "@/lib/seo";
+import { type Ruta, rutas } from "@/lib/rutas";
+import {
+  idGimnasio,
+  imagenCompartir,
+  jsonLdGimnasio,
+  jsonLdMigas,
+  jsonLdProfes,
+  jsonLdSitio,
+  metadataDePagina,
+  plantillaTitulo,
+  siteUrl,
+} from "@/lib/seo";
 
 describe("urlMapa", () => {
   it("usa la ficha de Google Maps cuando está cargada", () => {
@@ -72,6 +83,47 @@ describe("jsonLdGimnasio", () => {
     const json = JSON.stringify(datos);
     expect(json).not.toContain("undefined");
     expect(json).not.toContain(":null");
+  });
+
+  it("tiene un @id que referencian el sitio y los profes", () => {
+    expect(datos["@id"]).toBe(idGimnasio);
+    expect(jsonLdSitio().publisher).toEqual({ "@id": idGimnasio });
+  });
+
+  it("ofrece cada plan por mes y el día suelto, en pesos", () => {
+    const ofertas = datos.hasOfferCatalog.itemListElement;
+    expect(ofertas.map((oferta) => oferta.price)).toEqual([...planes.map((plan) => plan.precio), claseSuelta.precio]);
+    for (const oferta of ofertas) expect(oferta.priceCurrency).toBe("ARS");
+    expect(ofertas.at(-1)?.priceSpecification.unitCode).toBe("DAY");
+  });
+
+  it("manda alternateName solo si la ficha de Maps tiene otro nombre", () => {
+    const ficha = negocio.mapa;
+    try {
+      if (ficha) negocio.mapa = { ...ficha, nombre: negocio.nombre };
+      expect(jsonLdGimnasio()).not.toHaveProperty("alternateName");
+    } finally {
+      negocio.mapa = ficha;
+    }
+  });
+});
+
+describe("jsonLdProfes", () => {
+  it("vincula cada profe con el gimnasio y suma el retrato solo si existe", () => {
+    const { "@graph": personas } = jsonLdProfes((profe) => (profe.id === profes[0].id ? "/fotos/retrato.jpg" : null));
+    expect(personas.map((persona) => persona.name)).toEqual(profes.map((profe) => profe.nombre));
+    for (const persona of personas) expect(persona.worksFor).toEqual({ "@id": idGimnasio });
+    expect(personas[0].image).toBe(`${siteUrl}/fotos/retrato.jpg`);
+    expect(personas[1]).not.toHaveProperty("image");
+  });
+});
+
+describe("jsonLdMigas", () => {
+  it.each(rutas.filter((ruta): ruta is Exclude<Ruta, "/"> => ruta !== "/"))("arma Inicio → %s con URLs absolutas", (ruta) => {
+    const [inicio, pagina] = jsonLdMigas(ruta).itemListElement;
+    expect(inicio.item).toBe(`${siteUrl}/`);
+    expect(pagina.item).toBe(`${siteUrl}${ruta}`);
+    expect(pagina.name).not.toBe("");
   });
 });
 

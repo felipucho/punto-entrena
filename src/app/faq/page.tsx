@@ -4,7 +4,7 @@ import Faq from "@/components/paginas/Faq";
 import { claseSuelta, negocio } from "@/data/site";
 import { formatearPrecio } from "@/lib/formato";
 import { paseLibre } from "@/lib/planes";
-import { jsonLdFaq, metadataDePagina } from "@/lib/seo";
+import { jsonLdFaq, jsonLdMigas, metadataDePagina } from "@/lib/seo";
 
 const { localidad } = negocio.direccion;
 const pase = paseLibre();
@@ -23,6 +23,7 @@ export default function Pagina() {
       <Faq c={contenido} />
 
       <JsonLd datos={jsonLdFaq()} />
+      <JsonLd datos={jsonLdMigas("/faq")} />
     </>
   );
 }

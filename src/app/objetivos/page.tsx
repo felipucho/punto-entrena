@@ -1,8 +1,9 @@
 import contenido from "@content/paginas/objetivos.json";
+import JsonLd from "@/components/JsonLd";
 import Objetivos from "@/components/paginas/Objetivos";
 import { negocio, objetivos } from "@/data/site";
 import { formatearLista } from "@/lib/formato";
-import { metadataDePagina } from "@/lib/seo";
+import { jsonLdMigas, metadataDePagina } from "@/lib/seo";
 
 const { localidad } = negocio.direccion;
 
@@ -19,5 +20,11 @@ export const metadata = metadataDePagina({
 // (los mitos de site.ts también están en BORRADOR).
 // Los textos se leen del JSON al compilar.
 export default function Pagina() {
-  return <Objetivos c={contenido} />;
+  return (
+    <>
+      <Objetivos c={contenido} />
+
+      <JsonLd datos={jsonLdMigas("/objetivos")} />
+    </>
+  );
 }

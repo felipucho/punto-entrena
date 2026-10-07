@@ -1,9 +1,10 @@
 import contenido from "@content/paginas/contacto.json";
+import JsonLd from "@/components/JsonLd";
 import Contacto from "@/components/paginas/Contacto";
 import { negocio } from "@/data/site";
 import { direccionCorta } from "@/lib/formato";
 import { horarioGeneralCorto } from "@/lib/horarios";
-import { metadataDePagina } from "@/lib/seo";
+import { jsonLdMigas, metadataDePagina } from "@/lib/seo";
 
 const LARGO_MAXIMO_DESCRIPCION = 155;
 
@@ -19,5 +20,11 @@ export const metadata = metadataDePagina({
 
 // Los textos se leen del JSON al compilar.
 export default function Pagina() {
-  return <Contacto c={contenido} />;
+  return (
+    <>
+      <Contacto c={contenido} />
+
+      <JsonLd datos={jsonLdMigas("/contacto")} />
+    </>
+  );
 }

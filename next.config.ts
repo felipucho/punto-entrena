@@ -21,6 +21,8 @@ const nextConfig: NextConfig = {
     // (por ejemplo, un hero a todo el ancho con original más grande), hay que sumar 1080 y 1920.
     deviceSizes: [512, 640, 750, 828],
     imageSizes: [32, 48, 64, 96, 128, 256, 384],
+    // 60 solo para la foto del hero (ver HeroVideo.tsx); el resto usa el default de 75.
+    qualities: [60, 75],
     // Las fotos casi no cambian: 31 días de caché. Si se reemplaza una, quien ya la vio puede seguir viendo la
     // anterior hasta que venza; si es urgente, se purga desde el panel de Vercel.
     minimumCacheTTL: 2678400,
@@ -34,6 +36,18 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [{ source: "/:path*", headers: headersDeSeguridad }];
+  },
+  // El alias de producción de Vercel servía el sitio entero con 200: un duplicado indexable. Los deploys de preview
+  // tienen otro host y no los toca. El redirect de www se configura en Vercel → Domains (308), no acá.
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "punto-entrena.vercel.app" }],
+        destination: "https://puntoentrena.com/:path*",
+        permanent: true,
+      },
+    ];
   },
 };
 

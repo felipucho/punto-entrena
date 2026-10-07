@@ -1,10 +1,11 @@
 import contenido from "@content/paginas/instalaciones.json";
 import Foto from "@/components/Foto";
+import JsonLd from "@/components/JsonLd";
 import Instalaciones, { type FotosDePlanta } from "@/components/paginas/Instalaciones";
 import { fotosInstalaciones } from "@/data/fotos-instalaciones";
 import { negocio, plantas, type Planta } from "@/data/site";
 import { minusculaInicial, numeroEnPalabras as enPalabras } from "@/lib/formato";
-import { metadataDePagina } from "@/lib/seo";
+import { jsonLdMigas, metadataDePagina } from "@/lib/seo";
 
 const LARGO_MAXIMO_DESCRIPCION = 155;
 
@@ -48,7 +49,7 @@ function descripcionSeo(): string {
 }
 
 export const metadata = metadataDePagina({
-  titulo: "Instalaciones",
+  titulo: "Sala de musculación y funcional",
   descripcion: descripcionSeo(),
   ruta: "/instalaciones",
 });
@@ -97,5 +98,11 @@ const fotos = Object.fromEntries(plantas.map((planta) => [planta.id, fotosDePlan
 
 // Los textos se leen del JSON al compilar.
 export default function Pagina() {
-  return <Instalaciones c={contenido} fotos={fotos} />;
+  return (
+    <>
+      <Instalaciones c={contenido} fotos={fotos} />
+
+      <JsonLd datos={jsonLdMigas("/instalaciones")} />
+    </>
+  );
 }

@@ -1,9 +1,10 @@
 import contenido from "@content/paginas/planes.json";
+import JsonLd from "@/components/JsonLd";
 import Planes from "@/components/paginas/Planes";
 import { claseSuelta, negocio, planes } from "@/data/site";
 import { formatearPrecio, precioPorClase } from "@/lib/formato";
 import { paseLibre } from "@/lib/planes";
-import { metadataDePagina } from "@/lib/seo";
+import { jsonLdMigas, metadataDePagina } from "@/lib/seo";
 
 const { localidad } = negocio.direccion;
 
@@ -21,5 +22,11 @@ export const metadata = metadataDePagina({
 
 // Los textos se leen del JSON al compilar.
 export default function Pagina() {
-  return <Planes c={contenido} />;
+  return (
+    <>
+      <Planes c={contenido} />
+
+      <JsonLd datos={jsonLdMigas("/planes")} />
+    </>
+  );
 }

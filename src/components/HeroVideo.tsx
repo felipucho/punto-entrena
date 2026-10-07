@@ -80,10 +80,11 @@ export default function HeroVideo({ hayVideo, children }: { hayVideo: boolean; c
   // El hero termina en el corte de la pata de la P: .hero recorta la sección y deja ver la cuña amarilla entre su
   // corte y el de las capas (.hero-capa). La foto ya viene en el gris de Punto; el video se desatura con .hero-foto.
   // La foto es el LCP de la home: va con preload. El fondo oscuro tapa el amarillo mientras carga.
+  // Calidad 60 (la del resto es 75): queda detrás del velo y la descarga de la foto es casi todo el LCP en un celular.
   return (
     <section className="superficie-oscura hero relative isolate overflow-hidden text-sobre-oscuro">
       <div aria-hidden="true" className="hero-capa absolute inset-0 bg-oscuro" />
-      <Image src={fotoHero} alt="" fill preload fetchPriority="high" sizes="100vw" className="hero-capa object-cover" />
+      <Image src={fotoHero} alt="" fill preload fetchPriority="high" quality={60} sizes="100vw" className="hero-capa object-cover" />
       {hayVideo && calidad && (
         <video
           key={calidad}

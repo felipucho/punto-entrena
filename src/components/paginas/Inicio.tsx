@@ -258,10 +258,13 @@ export default function Inicio({
           <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 xl:gap-4">
             {tarjetas.map((tarjeta) => (
               <li key={tarjeta.id} className="revelar">
+                {/*
+                 * El nombre accesible es el título más la frase, todo el texto visible de la tarjeta, sin el alt
+                 * de la foto (WCAG 2.5.3: el nombre contiene la etiqueta visible).
+                 */}
                 <Link
                   href={tarjeta.href}
-                  aria-labelledby={`tarjeta-${tarjeta.id}`}
-                  aria-describedby={`tarjeta-${tarjeta.id}-frase`}
+                  aria-labelledby={`tarjeta-${tarjeta.id} tarjeta-${tarjeta.id}-frase`}
                   className="card tarjeta group flex h-full items-start gap-4 p-3 xl:flex-col xl:p-4"
                 >
                   {fotos[tarjeta.id]}

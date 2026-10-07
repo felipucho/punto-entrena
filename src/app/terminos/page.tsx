@@ -1,7 +1,8 @@
 import contenido from "@content/paginas/terminos.json";
+import JsonLd from "@/components/JsonLd";
 import Terminos from "@/components/paginas/Terminos";
 import { negocio } from "@/data/site";
-import { metadataDePagina } from "@/lib/seo";
+import { jsonLdMigas, metadataDePagina } from "@/lib/seo";
 
 export const metadata = metadataDePagina({
   titulo: "Términos y condiciones",
@@ -12,5 +13,11 @@ export const metadata = metadataDePagina({
 // TODO: revisar antes de publicar. Texto legal redactado sin asesoramiento profesional.
 // Los textos se leen del JSON al compilar.
 export default function Pagina() {
-  return <Terminos c={contenido} />;
+  return (
+    <>
+      <Terminos c={contenido} />
+
+      <JsonLd datos={jsonLdMigas("/terminos")} />
+    </>
+  );
 }

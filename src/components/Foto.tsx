@@ -41,6 +41,11 @@ function fotoReal(nombre: string): string | null {
   return extension ? `/fotos/${nombre}${extension}` : null;
 }
 
+/** Ruta en public/ de la foto que mostraría <Foto descripcion={descripcion} />, o null si todavía no está. */
+export function rutaDeFoto(descripcion: string): string | null {
+  return fotoReal(slug(descripcion));
+}
+
 /**
  * Foto de un lugar del sitio. Si existe public/fotos/<slug de la descripción> (.jpg, .jpeg, .png, .webp o .avif),
  * muestra la foto real con next/image, recortada a la misma proporción para no mover el layout. Si no, deja el

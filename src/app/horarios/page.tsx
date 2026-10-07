@@ -1,9 +1,10 @@
 import contenido from "@content/paginas/horarios.json";
+import JsonLd from "@/components/JsonLd";
 import Horarios from "@/components/paginas/Horarios";
 import { negocio } from "@/data/site";
 import { minusculaInicial } from "@/lib/formato";
 import { horarioGeneralCorto } from "@/lib/horarios";
-import { metadataDePagina } from "@/lib/seo";
+import { jsonLdMigas, metadataDePagina } from "@/lib/seo";
 
 const LARGO_MAXIMO_DESCRIPCION = 155;
 
@@ -19,5 +20,11 @@ export const metadata = metadataDePagina({
 
 // Los textos se leen del JSON al compilar.
 export default function Pagina() {
-  return <Horarios c={contenido} />;
+  return (
+    <>
+      <Horarios c={contenido} />
+
+      <JsonLd datos={jsonLdMigas("/horarios")} />
+    </>
+  );
 }

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { negocio } from "@/data/site";
+import { claseSuelta, negocio, planes, type Profe, profes } from "@/data/site";
 import { preguntasResueltas } from "@/lib/faq";
-import { telefonoInternacional, urlMapa } from "@/lib/formato";
+import { formatearPrecio, telefonoInternacional, urlMapa } from "@/lib/formato";
 import { gruposDeDias, type Dia } from "@/lib/horarios";
-import type { Ruta } from "@/lib/rutas";
+import { enlaceContacto, navegacion, type Ruta } from "@/lib/rutas";
 
 // Una variable vacía (típica de un .env de plantilla) cuenta como no definida.
 // new URL(...).origin saca la barra final y falla con un error claro si falta el protocolo.
@@ -83,13 +83,45 @@ function horariosSchema() {
   );
 }
 
+/** @id del gimnasio: los demás bloques (sitio, profes) lo referencian en vez de repetirlo. */
+export const idGimnasio = `${siteUrl}/#gimnasio`;
+
+/** Rango de precios, de la opción más barata (el día) al plan más caro: "$ 15.000 - $ 60.000". */
+function rangoDePrecios(): string {
+  const precios = [claseSuelta.precio, ...planes.map((plan) => plan.precio)];
+  return `${formatearPrecio(Math.min(...precios))} - ${formatearPrecio(Math.max(...precios))}`;
+}
+
+/** Los planes por mes y el día suelto, como ofertas con precio en pesos. unitCode: MON = mes, DAY = día (UN/CEFACT). */
+function catalogoDePlanes() {
+  const oferta = (nombre: string, precio: number, unitCode: "MON" | "DAY") => ({
+    "@type": "Offer",
+    name: nombre,
+    price: precio,
+    priceCurrency: "ARS",
+    priceSpecification: { "@type": "UnitPriceSpecification", price: precio, priceCurrency: "ARS", unitCode },
+  });
+  return {
+    "@type": "OfferCatalog",
+    name: "Planes y precios",
+    itemListElement: [
+      ...planes.map((plan) => oferta(plan.nombre, plan.precio, "MON")),
+      oferta(claseSuelta.nombre, claseSuelta.precio, "DAY"),
+    ],
+  };
+}
+
 /** JSON-LD ExerciseGym del layout. */
 export function jsonLdGimnasio() {
   const redes = Object.values(negocio.redes).filter((url): url is string => url !== null);
+  // Nombre de la ficha de Google Maps, si se escribe distinto: ayuda a unir las dos como el mismo negocio.
+  const nombreEnMaps = negocio.mapa?.nombre;
   return {
     "@context": "https://schema.org",
     "@type": "ExerciseGym",
+    "@id": idGimnasio,
     name: negocio.nombre,
+    ...(nombreEnMaps && nombreEnMaps !== negocio.nombre ? { alternateName: nombreEnMaps } : {}),
     url: `${siteUrl}/`,
     image: `${siteUrl}/fotos/planta-baja/vista-general-desde-recepcion.jpg`,
     hasMap: urlMapa(),
@@ -105,9 +137,70 @@ export function jsonLdGimnasio() {
     ...(negocio.mapa
       ? { geo: { "@type": "GeoCoordinates", latitude: negocio.mapa.latitud, longitude: negocio.mapa.longitud } }
       : {}),
+    areaServed: { "@type": "City", name: negocio.direccion.localidad },
     openingHoursSpecification: horariosSchema(),
+    priceRange: rangoDePrecios(),
+    currenciesAccepted: "ARS",
+    hasOfferCatalog: catalogoDePlanes(),
     ...(redes.length > 0 ? { sameAs: redes } : {}),
     // TODO: agregar "logo" cuando esté el vector original del logo.
+  };
+}
+
+/** JSON-LD WebSite del layout: el sitio y quién lo publica. Sin SearchAction porque el sitio no tiene buscador. */
+export function jsonLdSitio() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${siteUrl}/#sitio`,
+    name: negocio.nombre,
+    url: `${siteUrl}/`,
+    inLanguage: "es-AR",
+    publisher: { "@id": idGimnasio },
+  };
+}
+
+/**
+ * JSON-LD Person de cada profe para /equipo. Solo nombre, retrato y dónde trabaja: la formación de cada uno
+ * todavía no está confirmada (ver formacionProfes en site.ts), así que no va jobTitle.
+ * `retrato` devuelve la ruta en public/ de la foto del profe, o null si todavía no está.
+ */
+export function jsonLdProfes(retrato: (profe: Profe) => string | null) {
+  return {
+    "@context": "https://schema.org",
+    "@graph": profes.map((profe) => {
+      const foto = retrato(profe);
+      return {
+        "@type": "Person",
+        "@id": `${siteUrl}/equipo#${profe.id}`,
+        name: profe.nombre,
+        url: `${siteUrl}/equipo#${profe.id}`,
+        ...(foto ? { image: `${siteUrl}${foto}` } : {}),
+        worksFor: { "@id": idGimnasio },
+      };
+    }),
+  };
+}
+
+/** Nombre de cada página en las migas: el del menú, el del botón de contacto o el del footer. */
+const enlacesConNombre = [
+  ...navegacion,
+  enlaceContacto,
+  { href: "/privacidad", label: "Privacidad" },
+  { href: "/terminos", label: "Términos" },
+];
+
+/** JSON-LD BreadcrumbList de una página interna: Inicio → la página. */
+export function jsonLdMigas(ruta: Exclude<Ruta, "/">) {
+  const nombre = enlacesConNombre.find((enlace) => enlace.href === ruta)?.label;
+  if (!nombre) throw new Error(`Falta el nombre de ${ruta} para las migas en src/lib/seo.ts`);
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: `${siteUrl}/` },
+      { "@type": "ListItem", position: 2, name: nombre, item: `${siteUrl}${ruta}` },
+    ],
   };
 }
 

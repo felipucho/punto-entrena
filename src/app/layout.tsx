@@ -7,7 +7,7 @@ import JsonLd from "@/components/JsonLd";
 import VolverArriba from "@/components/VolverArriba";
 import WhatsAppFlotante from "@/components/WhatsAppFlotante";
 import { negocio } from "@/data/site";
-import { jsonLdGimnasio, plantillaTitulo, siteUrl, tituloInicio } from "@/lib/seo";
+import { jsonLdGimnasio, jsonLdSitio, plantillaTitulo, siteUrl, tituloInicio } from "@/lib/seo";
 import "./globals.css";
 
 /*
@@ -67,6 +67,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <WhatsAppFlotante />
         </aside>
         <JsonLd datos={jsonLdGimnasio()} />
+        <JsonLd datos={jsonLdSitio()} />
         <Analytics />
       </body>
     </html>
