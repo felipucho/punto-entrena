@@ -107,8 +107,11 @@
     animation: late 2.4s ease-out 1s 2;
   }
 
-  .btn-flotante {
-    animation: flotante-entra var(--dur-lenta) var(--ease-salida) 600ms backwards;
+  /* En el celular no: ahí arranca escondido y entra con la transición al scrollear (WhatsAppFlotante). */
+  @media (min-width: 40rem) {
+    .btn-flotante {
+      animation: flotante-entra var(--dur-lenta) var(--ease-salida) 600ms backwards;
+    }
   }
 
   /* Al tocar la flecha de volver arriba, despega. */

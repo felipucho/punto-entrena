@@ -609,6 +609,15 @@
     box-shadow: 0 0 0 8px var(--color-oscuro);
   }
 
+  /* Celular: escondido hasta el primer scroll (WhatsAppFlotante); si ya tenía el foco de teclado, se queda. */
+  @media (max-width: 39.99rem) {
+    .btn-flotante[data-oculto]:not(:focus-visible) {
+      opacity: 0;
+      visibility: hidden;
+      translate: 0 1.5rem;
+    }
+  }
+
   /*
    * Volver arriba: círculo de vidrio ahumado (negro translúcido con desenfoque, se ve la página detrás) con borde y
    * flecha amarillos, apilado encima del botón de WhatsApp (mismo alto). VolverArriba lo marca data-visible cerca del

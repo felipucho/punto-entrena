@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AnioActual from "@/components/AnioActual";
 import Isotipo from "@/components/Isotipo";
 import { negocio } from "@/data/site";
 import { direccionCompleta, telHref, telefonoInternacional } from "@/lib/formato";
@@ -53,7 +54,7 @@ export default function Footer() {
             </Link>
           </div>
           <p className="text-xs">
-            © {new Date().getFullYear()} {negocio.nombre}
+            © <AnioActual /> {negocio.nombre}
           </p>
         </div>
       </div>

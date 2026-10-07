@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type contenido from "@content/paginas/instalaciones.json";
 import BotonWhatsApp from "@/components/BotonWhatsApp";
+import ScrollerFoco from "@/components/ScrollerFoco";
 import Selector from "@/components/Selector";
 import { negocio, plantas, type Planta } from "@/data/site";
 import { minusculaInicial, numeroEnPalabras as enPalabras } from "@/lib/formato";
@@ -71,7 +72,9 @@ function PanelPlanta({ planta, textos, fotos }: { planta: Planta; textos: Textos
       </div>
 
       <h3 className="etiqueta mt-6">{tituloFotos}</h3>
-      <div role="region" aria-label={tituloFotos} tabIndex={0} className="fila-deslizable mt-3">{fotos.galeria}</div>
+      <ScrollerFoco role="region" aria-label={tituloFotos} tabIndex={0} className="fila-deslizable mt-3">
+        {fotos.galeria}
+      </ScrollerFoco>
     </>
   );
 }
