@@ -58,15 +58,16 @@ export function franjasOrdenadas() {
   return [...grilla].sort((a, b) => aMinutos(a.desde) - aMinutos(b.desde));
 }
 
-type FranjaAbierta = { desde: string; hasta: string; profe: string | null };
+type FranjaAbierta = { desde: string; hasta: string; profe: string };
 
-/** Franjas abiertas de un día, con el profe que atiende en cada una. */
+/** Franjas abiertas de un día, con el profe que atiende en cada una. Sin profe en la columna del día, está cerrada. */
 function franjasAbiertasDelDia(dia: Dia): FranjaAbierta[] {
   const columna = COLUMNA_POR_DIA[dia];
   if (!columna) return [];
-  return franjasOrdenadas().flatMap((f) =>
-    f.cerrado ? [] : [{ desde: f.desde, hasta: f.hasta, profe: f[columna] }],
-  );
+  return franjasOrdenadas().flatMap((f) => {
+    const profe = f.cerrado ? null : f[columna];
+    return profe ? [{ desde: f.desde, hasta: f.hasta, profe }] : [];
+  });
 }
 
 /** Une franjas consecutivas (el "hasta" de una es el "desde" de la siguiente). */
@@ -92,14 +93,17 @@ function mismosSegmentos(a: readonly Segmento[], b: readonly Segmento[]): boolea
   return a.length === b.length && a.every((s, i) => s.desde === b[i].desde && s.hasta === b[i].hasta);
 }
 
-/** Agrupa días consecutivos de la semana (lunes a domingo) que tienen el mismo horario. */
+/**
+ * Agrupa los días de la semana (lunes a domingo) que tienen el mismo horario, aunque no sean seguidos: lunes,
+ * miércoles y viernes pueden compartir un horario y martes y jueves otro.
+ */
 export function gruposDeDias(): { dias: Dia[]; segmentos: Segmento[] }[] {
   const grupos: { dias: Dia[]; segmentos: Segmento[] }[] = [];
   for (const dia of SEMANA) {
     const segmentos = horarioDelDia(dia);
-    const ultimo = grupos.at(-1);
-    if (ultimo && mismosSegmentos(ultimo.segmentos, segmentos)) {
-      ultimo.dias.push(dia);
+    const mismoHorario = grupos.find((g) => mismosSegmentos(g.segmentos, segmentos));
+    if (mismoHorario) {
+      mismoHorario.dias.push(dia);
     } else {
       grupos.push({ dias: [dia], segmentos });
     }
@@ -107,25 +111,24 @@ export function gruposDeDias(): { dias: Dia[]; segmentos: Segmento[] }[] {
   return grupos;
 }
 
-function rangoDeDias(dias: readonly Dia[], nombres: readonly string[]): string {
-  const primero = nombres[dias[0]];
-  const ultimo = nombres[dias[dias.length - 1]];
-  if (dias.length === 1) return primero;
-  if (dias.length === 2) return `${primero} y ${ultimo}`;
-  return `${primero} a ${ultimo}`;
+/** "lunes a viernes" si son tres o más días seguidos; si no, la lista: "lunes, miércoles y viernes", "sábados y domingos". */
+function nombrarDias(dias: readonly Dia[], nombres: readonly string[]): string {
+  const seguidos = dias.every((dia, i) => i === 0 || SEMANA.indexOf(dia) === SEMANA.indexOf(dias[i - 1]) + 1);
+  if (dias.length > 2 && seguidos) return `${nombres[dias[0]]} a ${nombres[dias[dias.length - 1]]}`;
+  return formatearLista(dias.map((dia) => nombres[dia]));
 }
 
 /** "lunes a viernes": los días que abre el gimnasio, tomados de la grilla. */
 export function diasDeApertura(): string {
-  const dias = SEMANA.filter((dia) => horarioDelDia(dia).length > 0);
-  const seguidos = dias.every((dia, i) => i === 0 || SEMANA.indexOf(dia) === SEMANA.indexOf(dias[i - 1]) + 1);
-  if (dias.length > 2 && seguidos) return `${NOMBRES_DIA[dias[0]]} a ${NOMBRES_DIA[dias[dias.length - 1]]}`;
-  return formatearLista(dias.map((dia) => NOMBRES_DIA[dia]));
+  return nombrarDias(
+    SEMANA.filter((dia) => horarioDelDia(dia).length > 0),
+    NOMBRES_DIA,
+  );
 }
 
-/** "de 7 a 12 y de 13 a 21". Los espacios antes de cada hora son no separables (U+00A0) para que no se corte el rango. */
+/** "de 7 a 12 y de 13 a 21". Los espacios dentro de cada rango son no separables (U+00A0) para que no se corte. */
 export function describirSegmentos(segmentos: readonly Segmento[]): string {
-  return segmentos.map((s) => `de ${formatearHora(s.desde)} a ${formatearHora(s.hasta)}`).join(" y ");
+  return formatearLista(segmentos.map((s) => `de ${formatearHora(s.desde)} a ${formatearHora(s.hasta)}`));
 }
 
 /** "7–9 y 13–16" */
@@ -133,28 +136,33 @@ export function formatearSegmentos(segmentos: readonly Segmento[]): string {
   return segmentos.map((s) => `${formatearHora(s.desde)}–${formatearHora(s.hasta)}`).join(" y ");
 }
 
-/** "Lunes a viernes de 7 a 12 y de 13 a 21. Sábados y domingos cerrado." */
+/**
+ * "Lunes, miércoles y viernes de 7 a 12, de 13 a 16 y de 17 a 21. Martes y jueves de 7 a 12 y de 13 a 21. Sábados
+ * y domingos cerrado."
+ */
 export function horarioGeneral(): string {
   return gruposDeDias()
     .map(({ dias, segmentos }) => {
-      const quien = capitalizar(rangoDeDias(dias, PLURALES_DIA));
+      const quien = capitalizar(nombrarDias(dias, PLURALES_DIA));
       return segmentos.length ? `${quien} ${describirSegmentos(segmentos)}.` : `${quien} cerrado.`;
     })
     .join(" ");
 }
 
-/** Versión corta para espacios chicos: "Lun. a vie., 7 a 12 y 13 a 21 h". Solo los días abiertos. */
-export function horarioGeneralCorto(): string {
+/** Versión corta, una por grupo de días abiertos: ["Lun., mié. y vie., 7 a 12, 13 a 16 y 17 a 21 h", …]. */
+export function horariosCortos(): string[] {
   return gruposDeDias()
     .filter((g) => g.segmentos.length > 0)
     .map(({ dias, segmentos }) => {
-      const quien = capitalizar(rangoDeDias(dias, ABREVIATURAS_DIA));
-      const tramos = segmentos
-        .map((s) => `${formatearHora(s.desde)} a ${formatearHora(s.hasta)}`)
-        .join(" y ");
+      const quien = capitalizar(nombrarDias(dias, ABREVIATURAS_DIA));
+      const tramos = formatearLista(segmentos.map((s) => `${formatearHora(s.desde)} a ${formatearHora(s.hasta)}`));
       return `${quien}, ${tramos} h`;
-    })
-    .join(". ");
+    });
+}
+
+/** Versión corta en una línea, para la descripción de las páginas: los grupos separados por punto. */
+export function horarioGeneralCorto(): string {
+  return horariosCortos().join(". ");
 }
 
 /** Horarios de atención de un profe por columna de la grilla, con franjas consecutivas unidas. */
@@ -206,7 +214,7 @@ export function getEstado(fecha: Date): string {
 
   const actual = hoy.find((f) => aMinutos(f.desde) <= minutos && minutos < aMinutos(f.hasta));
   if (actual) {
-    return actual.profe ? `Abierto ahora · te atiende ${nombreCortoDeProfe(actual.profe)}` : "Abierto ahora";
+    return `Abierto ahora · te atiende ${nombreCortoDeProfe(actual.profe)}`;
   }
 
   const proximaHoy = hoy.find((f) => aMinutos(f.desde) > minutos);

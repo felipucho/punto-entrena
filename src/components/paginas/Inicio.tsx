@@ -15,7 +15,7 @@ import {
   nombreCorto,
   precioPorClase,
 } from "@/lib/formato";
-import { horarioGeneral, horarioGeneralCorto } from "@/lib/horarios";
+import { horarioGeneral, horariosCortos } from "@/lib/horarios";
 import { paseLibre } from "@/lib/planes";
 import type { Ruta } from "@/lib/rutas";
 
@@ -24,9 +24,12 @@ const { localidad } = negocio.direccion;
 const plan = paseLibre();
 const nombrePaseLibre = minusculaInicial(plan.nombre);
 
-/** Los datos del bloque amarillo. El horario, lo que más se consulta, va primero y grande; el resto en una fila. */
+/**
+ * Los datos del bloque amarillo. El horario, lo que más se consulta, va primero y grande, un renglón por grupo de
+ * días con el mismo horario; el resto en una fila.
+ */
 const datosRapidos = [
-  { texto: horarioGeneralCorto(), grande: true },
+  ...horariosCortos().map((texto) => ({ texto, grande: true })),
   { texto: `${plantas.length} plantas`, grande: false },
   { texto: `${profes.length} profes`, grande: false },
   { texto: `Desde ${negocio.edadMinima} años`, grande: false },

@@ -57,6 +57,17 @@ describe("jsonLdGimnasio", () => {
     }
   });
 
+  it("cierra los días cuya columna de la grilla no tiene profe", () => {
+    const lunes = datos.openingHoursSpecification
+      .filter((franja) => franja.dayOfWeek.includes("Monday"))
+      .map((franja) => `${franja.opens}-${franja.closes}`);
+    const martes = datos.openingHoursSpecification
+      .filter((franja) => franja.dayOfWeek.includes("Tuesday"))
+      .map((franja) => `${franja.opens}-${franja.closes}`);
+    expect(lunes).toEqual(["07:00-12:00", "13:00-16:00", "17:00-21:00"]);
+    expect(martes).toEqual(["07:00-12:00", "13:00-21:00"]);
+  });
+
   it("no deja valores vacíos ni la palabra undefined", () => {
     const json = JSON.stringify(datos);
     expect(json).not.toContain("undefined");

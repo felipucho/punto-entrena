@@ -16,7 +16,10 @@ describe("getEstado", () => {
   const casos: [string, string][] = [
     ["2026-09-28T06:59:00-03:00", "Cerrado · abrimos hoy a las 7"], // lunes
     ["2026-09-28T07:00:00-03:00", "Abierto ahora · te atiende César"], // lunes
-    ["2026-09-28T16:30:00-03:00", "Abierto ahora"], // lunes, franja sin profe
+    ["2026-09-28T15:59:00-03:00", "Abierto ahora · te atiende César"], // lunes
+    ["2026-09-28T16:30:00-03:00", "Cerrado · abrimos hoy a las 17"], // lunes, franja sin profe: cerrado
+    ["2026-09-30T16:20:00-03:00", "Cerrado · abrimos hoy a las 17"], // miércoles, franja sin profe: cerrado
+    ["2026-09-28T17:00:00-03:00", "Abierto ahora · te atiende Mati"], // lunes
     ["2026-09-29T16:30:00-03:00", "Abierto ahora · te atiende Mati"], // martes
     ["2026-09-29T22:00:00-03:00", "Cerrado · abrimos mañana a las 7"], // martes
     ["2026-09-30T12:30:00-03:00", "Cerrado · abrimos hoy a las 13"], // miércoles
@@ -55,11 +58,15 @@ describe("horariosDeProfe", () => {
 
 describe("horario general", () => {
   it("se deriva de la grilla", () => {
-    expect(horarioGeneral()).toBe("Lunes a viernes de 7 a 12 y de 13 a 21. Sábados y domingos cerrado.");
+    expect(horarioGeneral()).toBe(
+      "Lunes, miércoles y viernes de 7 a 12, de 13 a 16 y de 17 a 21. Martes y jueves de 7 a 12 y de 13 a 21. Sábados y domingos cerrado.",
+    );
   });
 
   it("tiene una versión corta", () => {
-    expect(horarioGeneralCorto()).toBe("Lun. a vie., 7 a 12 y 13 a 21 h");
+    expect(horarioGeneralCorto()).toBe(
+      "Lun., mié. y vie., 7 a 12, 13 a 16 y 17 a 21 h. Mar. y jue., 7 a 12 y 13 a 21 h",
+    );
   });
 
   it("nombra los días de apertura", () => {

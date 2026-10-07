@@ -140,7 +140,7 @@ export const profes: readonly Profe[] = [
 // preguntaFrecuente: TODO Matías, { pregunta, respuesta } con la duda que más le hacen a cada uno. Tampoco se inventa.
 
 // Grilla semanal. lmv = lunes, miércoles y viernes; mj = martes y jueves.
-// Valor = id del profe; null = abierto sin profe asignado. "desde" inclusivo, "hasta" exclusivo.
+// Valor = id del profe; null = cerrado esos días (sin profe no se abre). "desde" inclusivo, "hasta" exclusivo.
 export const grilla: readonly FranjaGrilla[] = [
   { desde: "07:00", hasta: "09:00", lmv: "cesar-martinazzo", mj: "gino-magnani" },
   { desde: "09:00", hasta: "10:00", lmv: "gino-magnani", mj: "gino-magnani" },
