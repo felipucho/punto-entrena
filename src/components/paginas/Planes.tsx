@@ -62,7 +62,7 @@ export default function Planes({ c }: { c: typeof contenido }) {
                 <h3 className="min-h-[2lh] text-lg leading-tight sm:min-h-0 sm:text-xl lg:text-lg xl:text-xl">
                   {plan.nombre}
                 </h3>
-                <p className="numeral mt-3 text-[clamp(2.25rem,1.8rem+1.6vw,3rem)] leading-none text-accent max-[24rem]:text-[1.65rem]">
+                <p className="numeral mt-3 text-cifra leading-none text-accent max-[24rem]:text-[1.65rem]">
                   {formatearPrecio(plan.precio)}
                 </p>
                 <p className="mt-1.5 text-muted">{textoClases(plan.clasesPorMes)}</p>

@@ -43,18 +43,18 @@ function PanelPlanta({ planta, textos, fotos }: { planta: Planta; textos: Textos
 
   return (
     <>
-      <h2 id={idTitulo} className="mb-4">{planta.nombre}</h2>
+      <h2 id={idTitulo} className="con-punto mb-4">{planta.nombre}</h2>
 
       <div className={`grid gap-6 ${columnas}`}>
         {queEntrenas !== undefined && (
           <div>
-            <h3 className="etiqueta">{textos.comoSeEntrenaTitulo}</h3>
+            <h3 className="rotulo">{textos.comoSeEntrenaTitulo}</h3>
             <p className="mt-3 max-w-[65ch] text-lg">{queEntrenas}</p>
           </div>
         )}
 
         <div>
-          <h3 className="etiqueta">{textos.equipamientoTitulo}</h3>
+          <h3 className="rotulo">{textos.equipamientoTitulo}</h3>
           {/*
            * Cuadrados chicos: de a 3 en mobile (de a 2 por debajo de unos 350 px, donde "multiarticular" ya no entra)
            * y todos en una fila desde sm, sean cuantos sean.
@@ -71,7 +71,7 @@ function PanelPlanta({ planta, textos, fotos }: { planta: Planta; textos: Textos
         </div>
       </div>
 
-      <h3 className="etiqueta mt-6">{tituloFotos}</h3>
+      <h3 className="rotulo mt-6">{tituloFotos}</h3>
       <ScrollerFoco role="region" aria-label={tituloFotos} tabIndex={0} className="fila-deslizable mt-3">
         {fotos.galeria}
       </ScrollerFoco>
@@ -105,7 +105,7 @@ export default function Instalaciones({
        */}
       <Selector
         titulo="Plantas"
-        claseLista="mt-8 grid grid-flow-col auto-cols-fr gap-2 sm:max-w-lg"
+        claseLista="mt-section grid grid-flow-col auto-cols-fr gap-2 sm:max-w-lg"
         claseBoton="pestana"
         clasePanel="mt-8 border-t border-border pt-8"
         opciones={plantas.map((planta) => ({

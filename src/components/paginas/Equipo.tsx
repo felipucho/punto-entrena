@@ -26,7 +26,7 @@ function InfoDeProfe({ profe, c }: { profe: Profe; c: Contenido }) {
        */}
       <div className="space-y-6">
         {profe.frase !== null && (
-          <blockquote className="border-l-4 border-accent pl-4 text-lg italic">
+          <blockquote className="card card-barra p-4 text-lg italic">
             <p>{profe.frase}</p>
           </blockquote>
         )}
@@ -38,7 +38,7 @@ function InfoDeProfe({ profe, c }: { profe: Profe; c: Contenido }) {
             <dl className="mt-3 grid gap-3 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-1 xl:grid-cols-2">
               {columnasConHorario.map((columna) => (
                 <div key={columna}>
-                  <dt className="font-bold uppercase tracking-[0.08em] text-accent">{NOMBRE_COLUMNA[columna]}</dt>
+                  <dt className="rotulo">{NOMBRE_COLUMNA[columna]}</dt>
                   <dd>{describirSegmentos(horarios[columna])}</dd>
                 </div>
               ))}
@@ -81,10 +81,10 @@ export default function Equipo({
       {/*
        * Fotos cuadradas en una sola fila (también a 375 px) y la info de un profe por vez.
        * Desde lg la fila y el panel van lado a lado, así la página entra casi sin scrollear.
-       * La fila arranca a la misma distancia de la intro que las pestañas de /objetivos e /instalaciones (mt-8).
+       * La fila arranca a la misma distancia de la intro que las pestañas de /objetivos e /instalaciones (mt-section, el mismo aire que la primera sección de /planes).
        * El id de cada botón es profe.id: la grilla de /horarios linkea a /equipo#<profe.id> y abre ese profe.
        */}
-      <div className="contenedor mt-8 pb-section lg:grid lg:grid-cols-[minmax(0,34rem)_minmax(0,1fr)] lg:items-start lg:gap-10">
+      <div className="contenedor mt-section pb-section lg:grid lg:grid-cols-[minmax(0,34rem)_minmax(0,1fr)] lg:items-start lg:gap-10">
         <Selector
           titulo={c.selectorTitulo}
           claseLista="grid grid-cols-4 gap-2 sm:gap-4"

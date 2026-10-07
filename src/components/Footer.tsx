@@ -15,7 +15,7 @@ export default function Footer() {
     // apilados a la derecha: en celular el padding de abajo los deja debajo del ©; desde 640 px alcanza con menos,
     // pero tiene que dejar los links de arriba a la derecha por encima de la flecha.
     <footer className="relative isolate overflow-hidden border-t border-border bg-oscuro bg-(image:--grano) pb-20 sm:pb-16">
-      <Isotipo className="pointer-events-none absolute -right-10 -bottom-16 -z-10 h-56 w-auto text-surface-alt [--color-punto:color-mix(in_srgb,var(--color-accent)_30%,transparent)] lg:-bottom-20 lg:h-72" />
+      <Isotipo className="marca-agua -right-10 -bottom-16 h-56 text-surface-alt [--color-punto:color-mix(in_srgb,var(--color-accent)_30%,transparent)] lg:-bottom-20 lg:h-72" />
       <div className="contenedor pt-7 sm:pt-8">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>

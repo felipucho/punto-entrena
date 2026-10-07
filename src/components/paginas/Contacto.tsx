@@ -53,7 +53,7 @@ export default function Contacto({ c }: { c: typeof contenido }) {
                */}
               <dl className="mt-5">
                 <div className="grid grid-cols-[7rem_minmax(0,1fr)] items-baseline gap-x-4">
-                  <dt className="font-bold uppercase tracking-[0.08em] text-muted">{c.etiquetaTelefono}</dt>
+                  <dt className="rotulo">{c.etiquetaTelefono}</dt>
                   <dd>
                     <a href={telHref()} className="enlace inline-flex min-h-11 items-center">
                       {negocio.telefono.visible.replaceAll(" ", " ")}
@@ -62,7 +62,7 @@ export default function Contacto({ c }: { c: typeof contenido }) {
                 </div>
                 {redes.length > 0 && (
                   <div className="grid grid-cols-[7rem_minmax(0,1fr)] items-baseline gap-x-4">
-                    <dt className="font-bold uppercase tracking-[0.08em] text-muted">{c.etiquetaRedes}</dt>
+                    <dt className="rotulo">{c.etiquetaRedes}</dt>
                     <dd>
                       <ul className="flex flex-wrap gap-x-5">
                         {redes.map((red) => (
@@ -83,7 +83,7 @@ export default function Contacto({ c }: { c: typeof contenido }) {
                   </div>
                 )}
                 <div className="grid grid-cols-[7rem_minmax(0,1fr)] items-baseline gap-x-4">
-                  <dt className="font-bold uppercase tracking-[0.08em] text-muted">{c.etiquetaHorario}</dt>
+                  <dt className="rotulo">{c.etiquetaHorario}</dt>
                   <dd className="pt-2.5">{horarioGeneral()}</dd>
                 </div>
               </dl>
@@ -115,7 +115,7 @@ export default function Contacto({ c }: { c: typeof contenido }) {
             tabIndex={-1}
             referrerPolicy="no-referrer-when-downgrade"
             title={`Mapa de ${negocio.nombre} en ${direccionCorta()}`}
-            className="aspect-[4/3] w-full rounded-card border border-border grayscale-[0.4] transition-[filter] duration-500 hover:grayscale-0 focus:grayscale-0 md:aspect-video lg:aspect-auto lg:h-full lg:min-h-96"
+            className="aspect-[4/3] w-full rounded-card border border-border brightness-[.8] saturate-[.7] transition-[filter] duration-500 hover:brightness-100 hover:saturate-100 focus:brightness-100 focus:saturate-100 md:aspect-video lg:aspect-auto lg:h-full lg:min-h-96"
           />
         </div>
       </div>

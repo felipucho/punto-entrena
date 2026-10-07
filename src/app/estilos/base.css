@@ -60,7 +60,7 @@
   }
 
   h1 {
-    font-size: clamp(2.5rem, 1.6rem + 4.2vw, 4.75rem);
+    font-size: var(--text-h1);
   }
 
   /* El punto del logo cierra cada h1: el nombre de la marca hecho signo. Es una forma, no un carácter. */
@@ -75,7 +75,7 @@
   }
 
   h2 {
-    font-size: clamp(1.875rem, 1.4rem + 2vw, 2.875rem);
+    font-size: var(--text-h2);
   }
 
   h3 {

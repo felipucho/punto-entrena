@@ -25,7 +25,7 @@ function EnlaceWhatsApp() {
  */
 export default function Terminos({ c }: { c: typeof contenido }) {
   return (
-    <div className="contenedor pt-section pb-section">
+    <div className="legal contenedor pt-section pb-section">
       <h1>{c.titulo}</h1>
       <p className="intro mt-4">
         {c.introAntes}{" "}
@@ -33,9 +33,9 @@ export default function Terminos({ c }: { c: typeof contenido }) {
         {" " + c.introDespues}
       </p>
 
-      <div className="mt-12 max-w-[65ch] space-y-12">
+      <div className="mt-section max-w-[65ch] space-y-12">
         <section aria-labelledby="terminos-precios">
-          <h2 id="terminos-precios" className="mb-4 text-[1.75rem] sm:text-[2rem]">{c.precios.titulo}</h2>
+          <h2 id="terminos-precios">{c.precios.titulo}</h2>
           <div className="prosa">
             <p>
               {c.precios.textoAntes}{" "}
@@ -49,14 +49,14 @@ export default function Terminos({ c }: { c: typeof contenido }) {
         </section>
 
         <section aria-labelledby="terminos-entrenamiento">
-          <h2 id="terminos-entrenamiento" className="mb-4 text-[1.75rem] sm:text-[2rem]">{c.entrenamiento.titulo}</h2>
+          <h2 id="terminos-entrenamiento">{c.entrenamiento.titulo}</h2>
           <div className="prosa">
             <p>{c.entrenamiento.texto}</p>
           </div>
         </section>
 
         <section aria-labelledby="terminos-terceros">
-          <h2 id="terminos-terceros" className="mb-4 text-[1.75rem] sm:text-[2rem]">{c.terceros.titulo}</h2>
+          <h2 id="terminos-terceros">{c.terceros.titulo}</h2>
           <div className="prosa">
             <p>
               {capitalizar(serviciosDeTerceros)}
@@ -66,7 +66,7 @@ export default function Terminos({ c }: { c: typeof contenido }) {
         </section>
 
         <section aria-labelledby="terminos-datos">
-          <h2 id="terminos-datos" className="mb-4 text-[1.75rem] sm:text-[2rem]">{c.datos.titulo}</h2>
+          <h2 id="terminos-datos">{c.datos.titulo}</h2>
           <div className="prosa">
             <p>
               {c.datos.texto + " "}

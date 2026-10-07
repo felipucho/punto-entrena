@@ -40,15 +40,15 @@ export default function Objetivos({ c }: { c: Contenido }) {
           <div className="grid items-start gap-6 lg:grid-cols-2 lg:gap-12">
             {textoPrimerMes !== undefined && (
               <div className="max-w-[65ch]">
-                <h3 className="etiqueta">{c.primerMesEtiqueta}</h3>
+                <h3 className="rotulo">{c.primerMesEtiqueta}</h3>
                 <p className="mt-4 text-lg">{textoPrimerMes}</p>
               </div>
             )}
-            {/* El mito va en placa amarilla y se tacha con una línea al mostrarse el panel. */}
+            {/* El mito va en placa amarilla y lo tacha una franja negra que cae al mostrarse el panel. */}
             {objetivo.mito !== null && (
               <div className="superficie-amarilla bloque-dato max-w-[65ch]">
-                <h3 className="etiqueta">{c.mitoEtiqueta}</h3>
-                <p className="tachado numeral mt-4 text-[clamp(1.5rem,1.2rem+1.2vw,2rem)] leading-[1.1] uppercase">
+                <h3 className="rotulo">{c.mitoEtiqueta}</h3>
+                <p className="tachado numeral mt-4 text-dato leading-[1.1] uppercase">
                   “{objetivo.mito.mito}”
                 </p>
                 <p className="mt-4">{objetivo.mito.respuesta}</p>
@@ -70,7 +70,7 @@ export default function Objetivos({ c }: { c: Contenido }) {
 
   return (
     <div className="contenedor pt-section pb-section">
-      <h1 className="text-[clamp(2.125rem,1.35rem+3.2vw,4rem)]">{c.titulo}</h1>
+      <h1 className="text-titulo-largo">{c.titulo}</h1>
       <p className="intro mt-4">
         {c.intro}
         {hayMitos && c.introMito.trim() !== "" ? ` ${c.introMito}` : ""}
@@ -78,7 +78,7 @@ export default function Objetivos({ c }: { c: Contenido }) {
       <Selector
         titulo={c.selectorTitulo}
         opciones={opciones}
-        claseLista="mt-8 flex flex-wrap gap-2"
+        claseLista="mt-section flex flex-wrap gap-2"
         claseBoton="pestana"
         clasePanel="mt-8 border-t border-border pt-8"
       />

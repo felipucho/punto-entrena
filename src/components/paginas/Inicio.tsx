@@ -24,11 +24,11 @@ const { localidad } = negocio.direccion;
 const plan = paseLibre();
 const nombrePaseLibre = minusculaInicial(plan.nombre);
 
-/** Los datos del bloque amarillo. Los que empiezan con un número van grandes, como el numeral de las placas. */
+/** Los datos del bloque amarillo. El horario, lo que más se consulta, va primero y grande; el resto en una fila. */
 const datosRapidos = [
-  { texto: `${plantas.length} plantas`, grande: true },
-  { texto: `${profes.length} profes`, grande: true },
-  { texto: horarioGeneralCorto(), grande: false },
+  { texto: horarioGeneralCorto(), grande: true },
+  { texto: `${plantas.length} plantas`, grande: false },
+  { texto: `${profes.length} profes`, grande: false },
   { texto: `Desde ${negocio.edadMinima} años`, grande: false },
 ];
 
@@ -119,7 +119,7 @@ export default function Inicio({
          * Decoración de marca: el isotipo en contorno a la derecha del titular, solo desde md. Va encima de las capas
          * de foto, video y velo, pero detrás del texto (el contenedor es relative y viene después).
          */}
-        <Isotipo className="isotipo-contorno pointer-events-none absolute top-1/2 right-[-6rem] hidden h-[115%] w-auto -translate-y-1/2 text-sobre-oscuro/25 [--color-punto:color-mix(in_srgb,var(--color-accent)_25%,transparent)] md:block lg:right-[-2rem]" />
+        <Isotipo className="marca-agua isotipo-contorno z-auto top-1/2 right-[-6rem] hidden h-[115%] -translate-y-1/2 text-sobre-oscuro/25 [--color-punto:color-mix(in_srgb,var(--color-accent)_25%,transparent)] md:block lg:right-[-2rem]" />
         {/*
          * Primera vista como una historia de Punto: titular mixto (blanco / amarillo en itálica), la cinta con el
          * nombre y la localidad, la bajada chica en itálica y el CTA. Entra escalonado (.entra + .retraso-N, solo CSS).
@@ -127,7 +127,7 @@ export default function Inicio({
          * el botón de pausa del video, que va arriba a la derecha. El de abajo deja lugar al corte diagonal.
          */}
         <div className="contenedor relative flex min-h-[64svh] flex-col justify-end pt-20 pb-14 sm:min-h-[72svh] sm:pt-24 sm:pb-24">
-          <h1 className="titular-mixto max-w-[14ch] text-[clamp(3.25rem,1.2rem+9vw,7.5rem)] leading-[0.88]">
+          <h1 className="titular-mixto max-w-[14ch] text-display leading-[0.88]">
             <span className="linea entra">{c.heroLinea1}</span>{" "}
             <span className="linea acento entra retraso-1">{c.heroLinea2}</span>
           </h1>
@@ -160,7 +160,7 @@ export default function Inicio({
 
       <section aria-labelledby="que-es" className="seccion">
         <div className="contenedor">
-          <h2 id="que-es" className="revelar mb-5">{c.queEsTitulo}</h2>
+          <h2 id="que-es" className="revelar mb-6">{c.queEsTitulo}</h2>
           {/* Desde lg el texto y el bloque de datos van lado a lado en vez de uno debajo del otro. */}
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-start lg:gap-12">
             <div className="prosa text-lg">
@@ -168,18 +168,18 @@ export default function Inicio({
               <p>{c.queEsTexto}</p>
             </div>
 
-            {/* El bloque de dato de las placas: amarillo, en Anton, con las cifras grandes arriba. */}
+            {/* El bloque de dato de las placas: amarillo, en Anton, con el horario grande arriba. */}
             <ul
               aria-label={`${nombreCorto} en datos`}
-              className="superficie-amarilla bloque-dato revelar grid grid-cols-2 gap-x-5"
+              className="superficie-amarilla bloque-dato revelar grid grid-cols-3 gap-x-4"
             >
               {datosRapidos.map((dato) => (
                 <li
                   key={dato.texto}
-                  className={`numeral border-b border-border py-3 uppercase last:border-b-0 ${
+                  className={`numeral py-3 uppercase ${
                     dato.grande
-                      ? "text-[clamp(1.75rem,1.2rem+2.4vw,3.25rem)] leading-[0.95]"
-                      : "col-span-2 text-[1.375rem] leading-[1.15] tracking-[0.02em]"
+                      ? "col-span-3 border-b border-border text-dato leading-[1.05]"
+                      : "text-lg leading-[1.15] tracking-[0.02em]"
                   }`}
                 >
                   {dato.texto}
@@ -230,7 +230,7 @@ export default function Inicio({
            * quiebre de ritmo de la página, como la placa amarilla dentro de un carrusel.
            */}
           <div className="superficie-amarilla bloque-dato revelar mt-10 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
-            <p className="numeral max-w-[24ch] text-[clamp(1.625rem,1.2rem+1.8vw,2.5rem)] leading-[1.15] uppercase">
+            <p className="numeral max-w-[24ch] text-dato leading-[1.15] uppercase">
               Con el {nombrePaseLibre}, si venís todos los días, cada día te sale{" "}
               <span className="inline-block bg-fg px-2 py-0.5 leading-[1.1] whitespace-nowrap text-placa">{formatearPrecio(precioPorClase(plan))}</span>.
             </p>
@@ -283,10 +283,10 @@ export default function Inicio({
        * a negro con letra amarilla y el isotipo queda de marca de agua, tono sobre tono.
        */}
       <section aria-labelledby="cierre" className="seccion superficie-amarilla relative isolate overflow-hidden">
-        <Isotipo className="pointer-events-none absolute -right-12 -bottom-20 -z-10 h-80 w-auto text-surface [--color-punto:var(--color-border)] sm:right-4 md:-bottom-24 md:h-[28rem]" />
+        <Isotipo className="marca-agua -right-12 -bottom-20 h-80 text-surface [--color-punto:var(--color-border)] sm:right-4 md:-bottom-24 md:h-[28rem]" />
         <div className="contenedor grid gap-8 md:grid-cols-2 md:gap-12">
           <div>
-            <h2 id="cierre" className="con-punto revelar mb-4 text-[clamp(2.25rem,1.6rem+3vw,4rem)]">
+            <h2 id="cierre" className="con-punto revelar mb-4 text-titulo-largo">
               {c.cierreTitulo}
             </h2>
             <p className="max-w-[65ch] text-lg">{c.cierreTexto}</p>
@@ -300,13 +300,13 @@ export default function Inicio({
           {/* Entre sm y md, dirección y horario van lado a lado; desde md esta columna ya es la mitad del ancho. */}
           <dl className="grid content-start gap-6 sm:grid-cols-2 md:grid-cols-1 md:pt-3">
             <div>
-              <dt className="etiqueta">Dirección</dt>
+              <dt className="rotulo">Dirección</dt>
               <dd className="mt-2 text-lg font-semibold">
                 <address className="not-italic">{direccionCorta()}</address>
               </dd>
             </div>
             <div>
-              <dt className="etiqueta">Horario</dt>
+              <dt className="rotulo">Horario</dt>
               <dd className="mt-2 text-lg font-semibold">{horarioGeneral()}</dd>
             </div>
           </dl>

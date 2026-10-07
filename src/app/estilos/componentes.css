@@ -42,6 +42,22 @@
     margin-top: 1em;
   }
 
+  /* Páginas legales: texto largo, el h1 con tope de ~48 px y los h2 del texto con un mismo tamaño. */
+  .legal h1 {
+    font-size: var(--text-cifra);
+  }
+
+  .legal h2 {
+    margin-bottom: 1rem;
+    font-size: 1.75rem;
+  }
+
+  @media (min-width: 40rem) {
+    .legal h2 {
+      font-size: 2rem;
+    }
+  }
+
   /* Tarjeta: superficie apenas más clara que el fondo. */
   .card {
     border: 1px solid var(--color-border);
@@ -619,9 +635,8 @@
   }
 
   /*
-   * Volver arriba: círculo de vidrio ahumado (negro translúcido con desenfoque, se ve la página detrás) con borde y
-   * flecha amarillos, apilado encima del botón de WhatsApp (mismo alto). VolverArriba lo marca data-visible cerca del
-   * final: sube desde el botón de WhatsApp y crece. Al pasar se llena de amarillo, la flecha pasa a negro y se estira
+   * Volver arriba: círculo negro sólido con borde y flecha amarillos, apilado encima del botón de WhatsApp (mismo
+   * alto). VolverArriba lo marca data-visible cerca del final: sube desde el botón de WhatsApp y crece. Al pasar se llena de amarillo, la flecha pasa a negro y se estira
    * para arriba, y aparece el punto.
    * Mientras está escondido no se ve ni se enfoca (visibility); si tenía el foco de teclado, se queda.
    */
@@ -636,9 +651,7 @@
     block-size: 3rem;
     border: 1.5px solid color-mix(in srgb, var(--color-accent) 60%, transparent);
     border-radius: 50%;
-    background-color: color-mix(in srgb, var(--color-oscuro) 45%, transparent);
-    -webkit-backdrop-filter: blur(10px) saturate(1.4);
-    backdrop-filter: blur(10px) saturate(1.4);
+    background-color: var(--color-oscuro);
     color: var(--color-accent);
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
@@ -810,6 +823,24 @@
   }
 
   /* Etiqueta: amarilla con letra negra sobre oscuro; negra con letra amarilla sobre la placa. */
+  /* Rótulo de un dato (dt) o de un bloque dentro de un panel (h3): chico, en mayúsculas espaciadas y apagado, arriba del valor. */
+  .rotulo {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  /* El isotipo como marca de agua detrás del contenido; cada uso pone su posición, alto y color. */
+  .marca-agua {
+    position: absolute;
+    z-index: -10;
+    inline-size: auto;
+    pointer-events: none;
+  }
+
   .etiqueta {
     display: inline-block;
     padding: 0.3rem 0.75rem 0.25rem;
@@ -911,7 +942,7 @@
     display: block;
     margin-block-end: 0.75rem;
     font-family: var(--font-display);
-    font-size: clamp(3rem, 2.4rem + 2.4vw, 4.5rem);
+    font-size: var(--text-numeral);
     line-height: 0.85;
     color: var(--color-accent);
     -webkit-mask-image: var(--rugoso);
@@ -1252,8 +1283,8 @@
   }
 
   /*
-   * Mito tachado: una línea diagonal (el ángulo de una tachadura a mano) cruza la frase del mito de punta a punta.
-   * Es decorativa y fina: el texto se sigue leyendo.
+   * Mito tachado: una franja negra lisa, casi opaca (90 %) y de grosor parejo, cruza la frase en diagonal de
+   * arriba a la derecha hasta abajo a la izquierda. El texto no se toca: la franja va encima y se sigue leyendo.
    */
   .tachado {
     position: relative;
@@ -1265,13 +1296,15 @@
     position: absolute;
     inset: -0.1em -0.2em;
     pointer-events: none;
-    background-image: linear-gradient(
-      to bottom right,
-      transparent calc(50% - 1.5px),
-      currentColor calc(50% - 1.5px),
-      currentColor calc(50% + 1.5px),
-      transparent calc(50% + 1.5px)
-    );
+    background-color: color-mix(in srgb, var(--color-fg) 90%, transparent);
+    clip-path: polygon(100% 0, 100% var(--tachado-grosor), 0 100%, 0 calc(100% - var(--tachado-grosor)));
+    --tachado-grosor: 0.22em;
+  }
+
+  @media (forced-colors: active) {
+    .tachado::after {
+      background-color: CanvasText;
+    }
   }
 
   /* Acordeón (FAQ): ícono + / − en un círculo y la barra de la P al costado de la duda abierta. */
@@ -1395,6 +1428,15 @@
       var(--color-surface);
     scrollbar-color: var(--color-accent) var(--color-surface);
     scroll-padding-inline-start: 6.5rem;
+  }
+
+  /* Los 32 nombres de la grilla van sin subrayado; aparece al pasar el mouse o con foco. */
+  .tabla-grilla .enlace {
+    text-decoration-line: none;
+  }
+
+  .tabla-grilla .enlace:is(:hover, :focus-visible) {
+    text-decoration-line: underline;
   }
 
   .tabla-grilla thead th {

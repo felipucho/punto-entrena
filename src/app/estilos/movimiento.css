@@ -21,6 +21,13 @@
   }
 }
 
+/* La franja del mito cae de arriba a la derecha hacia abajo a la izquierda: el extremo recorre la diagonal. */
+@keyframes cae-tachado {
+  from {
+    clip-path: polygon(100% 0, 100% var(--tachado-grosor), 100% var(--tachado-grosor), 100% 0);
+  }
+}
+
 @keyframes barre {
   from {
     clip-path: inset(0 100% 0 0);
@@ -153,9 +160,9 @@
     animation: panel-entra var(--dur-media) var(--ease-salida);
   }
 
-  /* El tachado del mito se dibuja cada vez que aparece el panel. */
+  /* Cada vez que aparece el panel, la franja del mito cae sobre la frase. */
   [role="tabpanel"]:not([hidden]) .tachado::after {
-    animation: barre var(--dur-lenta) var(--ease-salida) 350ms backwards;
+    animation: cae-tachado 450ms var(--ease-salida) 200ms backwards;
   }
 
   /* El menú del celular baja apenas al abrirse. */
@@ -182,5 +189,16 @@
   *::after {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  /* El tachado no cae: solo aparece con un fundido corto. */
+  [role="tabpanel"]:not([hidden]) .tachado::after {
+    animation: aparece-tachado 200ms ease-out backwards;
+  }
+}
+
+@keyframes aparece-tachado {
+  from {
+    opacity: 0;
   }
 }

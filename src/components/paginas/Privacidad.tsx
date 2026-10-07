@@ -14,7 +14,7 @@ const serviciosEnlazados = formatearLista(["WhatsApp", ...redesActivas().map((re
  */
 export default function Privacidad({ c }: { c: typeof contenido }) {
   return (
-    <div className="contenedor pt-section pb-section">
+    <div className="legal contenedor pt-section pb-section">
       <h1>{c.titulo}</h1>
       <p className="intro mt-4">
         {c.introAntes + " "}
@@ -22,30 +22,30 @@ export default function Privacidad({ c }: { c: typeof contenido }) {
         {c.introDespues}
       </p>
 
-      <div className="mt-12 max-w-[65ch] space-y-12">
+      <div className="mt-section max-w-[65ch] space-y-12">
         <section aria-labelledby="privacidad-formularios">
-          <h2 id="privacidad-formularios" className="mb-4 text-[1.75rem] sm:text-[2rem]">{c.formularios.titulo}</h2>
+          <h2 id="privacidad-formularios">{c.formularios.titulo}</h2>
           <div className="prosa">
             <p>{c.formularios.texto}</p>
           </div>
         </section>
 
         <section aria-labelledby="privacidad-cookies">
-          <h2 id="privacidad-cookies" className="mb-4 text-[1.75rem] sm:text-[2rem]">{c.cookies.titulo}</h2>
+          <h2 id="privacidad-cookies">{c.cookies.titulo}</h2>
           <div className="prosa">
             <p>{c.cookies.texto}</p>
           </div>
         </section>
 
         <section aria-labelledby="privacidad-mapa">
-          <h2 id="privacidad-mapa" className="mb-4 text-[1.75rem] sm:text-[2rem]">{c.mapa.titulo}</h2>
+          <h2 id="privacidad-mapa">{c.mapa.titulo}</h2>
           <div className="prosa">
             <p>{c.mapa.texto}</p>
           </div>
         </section>
 
         <section aria-labelledby="privacidad-enlaces">
-          <h2 id="privacidad-enlaces" className="mb-4 text-[1.75rem] sm:text-[2rem]">
+          <h2 id="privacidad-enlaces">
             {c.enlaces.tituloAntes + " "}
             {serviciosEnlazados}
           </h2>
@@ -59,7 +59,7 @@ export default function Privacidad({ c }: { c: typeof contenido }) {
         </section>
 
         <section aria-labelledby="privacidad-derechos">
-          <h2 id="privacidad-derechos" className="mb-4 text-[1.75rem] sm:text-[2rem]">{c.derechos.titulo}</h2>
+          <h2 id="privacidad-derechos">{c.derechos.titulo}</h2>
           <div className="prosa">
             <p>
               {c.derechos.texto}{" "}
