@@ -37,7 +37,7 @@ export default function Footer() {
             ))}
             <li>
               <a href={telHref()} title={telefonoInternacional()} className="enlace inline-flex min-h-11 items-center">
-                Número
+                Teléfono
                 <span className="sr-only">: {telefonoInternacional()}</span>
               </a>
             </li>

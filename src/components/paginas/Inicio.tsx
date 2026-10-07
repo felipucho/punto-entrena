@@ -231,7 +231,7 @@ export default function Inicio({
            */}
           <div className="superficie-amarilla bloque-dato revelar mt-10 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
             <p className="numeral max-w-[24ch] text-[clamp(1.625rem,1.2rem+1.8vw,2.5rem)] leading-[1.15] uppercase">
-              Con el {nombrePaseLibre}, si venís todos los días, cada uno te sale{" "}
+              Con el {nombrePaseLibre}, si venís todos los días, cada día te sale{" "}
               <span className="inline-block bg-fg px-2 py-0.5 leading-[1.1] whitespace-nowrap text-placa">{formatearPrecio(precioPorClase(plan))}</span>.
             </p>
             <Link href="/planes" className="btn btn-secundario self-start sm:shrink-0 sm:self-auto">

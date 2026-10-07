@@ -40,6 +40,7 @@ Atención personalizada: una planilla individual que arman los profes según el 
 - Nombre: Punto Entrenamiento y Salud.
 - El logo y los colores de marca existen y son fijos; el archivo original del logo todavía no se entregó. El diseño los aplica tal cual, no los reinterpreta.
 - Voz de los textos aprobados: español rioplatense con voseo, directa y concreta.
+- Números: en letra dentro de la prosa ("las dos plantas", "venís cinco veces"); en cifra en datos, precios y placas ("2 plantas", "$ 3.000").
 - Anti-objetivo confirmado: estética de gimnasio agresiva o fotos de stock; nada que intimide al principiante.
 
 ## Voz y persuasión
