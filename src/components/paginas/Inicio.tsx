@@ -15,7 +15,7 @@ import {
   nombreCorto,
   precioPorClase,
 } from "@/lib/formato";
-import { horarioGeneral, horariosCortos } from "@/lib/horarios";
+import { horarioGeneral, horarioGeneralCorto } from "@/lib/horarios";
 import { paseLibre } from "@/lib/planes";
 import type { Ruta } from "@/lib/rutas";
 
@@ -24,14 +24,11 @@ const { localidad } = negocio.direccion;
 const plan = paseLibre();
 const nombrePaseLibre = minusculaInicial(plan.nombre);
 
-/**
- * Los datos del bloque amarillo. El horario, lo que más se consulta, va primero y grande, un renglón por grupo de
- * días con el mismo horario; el resto en una fila.
- */
+/** Los datos del bloque amarillo. Los que empiezan con un número van grandes, como el numeral de las placas. */
 const datosRapidos = [
-  ...horariosCortos().map((texto) => ({ texto, grande: true })),
-  { texto: `${plantas.length} plantas`, grande: false },
-  { texto: `${profes.length} profes`, grande: false },
+  { texto: `${plantas.length} plantas`, grande: true },
+  { texto: `${profes.length} profes`, grande: true },
+  { texto: horarioGeneralCorto(), grande: false },
   { texto: `Desde ${negocio.edadMinima} años`, grande: false },
 ];
 
@@ -171,18 +168,18 @@ export default function Inicio({
               <p>{c.queEsTexto}</p>
             </div>
 
-            {/* El bloque de dato de las placas: amarillo, en Anton, con el horario grande arriba. */}
+            {/* El bloque de dato de las placas: amarillo, en Anton, con las cifras grandes arriba. */}
             <ul
               aria-label={`${nombreCorto} en datos`}
-              className="superficie-amarilla bloque-dato revelar grid grid-cols-3 gap-x-4"
+              className="superficie-amarilla bloque-dato revelar grid grid-cols-2 gap-x-5"
             >
               {datosRapidos.map((dato) => (
                 <li
                   key={dato.texto}
-                  className={`numeral py-3 uppercase ${
+                  className={`numeral border-b border-border py-3 uppercase last:border-b-0 ${
                     dato.grande
-                      ? "col-span-3 border-b border-border text-dato leading-[1.05]"
-                      : "text-lg leading-[1.15] tracking-[0.02em]"
+                      ? "text-[clamp(1.75rem,1.2rem+2.4vw,3.25rem)] leading-[0.95]"
+                      : "col-span-2 text-[1.375rem] leading-[1.15] tracking-[0.02em]"
                   }`}
                 >
                   {dato.texto}
