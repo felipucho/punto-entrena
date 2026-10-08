@@ -14,5 +14,5 @@ jobs:
     steps:
       - name: Merge upstream into the fork
         env:
-          GH_TOKEN: ${{ secrets.FORK_TOKEN }}
+          GH_TOKEN: ${{ secrets.PUNTO }}
         run: gh api -X POST repos/puntoentrenamientoysalud/punto-entrena/merge-upstream -f branch=master
