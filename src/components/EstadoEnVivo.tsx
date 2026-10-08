@@ -31,15 +31,34 @@ const ESTADOS_POSIBLES = [
   ),
 ];
 
-/** El titular en Anton y el detalle en Roboto. Lo usan el estado en vivo y los textos que reservan el alto. */
-function TextoEstado({ estado }: { estado: string }) {
+/** Parte el texto de getEstado en titular ("Abierto ahora") y detalle (" · te atiende …"). */
+function partes(estado: string): [string, string] {
   const corte = estado.indexOf(SEPARADOR);
-  return corte === -1 ? (
-    <span className="estado-titular">{estado}</span>
-  ) : (
+  return corte === -1 ? [estado, ""] : [estado.slice(0, corte), estado.slice(corte)];
+}
+
+/** El titular en Anton y el detalle en Roboto. */
+function TextoEstado({ estado }: { estado: string }) {
+  const [titular, detalle] = partes(estado);
+  return (
     <>
-      <span className="estado-titular">{estado.slice(0, corte)}</span>
-      {estado.slice(corte)}
+      <span className="estado-titular">{titular}</span>
+      {detalle}
+    </>
+  );
+}
+
+/**
+ * Copia de un estado posible solo para reservar el alto: mismo markup que TextoEstado, pero el texto va en
+ * data-texto y lo pinta el CSS (::before). Así el HTML no trae como texto estados que se contradicen entre sí,
+ * que un buscador sin CSS leería como contenido.
+ */
+function ReservaEstado({ estado }: { estado: string }) {
+  const [titular, detalle] = partes(estado);
+  return (
+    <>
+      <span className="estado-titular" data-texto={titular} />
+      {detalle && <span data-texto={detalle} />}
     </>
   );
 }
@@ -68,7 +87,7 @@ export default function EstadoEnVivo({ className = "" }: { className?: string })
       <span className="grid">
         {ESTADOS_POSIBLES.map((posible) => (
           <span key={posible} aria-hidden="true" className="invisible [grid-area:1/1]">
-            <TextoEstado estado={posible} />
+            <ReservaEstado estado={posible} />
           </span>
         ))}
         {estado ? (

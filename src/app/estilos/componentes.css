@@ -1254,6 +1254,11 @@
     color: var(--color-accent);
   }
 
+  /* Las copias invisibles que reservan el alto del estado llevan el texto en un atributo (ver EstadoEnVivo.tsx). */
+  .estado [data-texto]::before {
+    content: attr(data-texto);
+  }
+
   /*
    * Hero: termina en el corte diagonal de la pata de la P, con la cuña amarilla debajo del corte (más gruesa a la
    * derecha, en punta a la izquierda). La sección muestra el amarillo; las capas de foto, video y velo se recortan

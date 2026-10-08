@@ -12,7 +12,7 @@ const baseDescripcion = `Gimnasio en ${negocio.direccion.localidad}: ${minuscula
 const descripcionCompleta = `${baseDescripcion} Mirá qué profe está en cada horario.`;
 
 export const metadata = metadataDePagina({
-  titulo: "Horarios",
+  titulo: "Horarios del gimnasio",
   // Si el horario cambia y la frase final ya no entra en 155 caracteres, queda solo el horario.
   descripcion: descripcionCompleta.length <= LARGO_MAXIMO_DESCRIPCION ? descripcionCompleta : baseDescripcion,
   ruta: "/horarios",
