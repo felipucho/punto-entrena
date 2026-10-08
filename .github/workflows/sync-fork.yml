@@ -1,0 +1,18 @@
+name: Sync fork
+
+on:
+  push:
+    branches: [master]
+
+permissions: {}
+
+jobs:
+  sync:
+    # Solo en este repo: el archivo también llega al fork, que no tiene el secret.
+    if: github.repository == 'felipucho/punto-entrena'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge upstream into the fork
+        env:
+          GH_TOKEN: ${{ secrets.FORK_TOKEN }}
+        run: gh api -X POST repos/puntoentrenamientoysalud/punto-entrena/merge-upstream -f branch=master
