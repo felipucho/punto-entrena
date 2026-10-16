@@ -71,11 +71,9 @@ export type Objetivo = {
 
 /** Respuestas que se arman desde los datos con lib/faq.ts. */
 export type ClaveInterpolada =
-  | "paseLibre"
   | "descuentoFamiliar"
   | "edadMinima"
-  | "claseSuelta"
-  | "mediosDePago";
+  | "claseSuelta";
 
 export type Pregunta = {
   pregunta: string;
@@ -256,9 +254,9 @@ export const objetivos: readonly Objetivo[] = [
 // Brief deportistas: ya entrenan alumnos de clubes locales.
 
 export const comoFunciona: readonly string[] = [
-  "Te ponés en contacto con nosotros, en persona o por WhatsApp.",
-  "Los profes te arman una planilla para tu nivel y lo que querés lograr.",
-  "Empezás a entrenar y los profes la van ajustando según cómo te va.",
+  "Te ponés en contacto a través de nuestras redes sociales (Instagram, WhatsApp) o te llegás personalmente a charlar con nosotros.",
+  "Te hacemos una breve entrevista para conocer tu experiencia, tus objetivos y qué buscás lograr con tu entrenamiento.",
+  "Con la info que reunimos, realizamos una evaluación inicial y adaptamos el entrenamiento a tu nivel y objetivos.",
 ];
 export const queLlevar: readonly string[] = ["Ropa cómoda", "Zapatillas cómodas", "Botella de agua", "Toalla"];
 // TODO Matías: confirmar si el gimnasio pide algo más (toalla obligatoria, candado, etc.).
@@ -268,16 +266,15 @@ export const queLlevar: readonly string[] = ["Ropa cómoda", "Zapatillas cómoda
 export const preguntas: readonly Pregunta[] = [
   { pregunta: "Nunca entrené y no sé usar las máquinas, ¿puedo ir igual?",
     respuesta: "Sí. Los profes te muestran cómo se hace cada ejercicio y te van guiando mientras entrenás." },
-  // Brief: podés venir todos los días de lunes a viernes (clasesPorMes) + precio del pase libre.
-  { pregunta: "¿Qué es el pase libre?", respuesta: { interpolar: "paseLibre" } },
+  { pregunta: "¿Qué es el pase libre?",
+    respuesta: "Este plan te permite entrenar todos los días de la semana. Te conviene si tenés horarios rotativos o venís de otra localidad." },
   { pregunta: "¿Hay clases grupales?",
-    respuesta: "No. Cada uno entrena con su propia planilla." },
+    respuesta: "No. Por el momento solo damos entrenamientos personalizados." },
   // Brief: descuentoFamiliar.porcentaje + descuentoFamiliar.familiares.
   { pregunta: "¿Hay descuento si voy con alguien de mi familia?", respuesta: { interpolar: "descuentoFamiliar" } },
   // Brief: edadMinima.
   { pregunta: "¿Desde qué edad se puede entrenar?", respuesta: { interpolar: "edadMinima" } },
   // Brief: precio de claseSuelta.
   { pregunta: "¿Puedo ir un día a probar antes de pagar el mes?", respuesta: { interpolar: "claseSuelta" } },
-  // Brief: mediosDePago.
-  { pregunta: "¿Cómo puedo pagar?", respuesta: { interpolar: "mediosDePago" } },
+  { pregunta: "Medios de pago", respuesta: "Efectivo y transferencia." },
 ];

@@ -193,7 +193,7 @@ export default function Inicio({
       <section aria-labelledby="como-es" className="seccion">
         <div className="contenedor">
           <h2 id="como-es" className="revelar mb-6">
-            Cómo entrenás en {nombreCorto}
+            ¿Cómo entrenás en {nombreCorto}?
           </h2>
           {/*
            * En mobile los tres bloques forman una fila que se desliza de costado, como .fila-deslizable, pero el
