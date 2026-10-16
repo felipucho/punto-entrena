@@ -19,7 +19,6 @@ export type FotosInstalacionesDePlanta = {
 
 export const fotosInstalaciones: Readonly<Record<string, FotosInstalacionesDePlanta>> = {
   "planta-baja": {
-    // El banco multiarticular todavía no tiene foto propia: solo aparece en las vistas generales.
     equipamiento: {
       "Racks regulables": {
         archivo: "racks-con-discos-y-banco", // IMG_5830
@@ -34,6 +33,11 @@ export const fotosInstalaciones: Readonly<Record<string, FotosInstalacionesDePla
         archivo: "mancuernas-y-pesas-rusas", // IMG_5820
         descripcion:
           "Hilera de mancuernas en su soporte, pesas rusas y bolsas de arena en un rack vertical, con un banco regulable en primer plano.",
+      },
+      "Banco multiarticular": {
+        archivo: "bancos-multiarticulares", // IMG_5875
+        descripcion:
+          "Tres bancos multiarticulares con el respaldo en distintas posiciones: vertical, inclinado y plano. Atrás, la escalera, la bandera de Punto y los racks.",
       },
       "Cintas para correr": {
         archivo: "cintas-curvas-sin-motor", // IMG_5826
