@@ -113,7 +113,7 @@ export const negocio: Negocio = {
   },
   zonaHoraria: "America/Argentina/Cordoba",
   edadMinima: 12,
-  mediosDePago: "Aceptamos todos los medios de pago.",
+  mediosDePago: "Aceptamos efectivo y transferencia.",
   // TODO Matías: confirmar cómo se aplica el descuento familiar (a cada familiar, al que se suma, etc.).
   descuentoFamiliar: { porcentaje: 15, familiares: ["mamá", "papá", "hermanos", "hijos"] },
   formacionProfes: "Somos todos profesores de educación física o venimos de carreras afines.",
