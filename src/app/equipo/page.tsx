@@ -37,11 +37,26 @@ const retratos = Object.fromEntries(
     ]),
   );
 
+/** El retrato a color (fondo amarillo) que encabeza el panel de cada profe, por id. */
+const retratosEnColor = Object.fromEntries(
+  profes.map((profe) => [
+    profe.id,
+    <Foto
+      key={profe.id}
+      descripcion={`retrato a color de ${profe.nombre}`}
+      proporcion="1 / 1"
+      sizes="10rem"
+      decorativa
+      className="mb-6 w-40 outline-3 outline-offset-2 outline-accent [&_img]:filter-none"
+    />,
+  ]),
+);
+
 // Los textos se leen del JSON al compilar.
 export default function Pagina() {
   return (
     <>
-      <Equipo c={contenido} fotos={retratos} />
+      <Equipo c={contenido} fotos={retratos} fotosEnColor={retratosEnColor} />
 
       <JsonLd datos={jsonLdProfes((profe) => rutaDeFoto(retratoDe(profe)))} />
       <JsonLd datos={jsonLdMigas("/equipo")} />

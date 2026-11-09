@@ -29,16 +29,21 @@ const hayVideo = ["1080", "720"].every((calidad) =>
 
 /**
  * Foto de cada tarjeta de la home: qué muestra y, si ya existe, el archivo en public/fotos/.
- * Planes, horarios y objetivos todavía no tienen foto real: queda el lugar reservado.
+ * Planes todavía no tiene foto real: queda el lugar reservado.
+ * `arriba` encuadra la parte de arriba de la foto vertical: al recortarla a 3 / 2 por el centro se perdían las caras.
  */
-const fotosDeTarjetas: Record<string, { descripcion: string; archivo?: string }> = {
+const fotosDeTarjetas: Record<string, { descripcion: string; archivo?: string; arriba?: boolean }> = {
   planes: { descripcion: "una persona entrenando con su planilla" },
-  horarios: { descripcion: "el frente del gimnasio" },
+  horarios: { descripcion: "el reloj del gimnasio marcando las 7:00", archivo: "horarios/reloj-marcando-las-7" },
   instalaciones: {
     descripcion: `la ${minusculaInicial(plantas[0].nombre)} del gimnasio`,
     archivo: "planta-baja/vista-general-mancuernas-y-cintas",
   },
-  objetivos: { descripcion: "un profe acompañando a un alumno durante un ejercicio" },
+  objetivos: {
+    descripcion: "un profe le corrige la bisagra de cadera a un chico que apoya un palo sobre la espalda",
+    archivo: "objetivos/profe-corrigiendo-la-bisagra-de-cadera",
+    arriba: true,
+  },
 };
 
 /*
@@ -49,7 +54,7 @@ const CLASE_MINIATURA = "w-24 shrink-0 sm:w-32 lg:w-24 xl:w-full";
 const SIZES_MINIATURA = "(min-width: 80rem) 11rem, (min-width: 64rem) 6rem, (min-width: 40rem) 8rem, 6rem";
 
 function fotoDeTarjeta(id: string) {
-  const { descripcion, archivo } = fotosDeTarjetas[id];
+  const { descripcion, archivo, arriba } = fotosDeTarjetas[id];
   return (
     <Foto
       key={id}
@@ -57,7 +62,7 @@ function fotoDeTarjeta(id: string) {
       archivo={archivo}
       proporcion="3 / 2"
       sizes={SIZES_MINIATURA}
-      className={`${CLASE_MINIATURA} [&_img]:filter-none`}
+      className={`${CLASE_MINIATURA} [&_img]:filter-none${arriba ? " [&_img]:object-top" : ""}`}
     />
   );
 }

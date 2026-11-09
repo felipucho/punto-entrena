@@ -12,12 +12,13 @@ type Contenido = typeof contenido;
 const COLUMNAS = Object.keys(NOMBRE_COLUMNA) as ColumnaGrilla[];
 
 /** Lo que se ve al elegir un profe: nombre, frase, cuándo atiende y la pregunta que más le hacen. */
-function InfoDeProfe({ profe, c }: { profe: Profe; c: Contenido }) {
+function InfoDeProfe({ profe, c, foto }: { profe: Profe; c: Contenido; foto: ReactNode }) {
   const horarios = horariosDeProfe(profe.id);
   const columnasConHorario = COLUMNAS.filter((columna) => horarios[columna].length > 0);
 
   return (
     <>
+      {foto}
       <h2 className="con-punto mb-4">{profe.nombre}</h2>
 
       {/*
@@ -65,10 +66,13 @@ function InfoDeProfe({ profe, c }: { profe: Profe; c: Contenido }) {
 export default function Equipo({
   c,
   fotos,
+  fotosEnColor,
 }: {
   c: Contenido;
   /** El retrato de cada profe, por id. Se arma en el servidor porque Foto lee public/fotos/ del disco. */
   fotos: Record<string, ReactNode>;
+  /** El retrato a color que va arriba del nombre en el panel, por id. */
+  fotosEnColor: Record<string, ReactNode>;
 }) {
   return (
     <>
@@ -111,7 +115,7 @@ export default function Equipo({
                 </span>
               </>
             ),
-            contenido: <InfoDeProfe profe={profe} c={c} />,
+            contenido: <InfoDeProfe profe={profe} c={c} foto={fotosEnColor[profe.id]} />,
           }))}
         />
       </div>
