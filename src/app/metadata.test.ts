@@ -10,6 +10,7 @@ const paginas: Record<Ruta, () => Promise<{ metadata: Metadata }>> = {
   "/instalaciones": () => import("@/app/instalaciones/page"),
   "/equipo": () => import("@/app/equipo/page"),
   "/objetivos": () => import("@/app/objetivos/page"),
+  "/novedades": () => import("@/app/novedades/page"),
   "/faq": () => import("@/app/faq/page"),
   "/contacto": () => import("@/app/contacto/page"),
   "/privacidad": () => import("@/app/privacidad/page"),

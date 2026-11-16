@@ -7,12 +7,13 @@ export const navegacion: readonly Enlace[] = [
   { href: "/instalaciones", label: "Instalaciones" },
   { href: "/equipo", label: "Equipo" },
   { href: "/objetivos", label: "Objetivos" },
+  { href: "/novedades", label: "Novedades" },
   { href: "/faq", label: "Preguntas" },
 ];
 
 export const enlaceContacto: Enlace = { href: "/contacto", label: "Contacto" };
 
-/** Las 10 rutas del sitio, para el sitemap. */
+/** Las 11 rutas del sitio, para el sitemap. */
 export const rutas = [
   "/",
   "/planes",
@@ -20,6 +21,7 @@ export const rutas = [
   "/instalaciones",
   "/equipo",
   "/objetivos",
+  "/novedades",
   "/faq",
   "/contacto",
   "/privacidad",

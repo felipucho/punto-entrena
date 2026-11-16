@@ -17,6 +17,11 @@ npm test         # vitest: estado en vivo, horarios de cada profe, precio por cl
 - **Datos del gimnasio** (precios, horarios, profes, dirección, teléfono, preguntas): solo en `src/data/site.ts`. Todo lo demás (precio por clase, horario general, horarios de cada profe, JSON-LD, respuestas del FAQ) se calcula desde ahí.
 - **Un dato en `null`** oculta lo que depende de él (frase y pregunta de cada profe, horas tranquilas, referencia para llegar, Facebook). Al completarlo, aparece solo.
 - **Instagram y ficha de Google Maps**: `negocio.redes` y `negocio.mapa` en `src/data/site.ts`. La ficha (link corto y coordenadas del pin) sale en el botón "Cómo llegar" de `/contacto` y en `hasMap` y `geo` del JSON-LD.
+- **Novedades** (`/novedades`): se cargan a mano en `content/novedades.json`, una lista de `{ "fecha", "titulo", "texto", "foto" }` (la `foto` es opcional). `fecha` va como `YYYY-MM-DD`; `texto` es texto plano y los párrafos se separan con una línea en blanco (`
+
+`). La `foto` es la ruta dentro de `public/fotos/` sin extensión (`.jpg`, `.jpeg`, `.png`, `.webp` o `.avif`). El orden da igual: se muestran de la más nueva a la más vieja. `npm test` revisa fechas, campos y que la foto exista. Ejemplo: `{ "fecha": "2026-12-08", "titulo": "Cerramos el feriado", "texto": "El 8 de diciembre no abrimos.
+
+Volvemos el miércoles 9 con el horario de siempre.", "foto": "novedades/feriado-diciembre" }`. Los textos fijos de la página están en `content/paginas/novedades.json`.
 - **Textos de las páginas**: `content/paginas/*.json`. Se editan a mano y el sitio los toma al compilar.
 - **Dominio**: `https://puntoentrena.com`, fijo en `src/lib/seo.ts` (la variable de entorno `NEXT_PUBLIC_SITE_URL` lo pisa si hace falta). Esa URL sale en canonical, `og:url`, `og:image`, `twitter:image`, sitemap, robots y JSON-LD, también en local y en los deploys de preview.
 - **Video del hero**: subir a `public/video/` los cuatro archivos `hero-1080.webm`, `hero-1080.mp4`, `hero-720.webm` y `hero-720.mp4`. Hasta que estén los cuatro, el hero muestra la foto de la planta baja; esa misma foto es el poster del video. Las specs de exportación están en `src/components/HeroVideo.tsx`.
