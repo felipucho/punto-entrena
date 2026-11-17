@@ -1,6 +1,8 @@
 // src/data/site.ts — única fuente de verdad del sitio.
 // null = dato pendiente → lo que depende de él no se renderiza.
 
+import precios from "@content/precios.json";
+
 export type Direccion = {
   calle: string;
   localidad: string;
@@ -125,12 +127,12 @@ export const negocio: Negocio = {
 };
 
 export const planes: readonly Plan[] = [
-  { id: "1-vez", nombre: "1 vez por semana", clasesPorMes: 4, precio: 40000 },
-  { id: "2-veces", nombre: "2 veces por semana", clasesPorMes: 8, precio: 50000 },
-  { id: "3-veces", nombre: "3 veces por semana", clasesPorMes: 12, precio: 55000 },
-  { id: "pase-libre", nombre: "Pase libre", clasesPorMes: 20, precio: 60000 },
+  { id: "1-vez", nombre: "1 vez por semana", clasesPorMes: 4, precio: precios.unaVez },
+  { id: "2-veces", nombre: "2 veces por semana", clasesPorMes: 8, precio: precios.dosVeces },
+  { id: "3-veces", nombre: "3 veces por semana", clasesPorMes: 12, precio: precios.tresVeces },
+  { id: "pase-libre", nombre: "Pase libre", clasesPorMes: 20, precio: precios.paseLibre },
 ];
-export const claseSuelta = { nombre: "Día", precio: 15000 } as const;
+export const claseSuelta = { nombre: "Día" as const, precio: precios.dia };
 export const incluyenTodosLosPlanes =
   "Con cualquier plan usás las dos plantas y tenés tu planilla, que los profes van ajustando.";
 // Brief "¿Cuál me conviene?": si arrancás de cero, con 2 veces por semana ya ves cambios;

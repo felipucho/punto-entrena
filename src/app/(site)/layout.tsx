@@ -8,7 +8,7 @@ import VolverArriba from "@/components/VolverArriba";
 import WhatsAppFlotante from "@/components/WhatsAppFlotante";
 import { negocio } from "@/data/site";
 import { jsonLdGimnasio, jsonLdSitio, plantillaTitulo, siteUrl, tituloInicio } from "@/lib/seo";
-import "./globals.css";
+import "../globals.css";
 
 /*
  * Las dos familias de las placas de redes. Anton reemplaza a Zuume Rough Bold (sin licencia web confirmada).
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_AR",
     siteName: negocio.nombre,
-    // La imagen sale de src/app/opengraph-image.tsx.
+    // La imagen sale de src/app/(site)/opengraph-image.tsx.
   },
   twitter: { card: "summary_large_image" },
 };

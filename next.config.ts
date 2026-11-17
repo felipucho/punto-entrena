@@ -13,26 +13,36 @@ const nextConfig: NextConfig = {
   images: {
     // AVIF pesa bastante menos que WebP con la misma calidad; el navegador que no lo soporta recibe WebP.
     formats: ["image/avif", "image/webp"],
-    // Los originales miden como mucho 864 px de ancho. Los anchos del default por encima de 828 (1080…3840)
+    // Los originales del sitio miden como mucho 864 px de ancho. Los anchos del default por encima de 828 (1080…3840)
     // devolvían el mismo archivo con otra URL: otra transformación y otra entrada de caché, sin ganar nitidez.
+    // Las fotos de /novedades las sube el equipo desde el celular y sí son grandes: la columna mide ~620 px y con
+    // densidad 2 (celulares, notebooks con retina) necesita ~1240 px, por eso se suman 1080 y 1280. Sin 1920 ni más:
+    // nada del sitio se muestra a más de ~1280 px reales, y cada ancho extra es otra entrada de caché.
     // 512 llena el salto de 384 a 640. La galería de /instalaciones ocupa ~255–284 px en un celular y, con densidad
     // de 1,75 a 2, necesita ~490–510 px; el navegador elige el primer ancho que alcanza, así que antes bajaba 640.
     // imageSizes queda en el default, explícito para leer la lista completa de anchos. Si llegan fotos más grandes
-    // (por ejemplo, un hero a todo el ancho con original más grande), hay que sumar 1080 y 1920.
-    deviceSizes: [512, 640, 750, 828],
+    // (por ejemplo, un hero a todo el ancho con original más grande), hay que sumar 1920.
+    deviceSizes: [512, 640, 750, 828, 1080, 1280],
     imageSizes: [32, 48, 64, 96, 128, 256, 384],
     // 60 solo para la foto del hero (ver HeroVideo.tsx); el resto usa el default de 75.
     qualities: [60, 75],
     // Las fotos casi no cambian: 31 días de caché. Si se reemplaza una, quien ya la vio puede seguir viendo la
     // anterior hasta que venza; si es urgente, se purga desde el panel de Vercel.
     minimumCacheTTL: 2678400,
+    // Una vez definido, localPatterns restringe todas las imágenes locales. Las de /novedades llevan ?v=<hash> para
+    // saltar la caché cuando se reemplaza una foto con el mismo nombre (Keystatic la guarda siempre como foto.<ext>),
+    // así que ahí se permite cualquier query. El resto del sitio sigue sin query string.
+    localPatterns: [{ pathname: "/fotos/novedades/**" }, { pathname: "/**", search: "" }],
   },
   // El CSS va en un <style> dentro del HTML en vez de un <link>, así la primera visita pinta sin esperar otro
   // request bloqueante. El CSS de Tailwind del sitio pesa ~15 KB comprimido. La contra es que no se cachea
   // aparte. Las navegaciones internas siguen usando <link>. Es experimental en Next 16: si trae problemas, se
   // saca esta línea.
+  // globalNotFound: el sitio y /keystatic tienen layouts raíz distintos, y entonces el 404 de las URLs sin ruta
+  // (src/app/global-not-found.tsx) ya no puede apoyarse en un layout único.
   experimental: {
     inlineCss: true,
+    globalNotFound: true,
   },
   async headers() {
     return [{ source: "/:path*", headers: headersDeSeguridad }];

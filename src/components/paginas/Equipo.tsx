@@ -98,7 +98,7 @@ export default function Equipo({
             id: profe.id,
             etiqueta: (
               <>
-                {/* El retrato viene armado desde src/app/equipo/page.tsx. */}
+                {/* El retrato viene armado desde src/app/(site)/equipo/page.tsx. */}
                 {fotos[profe.id]}
                 <span className="font-medium wrap-break-word text-muted group-hover:text-titulo group-aria-selected:text-titulo group-aria-selected:underline group-aria-selected:decoration-accent group-aria-selected:decoration-2 group-aria-selected:underline-offset-4">
                   {/*

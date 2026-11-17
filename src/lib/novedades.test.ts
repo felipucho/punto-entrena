@@ -1,12 +1,7 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import datos from "@content/novedades.json";
-import { formatearFecha, ordenarNovedades, type Novedad } from "@/lib/novedades";
-
-/** Mismas extensiones que busca Foto (src/components/Foto.tsx). */
-const EXTENSIONES = [".jpg", ".jpeg", ".png", ".webp", ".avif"];
-const CLAVES = ["fecha", "titulo", "texto", "foto"];
+import { EXTENSIONES_FOTO, formatearFecha, leerNovedades, ordenarNovedades, type Novedad } from "@/lib/novedades";
 
 function fechaReal(fecha: string): boolean {
   const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(fecha);
@@ -16,19 +11,24 @@ function fechaReal(fecha: string): boolean {
   return d.getUTCFullYear() === anio && d.getUTCMonth() === mes - 1 && d.getUTCDate() === dia;
 }
 
-describe("content/novedades.json", () => {
-  it("es una lista", () => {
-    expect(Array.isArray(datos)).toBe(true);
+const entradas = await leerNovedades();
+
+describe("content/novedades/", () => {
+  it("se lee sin errores", () => {
+    expect(Array.isArray(entradas)).toBe(true);
   });
 
-  it.each((datos as Novedad[]).map((n, i) => [i, n.titulo, n] as const))("la entrada %i (%s) está bien cargada", (_i, _t, n) => {
+  it.each(entradas.map((n) => [n.slug, n] as const))("la entrada %s está bien cargada", (_slug, n) => {
     expect(fechaReal(n.fecha)).toBe(true);
-    expect(typeof n.titulo === "string" && n.titulo.trim() !== "").toBe(true);
-    expect(typeof n.texto === "string" && n.texto.trim() !== "").toBe(true);
-    expect(Object.keys(n).filter((k) => !CLAVES.includes(k))).toEqual([]);
-    if (n.foto !== undefined) {
-      const existe = EXTENSIONES.some((ext) => existsSync(path.join(process.cwd(), "public", "fotos", n.foto + ext)));
-      expect(existe, `no existe public/fotos/${n.foto} con extensión ${EXTENSIONES.join(", ")}`).toBe(true);
+    expect(n.titulo.trim()).not.toBe("");
+    expect(n.texto.trim()).not.toBe("");
+    if (n.foto !== null) {
+      expect(n.foto.startsWith("/fotos/novedades/"), `la foto ${n.foto} tiene que estar en public/fotos/novedades/`).toBe(true);
+      expect(
+        EXTENSIONES_FOTO.includes(path.extname(n.foto).toLowerCase()),
+        `la foto ${n.foto} no es ${EXTENSIONES_FOTO.join(", ")} (un HEIC del iPhone no se puede mostrar: exportarlo como JPG)`,
+      ).toBe(true);
+      expect(existsSync(path.join(process.cwd(), "public", n.foto)), `no existe public${n.foto}`).toBe(true);
     }
   });
 });
