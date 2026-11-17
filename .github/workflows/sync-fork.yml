@@ -6,12 +6,59 @@ on:
 
 permissions: {}
 
+# Un guardado a la vez: dos pushes seguidos no se pisan al optimizar fotos y empujar.
+concurrency:
+  group: sync-fork-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   sync:
     # Solo en este repo: el archivo también llega al fork, que no tiene el secret.
     if: github.repository == 'felipucho/punto-entrena'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # solo para empujar el commit de fotos optimizadas
     steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Si falla, no frena el sync: la próxima corrida lo reintenta.
+      - name: Optimize novedades photos
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          if [ ! -d public/fotos/novedades ]; then
+            echo "No hay fotos de novedades."
+            exit 0
+          fi
+          # Solo sharp (misma versión que el package-lock), sin instalar todo el proyecto.
+          ver=$(node -p "require('./package-lock.json').packages['node_modules/sharp'].version")
+          dir=$(mktemp -d)
+          npm install --prefix "$dir" --no-audit --no-fund --no-package-lock "sharp@$ver"
+          ln -s "$dir/node_modules" node_modules
+          node scripts/optimizar-fotos-novedades.mjs
+          rm node_modules
+
+          git add -A -- public/fotos/novedades content/novedades
+          if git diff --cached --quiet; then
+            echo "Fotos ya optimizadas, nada para commitear."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Optimizar fotos de novedades"
+          # Un push con GITHUB_TOKEN no dispara otra corrida. Si master avanzó, se reintenta una vez.
+          git push origin HEAD:"${GITHUB_REF_NAME}" || {
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin HEAD:"${GITHUB_REF_NAME}"
+          }
+
       - name: Merge upstream into the fork
         env:
           GH_TOKEN: ${{ secrets.PUNTO }}

@@ -1,0 +1,119 @@
+/*
+ * Marca de Punto sobre Keystatic. Keystatic pinta con variables --kui-* según el esquema (.kui-scheme--auto|light|dark
+ * en <html> y en el div raíz del proveedor) y lo inyecta en runtime; por eso los selectores suman la clase .kui-theme
+ * (más específicos, sin !important).
+ * Los tres esquemas reciben la misma paleta oscura: el selector de tema del menú queda sin efecto visible.
+ * Pares medidos en el informe del cambio; amarillo solo como fondo (con texto negro) o como texto sobre negro.
+ */
+html.kui-scheme--auto,
+html.kui-scheme--light,
+html.kui-scheme--dark,
+.kui-theme.kui-scheme--auto,
+.kui-theme.kui-scheme--light,
+.kui-theme.kui-scheme--dark {
+  color-scheme: dark;
+
+  /* Neutros: slate1 canvas, 2-4 superficies, 5-6 bordes, 7-11 textos (de apagado a título). */
+  --kui-color-scale-slate1: #0d0d0d;
+  --kui-color-scale-slate2: #141414;
+  --kui-color-scale-slate3: #1f1f1f;
+  --kui-color-scale-slate4: #2a2a2a;
+  --kui-color-scale-slate5: #3a3a3a;
+  --kui-color-scale-slate6: #6b6b6b;
+  --kui-color-scale-slate7: #8c8c8c;
+  --kui-color-scale-slate8: #a3a3a3;
+  --kui-color-scale-slate9: #b3b3b3;
+  --kui-color-scale-slate10: #d4d4d4;
+  --kui-color-scale-slate11: #ffffff;
+
+  /* Acento: amarillo Punto en lugar del índigo. */
+  --kui-color-scale-indigo11: #ffc624;
+  --kui-color-scale-indigo10: #ffd65c;
+  --kui-color-scale-indigo9: #ffc624;
+  --kui-color-scale-indigo8: #d9a41c;
+  --kui-color-scale-indigo7: #8a6a10;
+  --kui-color-scale-indigo6: #5c4709;
+  --kui-color-scale-indigo5: #3d3006;
+  --kui-color-scale-indigo4: #2b2205;
+  --kui-color-scale-indigo3: #241d05;
+  --kui-color-scale-indigo2: #1a1604;
+  --kui-color-scale-indigo1: #131004;
+
+  /* El texto sobre fondos de énfasis pasa a negro, así que esos fondos son claros: legibles con negro (>= 7:1). */
+  --kui-color-foreground-on-emphasis: #000000;
+  --kui-color-scale-red9: #ff6b6b;
+  --kui-color-scale-red10: #ff8585;
+  --kui-color-scale-red11: #ff8585;
+  --kui-color-scale-green9: #4cc38a;
+  --kui-color-scale-purple9: #bf7af0;
+  --kui-color-scale-pink9: #f65cb6;
+
+  --kui-typography-font-family-base: var(--font-roboto), Roboto, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Título de cada pantalla en Anton, como los titulares del sitio. Cuerpo y campos siguen en Roboto. */
+html h1.kui\:Heading {
+  font-family: var(--font-anton), Impact, sans-serif;
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* "Así se va a ver" (VistaPreviaNovedad.tsx): debajo del formulario de novedades. El iframe lleva el CSS del sitio. */
+.punto-vista-previa {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--kui-color-scale-slate5);
+}
+
+.punto-vista-previa h2 {
+  margin: 0 0 8px;
+  font-family: var(--font-anton), Impact, sans-serif;
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--kui-color-scale-slate11);
+}
+
+.punto-vista-previa p {
+  margin: 0 0 16px;
+  font-size: 14px;
+  color: var(--kui-color-scale-slate9);
+}
+
+.punto-vista-previa p strong {
+  color: var(--kui-color-scale-indigo11);
+  font-weight: 700;
+}
+
+.punto-vista-previa button {
+  margin: 0 0 16px;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 4px;
+  background: #ffc624;
+  color: #000;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.punto-vista-previa button:hover {
+  background: #ffd65c;
+}
+
+.punto-vista-previa button:focus-visible {
+  outline: 2px solid #ffc624;
+  outline-offset: 2px;
+}
+
+.punto-vista-previa iframe {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--kui-color-scale-slate5);
+  border-radius: 4px;
+  background: #0d0d0d;
+}

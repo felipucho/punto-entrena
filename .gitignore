@@ -42,3 +42,6 @@ next-env.d.ts
 
 # herramientas locales
 .impeccable/
+
+# generado por scripts/generar-novedades.mjs en cada build
+/src/data/novedades.generada.json
