@@ -16,7 +16,7 @@ export { TAMANOS_FOTO, TAMANO_FOTO_POR_DEFECTO };
 
 /**
  * @typedef {{ slug: string, fecha: string, titulo: string, texto: string, foto: string | null, tamano: string | null }} NovedadCruda
- * Una entrada de content/novedades/ tal como la guarda Keystatic. `fecha` es "YYYY-MM-DDTHH:mm", sin zona horaria.
+ * Una entrada de content/novedades/ tal como la guarda el panel. `fecha` es "YYYY-MM-DDTHH:mm", sin zona horaria.
  * `foto` es "/fotos/novedades/<slug>/foto.jpg", o null si no tiene. `tamano` es null si el archivo no lo trae.
  */
 
@@ -33,7 +33,7 @@ export { TAMANOS_FOTO, TAMANO_FOTO_POR_DEFECTO };
 export const EXTENSIONES_FOTO = [".jpg", ".jpeg", ".png", ".webp", ".avif"];
 
 /**
- * Las entradas de content/novedades/*.json, sin tocar las fotos. Keystatic valida al guardar; el test revisa los datos.
+ * Las entradas de content/novedades/*.json, sin tocar las fotos. el panel valida al guardar; el test revisa los datos.
  * @param {string} [raiz]
  * @returns {Promise<NovedadCruda[]>}
  */

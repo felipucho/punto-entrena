@@ -2,7 +2,7 @@ import type contenido from "@content/paginas/novedades.json";
 import ArticuloNovedad from "@/components/ArticuloNovedad";
 import { novedades } from "@/lib/novedades";
 
-/** /novedades. Los textos fijos salen de content/paginas/novedades.json; las novedades ya publicadas, de content/novedades/ (se editan en /keystatic). */
+/** /novedades. Los textos fijos salen de content/paginas/novedades.json; las novedades ya publicadas, de content/novedades/ (se editan en /panel). */
 export default async function Novedades({ c }: { c: typeof contenido }) {
   const lista = await novedades();
 

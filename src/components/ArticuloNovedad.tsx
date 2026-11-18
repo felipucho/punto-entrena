@@ -3,7 +3,7 @@ import type { FotoNovedad, TamanoFoto } from "@/lib/novedades";
 import { formatearFecha } from "@/lib/novedades-fechas";
 
 /*
- * Una novedad tal como se ve en /novedades. La usan la página y la vista previa del panel (/keystatic), así que lo que
+ * Una novedad tal como se ve en /novedades. La usan la página y la vista previa del panel (/panel), así que lo que
  * se ve en el panel sale del mismo marcado y las mismas clases que en el sitio.
  *
  * Ancho de la foto, como parte de la columna de texto (~620 px en escritorio). La columna es un @container: "escritorio"

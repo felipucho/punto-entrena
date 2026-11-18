@@ -1,7 +1,7 @@
 // Aligera las fotos de public/fotos/novedades/ y deja a todas como WebP: orientación EXIF aplicada, lado largo de
 // 1600 px como máximo (nunca agranda), sin metadatos. Actualiza el "foto" de content/novedades/*.json si cambia la
 // extensión. Es idempotente: una foto que ya cumple no se toca. Corre en GitHub Actions (.github/workflows/sync-fork.yml)
-// después de cada guardado en /keystatic, así nadie tiene que preparar las fotos a mano.
+// después de cada guardado (ahora el panel ya manda WebP; sirve para fotos subidas a mano).
 //
 // Uso: node scripts/optimizar-fotos-novedades.mjs [carpeta-raiz]   (por defecto, la raíz del repo)
 // Nunca falla por una foto: lo que sharp no puede leer (un HEIC del iPhone, por ejemplo) se avisa y queda como está.

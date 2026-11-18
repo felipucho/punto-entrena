@@ -2,7 +2,7 @@
 
 /**
  * @typedef {"chica" | "mediana" | "grande"} TamanoFoto
- * Cuánto de la columna ocupa la foto (ver ArticuloNovedad). Es el campo `tamano` del panel (keystatic.config.ts).
+ * Cuánto de la columna ocupa la foto (ver ArticuloNovedad). Es el campo `tamano` del panel (src/lib/panel-contenido.ts).
  */
 
 /** @type {readonly TamanoFoto[]} */

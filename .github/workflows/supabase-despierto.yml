@@ -1,0 +1,25 @@
+name: Supabase despierto
+
+# El plan gratis de Supabase pausa el proyecto tras 7 días sin actividad. Una llamada diaria lo mantiene activo.
+on:
+  schedule:
+    - cron: "17 9 * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  ping:
+    # Solo en este repo: el archivo también llega al fork.
+    if: github.repository == 'felipucho/punto-entrena'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # La apikey es la clave PÚBLICA (publishable) de Supabase, hecha para estar a la vista: no es un secreto.
+      # Solo puede ejecutar public.ping() (devuelve 1); las tablas tienen RLS sin políticas y no puede leerlas.
+      - name: Ping a Supabase
+        run: |
+          curl -fsS -X POST "https://rwxxnjtibvjmoahzkbii.supabase.co/rest/v1/rpc/ping" \
+            -H "apikey: sb_publishable_5BswyCZVoxg9bMigEiKW4w_RWmxvwMH" \
+            -H "Content-Type: application/json" \
+            -d '{}'

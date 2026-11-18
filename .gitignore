@@ -45,3 +45,9 @@ next-env.d.ts
 
 # generado por scripts/generar-novedades.mjs en cada build
 /src/data/novedades.generada.json
+
+# Supabase CLI
+supabase/.temp
+
+# Copias para deshacer del panel en modo disco (next dev)
+.panel-versiones/

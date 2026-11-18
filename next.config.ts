@@ -30,7 +30,7 @@ const nextConfig: NextConfig = {
     // anterior hasta que venza; si es urgente, se purga desde el panel de Vercel.
     minimumCacheTTL: 2678400,
     // Una vez definido, localPatterns restringe todas las imágenes locales. Las de /novedades llevan ?v=<hash> para
-    // saltar la caché cuando se reemplaza una foto con el mismo nombre (Keystatic la guarda siempre como foto.<ext>),
+    // saltar la caché cuando se reemplaza una foto con el mismo nombre (el panel la guarda siempre como foto.webp),
     // así que ahí se permite cualquier query. El resto del sitio sigue sin query string.
     localPatterns: [{ pathname: "/fotos/novedades/**" }, { pathname: "/**", search: "" }],
   },
@@ -38,14 +38,29 @@ const nextConfig: NextConfig = {
   // request bloqueante. El CSS de Tailwind del sitio pesa ~15 KB comprimido. La contra es que no se cachea
   // aparte. Las navegaciones internas siguen usando <link>. Es experimental en Next 16: si trae problemas, se
   // saca esta línea.
-  // globalNotFound: el sitio y /keystatic tienen layouts raíz distintos, y entonces el 404 de las URLs sin ruta
+  // globalNotFound: el sitio y /panel tienen layouts raíz distintos, y entonces el 404 de las URLs sin ruta
   // (src/app/global-not-found.tsx) ya no puede apoyarse en un layout único.
   experimental: {
     inlineCss: true,
     globalNotFound: true,
+    // Las fotos del panel viajan en una server action (ya reducidas en el navegador, ~0,3 MB). El default es 1 MB;
+    // Vercel corta en 4,5 MB por su cuenta, y el servidor rechaza fotos de más de 4 MB (src/lib/panel-foto.ts).
+    serverActions: { bodySizeLimit: "5mb" },
   },
   async headers() {
-    return [{ source: "/:path*", headers: headersDeSeguridad }];
+    return [
+      { source: "/:path*", headers: headersDeSeguridad },
+      // El panel nunca se cachea ni se indexa (además de la etiqueta noindex de su layout y el robots.txt).
+      {
+        source: "/panel/:path*",
+        headers: [
+          { key: "Cache-Control", value: "no-store" },
+          { key: "X-Robots-Tag", value: "noindex, nofollow" },
+          // Sin script-src: los scripts inline de Next pedirían nonce. Esto corta clickjacking, <base> y forms a otro sitio.
+          { key: "Content-Security-Policy", value: "frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'" },
+        ],
+      },
+    ];
   },
   // El alias de producción de Vercel servía el sitio entero con 200: un duplicado indexable. Los deploys de preview
   // tienen otro host y no los toca. El redirect de www se configura en Vercel → Domains (308), no acá.
