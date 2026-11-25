@@ -1,5 +1,6 @@
 import Link from "next/link";
 import AnioActual from "@/components/AnioActual";
+import FirmaFino from "@/components/FirmaFino";
 import Isotipo from "@/components/Isotipo";
 import { negocio } from "@/data/site";
 import { direccionCompleta, telHref, telefonoInternacional } from "@/lib/formato";
@@ -56,6 +57,7 @@ export default function Footer() {
           <p className="text-xs">
             © <AnioActual /> {negocio.nombre}
           </p>
+          <FirmaFino />
         </div>
       </div>
     </footer>

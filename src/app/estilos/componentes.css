@@ -407,6 +407,96 @@
     }
   }
 
+  /*
+   * Firma de Fino Estudio en el pie (FirmaFino): color y tamaño del ©. Con el mouse, el foco o el dedo apoyado, las
+   * letras y las barras se afinan en ola, de la f a «estudio». Regla de su logo: las barras solo se afinan (hasta 45 %),
+   * nunca engordan, y quedan siempre de gruesa a fina.
+   */
+  .firma-fino {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .firma-fino-icono {
+    display: inline-block;
+    inline-size: 14px;
+    block-size: 14px;
+    margin-inline: 0.4em;
+    vertical-align: -2px;
+    fill: currentColor;
+  }
+
+  .firma-fino-icono rect + rect {
+    fill: var(--color-oscuro);
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: scale 350ms cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms);
+  }
+
+  /* El ancho de «fino estudio» en reposo queda fijo: al afinarse no cambia el tamaño del enlace ni se reacomoda el pie. */
+  .firma-fino-nombre {
+    display: inline-block;
+    min-inline-size: 5.3em;
+    font-size: 1.1em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .firma-fino-nombre i {
+    font-style: normal;
+    transition: font-weight 350ms cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms);
+  }
+
+  /* Un peso por letra, como el logo; «estudio» en 400 porque acá tiene el tamaño de «fino». */
+  .firma-fino-nombre i:nth-child(1) {
+    font-weight: 800;
+  }
+  .firma-fino-nombre i:nth-child(2) {
+    font-weight: 600;
+    --d: 40ms;
+  }
+  .firma-fino-nombre i:nth-child(3) {
+    font-weight: 400;
+    --d: 80ms;
+  }
+  .firma-fino-nombre i:nth-child(4) {
+    font-weight: 200;
+    --d: 120ms;
+  }
+  .firma-fino-nombre i:nth-child(5) {
+    font-weight: 400;
+    --d: 160ms;
+  }
+  .firma-fino-icono rect:nth-child(3) {
+    --d: 40ms;
+  }
+  .firma-fino-icono rect:nth-child(4) {
+    --d: 80ms;
+  }
+  .firma-fino-icono rect:nth-child(5) {
+    --d: 120ms;
+  }
+
+  /* data-llego="si": se afina sola una vez al entrar en pantalla (AlLlegar), y vuelve con "volvio". */
+  .firma-fino[data-llego="si"] i,
+  .firma-fino:focus-visible i,
+  .firma-fino:active i {
+    font-weight: 200;
+  }
+  .firma-fino[data-llego="si"] rect + rect,
+  .firma-fino:focus-visible rect + rect,
+  .firma-fino:active rect + rect {
+    scale: 0.55 1;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .firma-fino:hover i {
+      font-weight: 200;
+    }
+    .firma-fino:hover rect + rect {
+      scale: 0.55 1;
+    }
+  }
+
   /* Botón "Menú": pill outline como el secundario, sin flecha, con dos barras que se cruzan al abrir. */
   .btn-menu {
     border-color: var(--color-border-fuerte);
