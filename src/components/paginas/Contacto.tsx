@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type contenido from "@content/paginas/contacto.json";
 import BotonWhatsApp from "@/components/BotonWhatsApp";
+import MapaDiferido from "@/components/MapaDiferido";
 import { negocio } from "@/data/site";
 import { direccionCompleta, direccionCorta, telHref, urlMapa, urlMapaEmbebido } from "@/lib/formato";
 import { diasDeApertura, horarioGeneral } from "@/lib/horarios";
@@ -109,9 +110,8 @@ export default function Contacto({ c }: { c: typeof contenido }) {
             </section>
           </div>
 
-          <iframe
+          <MapaDiferido
             src={urlMapaEmbebido()}
-            loading="lazy"
             tabIndex={-1}
             referrerPolicy="no-referrer-when-downgrade"
             title={`Mapa de ${negocio.nombre} en ${direccionCorta()}`}
