@@ -22,7 +22,7 @@ export const plantillaTitulo = `%s | ${negocio.nombre}, ${localidad}`;
 export const tituloInicio = `${negocio.nombre} | Gimnasio en ${localidad}`;
 
 /**
- * Imagen para compartir, generada por src/app/(site)/opengraph-image.tsx. Va explícita en cada página porque el openGraph
+ * Imagen para compartir, generada por src/app/opengraph-image.tsx. Va explícita en cada página porque el openGraph
  * de una página reemplaza entero al del layout y, sin esto, las páginas internas salían sin imagen.
  */
 export const imagenCompartir = {

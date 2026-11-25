@@ -7,6 +7,8 @@ import { imagenCompartir } from "@/lib/seo";
 /*
  * Imagen para compartir (WhatsApp, redes, buscadores) de todas las páginas: una placa de Punto. Negro, titular
  * mixto en Anton (blanco / amarillo), la cinta con el nombre y el isotipo a la derecha. Sin fotos de stock.
+ * Va en src/app y no en (site): dentro de un grupo de rutas Next le agrega un hash a la URL (/opengraph-image-xxxx)
+ * y el og:image fijo de src/lib/seo.ts daba 404.
  * Anton va en TTF local (licencia OFL): ImageResponse no lee WOFF2 y no se baja nada en el build.
  */
 
