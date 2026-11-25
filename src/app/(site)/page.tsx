@@ -29,11 +29,10 @@ const hayVideo = ["1080", "720"].every((calidad) =>
 
 /**
  * Foto de cada tarjeta de la home: qué muestra y, si ya existe, el archivo en public/fotos/.
- * Planes todavía no tiene foto real: queda el lugar reservado.
  * `arriba` encuadra la parte de arriba de la foto vertical: al recortarla a 3 / 2 por el centro se perdían las caras.
  */
 const fotosDeTarjetas: Record<string, { descripcion: string; archivo?: string; arriba?: boolean }> = {
-  planes: { descripcion: "una persona entrenando con su planilla" },
+  planes: { descripcion: "la planilla de entrenamiento de Punto, en blanco", archivo: "planes/planilla-de-entrenamiento" },
   horarios: { descripcion: "el reloj del gimnasio marcando las 7:00", archivo: "horarios/reloj-marcando-las-7" },
   instalaciones: {
     descripcion: `la ${minusculaInicial(plantas[0].nombre)} del gimnasio`,
