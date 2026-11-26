@@ -50,7 +50,7 @@ export default function Planes({ c }: { c: typeof contenido }) {
           {/*
            * Tarjetas compactas: dos columnas en mobile y los cuatro planes en una sola fila desde lg.
            * El precio va en Anton (.numeral), en amarillo, con un tamaño fluido que arranca más chico en la
-           * columna angosta de 375 px. Por debajo de 24 rem baja a 1,65 rem: a 320 px "$ 40.000" no entra en la
+           * columna angosta de 375 px. Por debajo de 24 rem baja a 1,65 rem: a 320 px "$ 45.000" no entra en la
            * tarjeta con el tamaño mínimo del clamp.
            * El nombre ocupa siempre dos líneas en mobile y baja a text-lg entre lg y xl para entrar en una:
            * así los precios de una misma fila quedan alineados.

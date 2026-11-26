@@ -80,7 +80,7 @@ describe("horario general", () => {
 
 describe("precio por clase", () => {
   it("divide el precio por las clases del mes y redondea", () => {
-    expect(planes.map((p) => formatearNumero(precioPorClase(p)))).toEqual(["10.000", "6.250", "4.583", "3.000"]);
+    expect(planes.map((p) => formatearNumero(precioPorClase(p)))).toEqual(["11.250", "6.875", "5.000", "3.250"]);
   });
 });
 
